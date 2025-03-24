@@ -6,7 +6,7 @@ from pygame.color import Color
 from os import getenv
 from dotenv import load_dotenv
 
-from various import colors
+from various import colors, key_map
 from snake import Snake
 
 
@@ -31,9 +31,11 @@ clock = pygame.time.Clock()
 snakes = [
     Snake(
         colors.snake_default,
-        (pygame.K_w,pygame.K_a,pygame.K_s,pygame.K_d)
+        key_map(pygame.K_w,pygame.K_s,pygame.K_a,pygame.K_d)
         )
 ]
+
+paused = False
 
 while True:
 
@@ -52,15 +54,32 @@ while True:
             if event.key == pygame.K_ESCAPE:
                 pygame.quit()
                 quit()
+            
+            elif event.key == pygame.K_SPACE:
+                paused = not paused
+
+            if paused:
+                continue
 
             # Update snakes moves
             for snake in snakes:
-                if event.key in snake:
+                if event.key in snake.keybindings.keys:
                     snake.move(event.key)
-            
+    
+    if paused:
+        continue
+    
+    # Update snakes logics
+    for snake in snakes:
+        snake.update()
 
-
+    # Clear the screen and update
     display.fill(colors.bg)
+
+    # Draw the snakes in whatever state they are
+    for snake in snakes:
+        snake.frame(display)
+
     pygame.display.update()
 
     # Limit the refresh rate to the tps

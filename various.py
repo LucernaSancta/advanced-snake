@@ -10,3 +10,5 @@ class key_map:
         self.down = down
         self.left = left
         self.right = right
+
+        self.keys = [up,down,left,right]
