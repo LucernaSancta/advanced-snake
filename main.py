@@ -28,6 +28,12 @@ pygame.init()
 display = pygame.display.set_mode(screen_size)
 clock = pygame.time.Clock()
 
+snakes = [
+    Snake(
+        colors.snake_default,
+        (pygame.K_w,pygame.K_a,pygame.K_s,pygame.K_d)
+        )
+]
 
 while True:
 
@@ -42,9 +48,17 @@ while True:
         # KEYBOARD PRESS EVENTS
         if event.type == pygame.KEYDOWN:
             
+            # Quality of life, quit when ESC
             if event.key == pygame.K_ESCAPE:
                 pygame.quit()
                 quit()
+
+            # Update snakes moves
+            for snake in snakes:
+                if event.key in snake:
+                    snake.move(event.key)
+            
+
 
     display.fill(colors.snake_default)
     pygame.display.update()
