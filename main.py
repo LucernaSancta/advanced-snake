@@ -1,3 +1,8 @@
+# TODO
+# all the graphics part
+# all of what is specified in thye README
+
+
 import pygame
 import os.path
 
