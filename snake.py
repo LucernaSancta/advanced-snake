@@ -8,13 +8,15 @@ class Snake:
                  keybindings: key_map,
                  pos: Vector2 = Vector2(5,5),
                  length: int = 3,
-                 textures: str = ''
+                 textures: str = '',
+                 direction: Vector2 = Vector2()
                  ) -> None:
         
         self.color = color
         self.keybindings = keybindings
         self.pos = pos
         self.textures = textures
+        self.direction = direction
 
         self.pieces = [Vector2(pos) for _ in range(length)]
     
@@ -26,6 +28,8 @@ class Snake:
             case self.keybindings.right: self.direction = Vector2(0,1)
     
     def update(self) -> None:
+        self.pos += self.direction
+        
         self.pieces = [self.pos] + self.pieces
         self.pieces.pop()
     

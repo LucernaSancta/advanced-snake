@@ -60,7 +60,7 @@ while True:
             
 
 
-    display.fill(colors.snake_default)
+    display.fill(colors.bg)
     pygame.display.update()
 
     # Limit the refresh rate to the tps
