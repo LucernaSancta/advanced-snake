@@ -8,7 +8,7 @@ class Snake:
     def __init__(self,
                  color: Color,
                  keybindings: key_map,
-                 pos: Vector2 = Vector2(5,5),
+                 pos: Vector2 = Vector2(0,0),
                  length: int = 3,
                  textures: str = '',
                  direction: Vector2 = Vector2(0,0),
@@ -35,7 +35,7 @@ class Snake:
     def update(self) -> None:
         self.pos += Vector2(self.direction.x * self.thikness.x, self.direction.y * self.thikness.y)
 
-        self.pieces = [self.pos] + self.pieces
+        self.pieces = [Vector2(self.pos)] + self.pieces
         self.pieces.pop()
     
     def eat(self, power: int) -> None:
@@ -49,6 +49,8 @@ class Snake:
             # Normal state
             case 1:
                 draw.rect(display, self.color, (self.pos, self.thikness))
+                for piece in self.pieces:
+                    draw.rect(display, self.color, (piece, self.thikness))
             # Death state
             case 2:
                 ...

@@ -1,8 +1,3 @@
-# TODO
-# all the graphics part
-# all of what is specified in thye README
-
-
 import pygame
 import os.path
 
@@ -27,6 +22,8 @@ colors.apples = Color(getenv('C_APPLES'))
 colors.snake_default = Color(getenv('C_SNAKE'))
 colors.tails_default = Color(getenv('C_TAILS'))
 
+snake_grid_thikness = Vector2(screen_size.x / snake_grid_size.x, screen_size.y / snake_grid_size.y)
+
 
 # Initialize pygame
 pygame.init()
@@ -36,7 +33,8 @@ clock = pygame.time.Clock()
 snakes = [
     Snake(
         colors.snake_default,
-        key_map(pygame.K_w,pygame.K_s,pygame.K_a,pygame.K_d)
+        key_map(pygame.K_w,pygame.K_s,pygame.K_a,pygame.K_d),
+        thikness=snake_grid_thikness
         )
 ]
 
