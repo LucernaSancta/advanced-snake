@@ -2,9 +2,31 @@
 
 A snake game with added functionalities made in python with PyGame
 
+## Installation
+(This game was made in python 3.12 with pygame 2.5.1, if you use other version there might be some issues)
 
-Featurs:
+Clone the repo
+```
+git clone https://github.com/LucernaSancta/advanced_snake.git
+```
+Downaload the required libraries
+```
+pip install -r requirements.txt
+```
+Execute the 'main' file
+```
+python main.py
+```
 
-* Multiplayer with custom keybindings(not yet implermented)
-* Custom textures(not yet implermented)
-* Custom maps (not yet implermented)
+## Featurs
+
+* Multiplayer with custom keybindings
+* Custom textures
+* Custom maps
+
+## TODO
+
+* Apples generation
+* Custom textures
+* Multiplayer with custom keybindings
+* Custom maps
