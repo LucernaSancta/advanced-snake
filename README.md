@@ -8,6 +8,7 @@ A snake game with added functionalities made in python with PyGame
 Clone the repo
 ```
 git clone https://github.com/LucernaSancta/advanced_snake.git
+cd advanced_snake
 ```
 Downaload the required libraries
 ```
