@@ -32,9 +32,9 @@ def apple_spawner(snakes: list[Snake], walls: Walls) -> Apple:
 
     # Create a list with every spot in the grid
     spots = []
-    for x in range(snake_grid_size.x):
-        for y in range(snake_grid_size.y):
-            spots.append(Vector2(x,y))
+    for x in range(int(snake_grid_size.x)):
+        for y in range(int(snake_grid_size.y)):
+            spots.append(Vector2(x*snake_grid_thikness.x,y*snake_grid_thikness.y))
     
     # Remove the spots where the snakes are
     for snake in snakes:
@@ -46,15 +46,18 @@ def apple_spawner(snakes: list[Snake], walls: Walls) -> Apple:
     for wall in walls.custom:
         if wall in spots: spots.remove(wall)
 
+    if not len(spots):
+        print('Yoy won!')
+
     pos = random.choice(spots)
-    return Apple(pos, default_apple_power, colors.apples)
+    return Apple(pos, default_apple_power, snake_grid_thikness, colors.apples)
 
 # Initialize pygame
 pygame.init()
 display = pygame.display.set_mode(screen_size)
 clock = pygame.time.Clock()
 
-walls = Walls()
+walls = Walls(screen_size,[],snake_grid_thikness,colors.walls_default)
 
 snakes: list[Snake] = [
     Snake(
@@ -102,11 +105,26 @@ while True:
     
     # Update snakes logics
     for snake in snakes:
+
+        # Check if the snake is dead
+        if snake.state == 0:
+            continue
+
+        # Update the position
         snake.update()
+
+        # Check for walls collisions
+        if snake in walls:
+            snake.kill()
+
+        # Check for apple collisions
         for apple in apples:
             if apple.pos == snake.pos:
+                # Update the snake
                 snake.eat(apple.power)
+                # Remove the pervious apple from the list and add a new one
                 apples.remove(apple)
+                apples.append(apple_spawner(snakes,walls))
                 break
     
 
@@ -116,6 +134,13 @@ while True:
     # Draw the snakes in whatever state they are
     for snake in snakes:
         snake.frame(display)
+
+    # Draw the apples
+    for apple in apples:
+        apple.frame(display)
+
+    # Draw the walls
+    walls.frame(display)
 
     pygame.display.update()
 

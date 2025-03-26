@@ -61,18 +61,34 @@ class Snake:
                 ...
 
 class Walls:
-    def __init__(self, external_box, custom_walls):
+    def __init__(self, external_box: Vector2, custom_walls: list[Vector2], thikness: Vector2, color: Color):
         self.external_box = external_box
         self.custom = custom_walls
+        self.color = color
+        self.thikness = thikness
 
     def __contains__(self, snake: Snake) -> bool:
         '''Check collision for a given snake and the walls'''
-        ...
+        # Check for boarders collisions
+        if snake.pos.x not in range(int(self.external_box.x)): return True
+        if snake.pos.y not in range(int(self.external_box.y)): return True
+        # Check for custom walls collisions
+        if snake.pos in self.custom: return True
+        
+        return False
     
     def frame(self, display: Surface):
-        ...
+        # Draw the custom walls
+        for wall in self.custom:
+            draw.rect(display, self.color, (wall, self.thikness))
 
 class Apple:
-    def __init__(self, pos: Vector2, power: int, color: Color, texture: str = ''):
+    def __init__(self, pos: Vector2, power: int, thikness: Vector2, color: Color, texture: str = ''):
         self.pos = pos
         self.power = power
+        self.thikness = thikness
+        self.color = color
+        self.texture = texture
+    
+    def frame(self, display: Surface):
+        draw.rect(display, self.color, (self.pos, self.thikness))
