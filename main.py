@@ -20,7 +20,7 @@ tps = int(getenv('TICK_PER_SECOND'))
 colors.bg = Color(getenv('C_BACKGROUND'))
 colors.apples = Color(getenv('C_APPLES'))
 colors.snake_default = Color(getenv('C_SNAKE'))
-colors.tails_default = Color(getenv('C_TAILS'))
+colors.walls_default = Color(getenv('C_WALLS'))
 
 snake_grid_thikness = Vector2(screen_size.x / snake_grid_size.x, screen_size.y / snake_grid_size.y)
 

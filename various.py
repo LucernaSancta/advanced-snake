@@ -2,7 +2,7 @@ class colors:
     bg = ''
     apples = ''
     snake_default = ''
-    tails_default = ''
+    walls_default = ''
 
 class key_map:
     def __init__(self,up,down,left,right):
@@ -12,3 +12,7 @@ class key_map:
         self.right = right
 
         self.keys = [up,down,left,right]
+
+def apple_spawner(snakes: list, tails):
+    def __init__(self):
+        pass
