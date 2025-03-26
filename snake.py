@@ -22,7 +22,9 @@ class Snake:
         self.direction = direction
         self.thikness = thikness
 
+        # State 1 is alive, 0 is dead
         self.state = 1
+        # Create the pieces of the snake
         self.pieces = [Vector2(pos) for _ in range(length)]
     
     def move(self, key) -> None:
@@ -33,13 +35,16 @@ class Snake:
             case self.keybindings.right: self.direction = Vector2(1,0)
     
     def update(self) -> None:
+        # Update the heads position
         self.pos += Vector2(self.direction.x * self.thikness.x, self.direction.y * self.thikness.y)
 
+        # Update the pieces
         self.pieces = [Vector2(self.pos)] + self.pieces
         self.pieces.pop()
     
     def eat(self, power: int) -> None:
         '''Power is the length added to the snake'''
+        # Add pieces to the snake
         for _ in range(power):
             self.pieces.append(self.pieces[-1])
     
@@ -52,5 +57,5 @@ class Snake:
                 for piece in self.pieces:
                     draw.rect(display, self.color, (piece, self.thikness))
             # Death state
-            case 2:
+            case 0:
                 ...
