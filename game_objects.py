@@ -71,3 +71,7 @@ class Walls:
     
     def frame(self, display: Surface):
         ...
+
+class Apple:
+    def __init__(self):
+        pass

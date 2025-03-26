@@ -21,10 +21,11 @@ colors.bg = Color(getenv('C_BACKGROUND'))
 colors.apples = Color(getenv('C_APPLES'))
 colors.snake_default = Color(getenv('C_SNAKE'))
 colors.walls_default = Color(getenv('C_WALLS'))
+initial_apples = int(getenv('INITIAL_APPLES'))
 
 snake_grid_thikness = Vector2(screen_size.x / snake_grid_size.x, screen_size.y / snake_grid_size.y)
 
-
+# Apple generator function
 def apple_spawner(snakes: list, walls: Walls):
     def __init__(self):
         pass
@@ -35,6 +36,8 @@ pygame.init()
 display = pygame.display.set_mode(screen_size)
 clock = pygame.time.Clock()
 
+walls = Walls()
+
 snakes = [
     Snake(
         colors.snake_default,
@@ -42,6 +45,8 @@ snakes = [
         thikness=snake_grid_thikness
         )
 ]
+
+apples = [apple_spawner(snakes, walls) for _ in range(initial_apples)]
 
 paused = False
 
@@ -80,6 +85,12 @@ while True:
     # Update snakes logics
     for snake in snakes:
         snake.update()
+        for apple in apples:
+            if apple.pos == snake.pos:
+                snake.eat(apple.power)
+                apples.remove(apple)
+                break
+    
 
     # Clear the screen and update
     display.fill(colors.bg)
