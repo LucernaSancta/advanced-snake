@@ -7,7 +7,7 @@ from os import getenv
 from dotenv import load_dotenv
 
 from various import colors, key_map
-from snake import Snake
+from game_objects import Snake, Walls
 
 
 # Get program envirement
@@ -23,6 +23,11 @@ colors.snake_default = Color(getenv('C_SNAKE'))
 colors.walls_default = Color(getenv('C_WALLS'))
 
 snake_grid_thikness = Vector2(screen_size.x / snake_grid_size.x, screen_size.y / snake_grid_size.y)
+
+
+def apple_spawner(snakes: list, walls: Walls):
+    def __init__(self):
+        pass
 
 
 # Initialize pygame
@@ -66,7 +71,7 @@ while True:
 
             # Update snakes moves
             for snake in snakes:
-                if event.key in snake.keybindings.keys:
+                if event.key in snake.keybindings:
                     snake.move(event.key)
     
     if paused:

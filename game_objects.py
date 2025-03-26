@@ -59,3 +59,15 @@ class Snake:
             # Death state
             case 0:
                 ...
+
+class Walls:
+    def __init__(self, external_box, custom_walls):
+        self.external_box = external_box
+        self.custom = custom_walls
+
+    def __contains__(self, snake: Snake) -> bool:
+        '''Check collision for a given snake and the walls'''
+        ...
+    
+    def frame(self, display: Surface):
+        ...
