@@ -1,3 +1,5 @@
+from boarders import Walls
+
 class colors:
     bg = ''
     apples = ''
@@ -13,6 +15,6 @@ class key_map:
 
         self.keys = [up,down,left,right]
 
-def apple_spawner(snakes: list, tails):
+def apple_spawner(snakes: list, walls: Walls):
     def __init__(self):
         pass
