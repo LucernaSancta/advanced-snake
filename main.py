@@ -1,5 +1,6 @@
 import pygame
 import os.path
+import random
 
 from pygame.math import Vector2
 from pygame.color import Color
@@ -7,7 +8,7 @@ from os import getenv
 from dotenv import load_dotenv
 
 from various import colors, key_map
-from game_objects import Snake, Walls
+from game_objects import Snake, Walls, Apple
 
 
 # Get program envirement
@@ -22,14 +23,31 @@ colors.apples = Color(getenv('C_APPLES'))
 colors.snake_default = Color(getenv('C_SNAKE'))
 colors.walls_default = Color(getenv('C_WALLS'))
 initial_apples = int(getenv('INITIAL_APPLES'))
+default_apple_power = int(getenv('DEFAULT_APPLES_POWER'))
 
 snake_grid_thikness = Vector2(screen_size.x / snake_grid_size.x, screen_size.y / snake_grid_size.y)
 
 # Apple generator function
-def apple_spawner(snakes: list, walls: Walls):
-    def __init__(self):
-        pass
+def apple_spawner(snakes: list[Snake], walls: Walls) -> Apple:
 
+    # Create a list with every spot in the grid
+    spots = []
+    for x in range(snake_grid_size.x):
+        for y in range(snake_grid_size.y):
+            spots.append(Vector2(x,y))
+    
+    # Remove the spots where the snakes are
+    for snake in snakes:
+        if snake.pos in spots: spots.remove(snake.pos)
+        for piece in snake.pieces:
+            if piece in spots: spots.remove(piece)
+    
+    # Remove the spots where the walls are
+    for wall in walls.custom:
+        if wall in spots: spots.remove(wall)
+
+    pos = random.choice(spots)
+    return Apple(pos, default_apple_power, colors.apples)
 
 # Initialize pygame
 pygame.init()
@@ -38,7 +56,7 @@ clock = pygame.time.Clock()
 
 walls = Walls()
 
-snakes = [
+snakes: list[Snake] = [
     Snake(
         colors.snake_default,
         key_map(pygame.K_w,pygame.K_s,pygame.K_a,pygame.K_d),
@@ -46,7 +64,7 @@ snakes = [
         )
 ]
 
-apples = [apple_spawner(snakes, walls) for _ in range(initial_apples)]
+apples: list[Apple] = [apple_spawner(snakes, walls) for _ in range(initial_apples)]
 
 paused = False
 

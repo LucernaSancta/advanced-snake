@@ -73,5 +73,6 @@ class Walls:
         ...
 
 class Apple:
-    def __init__(self):
-        pass
+    def __init__(self, pos: Vector2, power: int, color: Color, texture: str = ''):
+        self.pos = pos
+        self.power = power
