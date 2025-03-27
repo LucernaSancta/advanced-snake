@@ -40,13 +40,13 @@ class Snake:
 
         # Update the pieces
         self.pieces = [Vector2(self.pos)] + self.pieces
-        self.pieces.pop()
+        self.last_removed = self.pieces.pop()
     
     def eat(self, power: int) -> None:
         '''Power is the length added to the snake'''
         # Add pieces to the snake
         for _ in range(power):
-            self.pieces.append(self.pieces[-1])
+            self.pieces.append(self.last_removed)
     
     def frame(self, display: Surface) -> None:
 
