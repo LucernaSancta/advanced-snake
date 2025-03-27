@@ -146,7 +146,6 @@ while True:
                     apples.append(apple_spawner(snakes,walls))
                     break
         
-    
 
     # Clear the screen and update
     display.fill(colors.bg)

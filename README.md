@@ -27,7 +27,6 @@ python main.py
 
 ## TODO
 
-* Custom textures
-* Bugfixing textures with non-simmetric ratios
+* Custom textures (food and walls)
 * Multiplayer with custom keybindings
 * Custom maps
