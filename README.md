@@ -28,5 +28,6 @@ python main.py
 ## TODO
 
 * Custom textures
+* Bugfixing textures with non-simmetric ratios
 * Multiplayer with custom keybindings
 * Custom maps
