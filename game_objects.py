@@ -21,7 +21,7 @@ class Snake:
         self.thikness = thikness
 
         # Load the textures
-        self.textures = pygame.image.load(textures).convert()
+        self.textures = pygame.image.load(textures).convert_alpha()
         self.textures = pygame.transform.scale(self.textures, (thikness.x*3, thikness.y*6))
 
         # State 0 is 'not moving', 1 is normal and 2 is dead
@@ -71,8 +71,18 @@ class Snake:
             elif self.direction == Vector2(0,1):  display.blit(self.textures, self.pos, (0, self.thikness.y*2, self.thikness.x, self.thikness.y))
             elif self.direction == Vector2(1,0):  display.blit(self.textures, self.pos, (0, self.thikness.y*3, self.thikness.x, self.thikness.y))
 
-            for piece in self.pieces:
-                pygame.draw.rect(display, self.color, (piece, self.thikness))
+            # Middle pieces
+            for i, piece in enumerate(self.pieces[:-1]):
+                
+                # Define the tre pieces used to determinate the right texture
+                pc1 = self.pos if i == 0 else self.pieces[i-1] # If we are considering the fist piece then use the head as pc1
+                pc2 = piece
+                pc3 = self.pieces[i+1]
+                # thikness (not really necessary to reassign it, but whatever)
+                th = self.thikness
+
+                if   abs((pc1-pc3).x) == th.x*2: display.blit(self.textures, pc2, (th.x, self.thikness.y*1, self.thikness.x, self.thikness.y))
+                elif abs((pc1-pc3).y) == th.y*2: display.blit(self.textures, pc2, (th.x, self.thikness.y*0, self.thikness.x, self.thikness.y))
 
             # Last piece
             if   self.pieces[-1]-self.pieces[-2] == Vector2(0,-self.thikness.y): display.blit(self.textures, self.pieces[-1], (self.thikness.x*2, self.thikness.y*0, self.thikness.x, self.thikness.y))

@@ -106,10 +106,6 @@ while True:
     # Update snakes logics
     for snake in snakes:
 
-        # Check if the snake is dead
-        if snake.state == 0:
-            continue
-
         # Update the position
         snake.update()
 
