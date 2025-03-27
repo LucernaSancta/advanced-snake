@@ -28,6 +28,5 @@ python main.py
 ## TODO
 
 * Custom textures
-* Snake to snake collisions
 * Multiplayer with custom keybindings
 * Custom maps
