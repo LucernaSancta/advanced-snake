@@ -47,7 +47,7 @@ def apple_spawner(snakes: list[Snake], walls: Walls) -> Apple:
         if wall in spots: spots.remove(wall)
 
     if not len(spots):
-        print('Yoy won!')
+        print('You won!')
 
     pos = random.choice(spots)
     return Apple(pos, default_apple_power, snake_grid_thikness, colors.apples)
