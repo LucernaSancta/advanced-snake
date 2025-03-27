@@ -73,6 +73,13 @@ class Snake:
 
             for piece in self.pieces:
                 pygame.draw.rect(display, self.color, (piece, self.thikness))
+
+            # Last piece
+            if   self.pieces[-1]-self.pieces[-2] == Vector2(0,-self.thikness.y): display.blit(self.textures, self.pieces[-1], (self.thikness.x*2, self.thikness.y*0, self.thikness.x, self.thikness.y))
+            elif self.pieces[-1]-self.pieces[-2] == Vector2(-self.thikness.x,0): display.blit(self.textures, self.pieces[-1], (self.thikness.x*2, self.thikness.y*1, self.thikness.x, self.thikness.y))
+            elif self.pieces[-1]-self.pieces[-2] == Vector2(0,self.thikness.y):  display.blit(self.textures, self.pieces[-1], (self.thikness.x*2, self.thikness.y*2, self.thikness.x, self.thikness.y))
+            elif self.pieces[-1]-self.pieces[-2] == Vector2(self.thikness.x,0):  display.blit(self.textures, self.pieces[-1], (self.thikness.x*2, self.thikness.y*3, self.thikness.x, self.thikness.y))
+
         # Death state
         elif self.state == 2:
             ...

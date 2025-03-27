@@ -17,7 +17,7 @@ else:                      load_dotenv('.env.example')
 
 screen_size =     Vector2(int(getenv('SCREEN_SIZE_X')),    int(getenv('SCREEN_SIZE_Y')))
 snake_grid_size = Vector2(int(getenv('SNAKE_GRID_SIZE_X')),int(getenv('SNAKE_GRID_SIZE_Y')))
-tps = int(getenv('TICK_PER_SECOND'))
+tps = float (getenv('TICK_PER_SECOND'))
 colors.bg = Color(getenv('C_BACKGROUND'))
 colors.apples = Color(getenv('C_APPLES'))
 colors.snake_default = Color(getenv('C_SNAKE'))
