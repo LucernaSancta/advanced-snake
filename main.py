@@ -20,9 +20,9 @@ snake_grid_size = Vector2(int(getenv('SNAKE_GRID_SIZE_X')),int(getenv('SNAKE_GRI
 tps = float (getenv('TICK_PER_SECOND'))
 
 snake_default_textures = getenv('SNAKE_DEFAULT_TEXTURES')
+food_default_textures = getenv('FOOD_DEFAULT_TEXTURES')
 
 colors.bg = Color(getenv('C_BACKGROUND'))
-colors.apples = Color(getenv('C_APPLES'))
 colors.walls_default = Color(getenv('C_WALLS'))
 
 initial_apples = int(getenv('INITIAL_APPLES'))
@@ -53,7 +53,7 @@ def apple_spawner(snakes: list[Snake], walls: Walls) -> Apple:
         print('You won!')
 
     pos = random.choice(spots)
-    return Apple(pos, default_apple_power, snake_grid_thikness, colors.apples)
+    return Apple(pos, default_apple_power, snake_grid_thikness, food_default_textures)
 
 # Initialize pygame
 pygame.init()

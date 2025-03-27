@@ -131,12 +131,19 @@ class Walls:
             pygame.draw.rect(display, self.color, (wall, self.thikness))
 
 class Apple:
-    def __init__(self, pos: Vector2, power: int, thikness: Vector2, color: pygame.color.Color, texture: str = ''):
+    def __init__(self,
+                 pos: Vector2,
+                 power: int,
+                 thikness: Vector2,
+                 texture: str = 'default.png',
+                 ) -> None:
         self.pos = pos
         self.power = power
         self.thikness = thikness
-        self.color = color
-        self.texture = texture
+
+        # Load the textures and scale them to the right size
+        self.texture = pygame.image.load('textures\\food\\'+texture).convert_alpha()
+        self.texture = pygame.transform.scale(self.texture, thikness)
     
     def frame(self, display: pygame.surface.Surface):
-        pygame.draw.rect(display, self.color, (self.pos, self.thikness))
+        display.blit(self.texture, self.pos)
