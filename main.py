@@ -18,10 +18,13 @@ else:                      load_dotenv('.env.example')
 screen_size =     Vector2(int(getenv('SCREEN_SIZE_X')),    int(getenv('SCREEN_SIZE_Y')))
 snake_grid_size = Vector2(int(getenv('SNAKE_GRID_SIZE_X')),int(getenv('SNAKE_GRID_SIZE_Y')))
 tps = float (getenv('TICK_PER_SECOND'))
+
+snake_default_textures = getenv('SNAKE_DEFAULT_TEXTURES')
+
 colors.bg = Color(getenv('C_BACKGROUND'))
 colors.apples = Color(getenv('C_APPLES'))
-colors.snake_default = Color(getenv('C_SNAKE'))
 colors.walls_default = Color(getenv('C_WALLS'))
+
 initial_apples = int(getenv('INITIAL_APPLES'))
 default_apple_power = int(getenv('DEFAULT_APPLES_POWER'))
 
@@ -61,9 +64,9 @@ walls = Walls(screen_size,[],snake_grid_thikness,colors.walls_default)
 
 snakes: list[Snake] = [
     Snake(
-        colors.snake_default,
         key_map(pygame.K_w,pygame.K_s,pygame.K_a,pygame.K_d),
-        thikness=snake_grid_thikness
+        thikness=snake_grid_thikness,
+        textures=snake_default_textures
         )
 ]
 

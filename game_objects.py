@@ -5,23 +5,20 @@ from various import key_map
 
 class Snake:
     def __init__(self,
-                 color: pygame.color.Color,
                  keybindings: key_map,
                  pos: Vector2 = Vector2(0,0),
-                 length: int = 3,
-                 textures: str = 'textures\\snakes\\testing.png',
-                 direction: Vector2 = Vector2(0,0),
-                 thikness: Vector2 = Vector2(10,10)
+                 textures: str = 'default.png',
+                 thikness: Vector2 = Vector2(10,10),
+                 length: int = 3
                  ) -> None:
         
-        self.color = color
-        self.keybindings = keybindings
         self.pos = pos
-        self.direction = direction
+        self.keybindings = keybindings
         self.thikness = thikness
+        self.direction = Vector2(0,0)
 
         # Load the textures
-        self.textures = pygame.image.load(textures).convert_alpha()
+        self.textures = pygame.image.load('textures\\snakes\\'+textures).convert_alpha()
         self.textures = pygame.transform.scale(self.textures, (thikness.x*3, thikness.y*6))
 
         # State 0 is 'not moving', 1 is normal and 2 is dead
