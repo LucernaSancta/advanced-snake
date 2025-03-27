@@ -21,12 +21,13 @@ python main.py
 
 ## Featurs
 
-* Multiplayer with custom keybindings
+* Local multiplayer (manual code modification)
 * Custom textures
-* Custom maps
 
 ## TODO
 
-* Custom textures (food and walls)
-* Multiplayer with custom keybindings
+* Test if walls work
+* Custom textures (walls)
+* Implement some method to select the amount of player in the .env file
 * Custom maps
+* Fix the bug were the snake in state 0 is not rendered properly
