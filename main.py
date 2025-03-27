@@ -116,16 +116,40 @@ while True:
         # Check for walls collisions
         if snake in walls:
             snake.kill()
-
-        # Check for apple collisions
-        for apple in apples:
-            if apple.pos == snake.pos:
-                # Update the snake
-                snake.eat(apple.power)
-                # Remove the pervious apple from the list and add a new one
-                apples.remove(apple)
-                apples.append(apple_spawner(snakes,walls))
+            continue
+        
+        # Check for collision with itself
+        if snake.pos in snake.pieces:
+            snake.kill()
+            continue
+        
+        # Check fro snake to snake collisions
+        snakes_copy = snakes[:]
+        snakes_copy.remove(snake)
+        for second_snake in snakes_copy:
+            # Head to head collision
+            if snake.pos == second_snake.pos:
+                snake.kill()
+                second_snake.kill()
                 break
+            # Head to tail collision
+            if snake.pos in second_snake.pieces:
+                snake.kill()
+                break
+        
+        # If no collision was found then continue
+        else:
+
+            # Check for apple collisions
+            for apple in apples:
+                if apple.pos == snake.pos:
+                    # Update the snake
+                    snake.eat(apple.power)
+                    # Remove the pervious apple from the list and add a new one
+                    apples.remove(apple)
+                    apples.append(apple_spawner(snakes,walls))
+                    break
+        
     
 
     # Clear the screen and update

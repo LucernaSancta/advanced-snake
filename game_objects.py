@@ -22,12 +22,17 @@ class Snake:
         self.direction = direction
         self.thikness = thikness
 
-        # State 1 is alive, 0 is dead
-        self.state = 1
+        # State 0 is 'not moving', 1 is normal and 2 is dead
+        self.state = 0
         # Create the pieces of the snake
-        self.pieces = [Vector2(pos) for _ in range(length)]
+        self.pieces = [Vector2(pos)-Vector2(0,thikness.y) for _ in range(length)]
     
     def move(self, key) -> None:
+
+        # If necessary, update the state from 'not moving' to default
+        if self.state == 0:
+            self.state = 1
+
         match key:
             case self.keybindings.up:    self.direction = Vector2(0,-1)
             case self.keybindings.down:  self.direction = Vector2(0,1)
@@ -35,12 +40,17 @@ class Snake:
             case self.keybindings.right: self.direction = Vector2(1,0)
     
     def update(self) -> None:
-        # Update the heads position
-        self.pos += Vector2(self.direction.x * self.thikness.x, self.direction.y * self.thikness.y)
+
+        # If the snake is not moving then don't update
+        if self.state == 0:
+            return
 
         # Update the pieces
         self.pieces = [Vector2(self.pos)] + self.pieces
         self.last_removed = self.pieces.pop()
+
+        # Update the heads position
+        self.pos += Vector2(self.direction.x * self.thikness.x, self.direction.y * self.thikness.y)
     
     def eat(self, power: int) -> None:
         '''Power is the length added to the snake'''
@@ -50,15 +60,17 @@ class Snake:
     
     def frame(self, display: Surface) -> None:
 
-        match self.state:
-            # Normal state
-            case 1:
-                draw.rect(display, self.color, (self.pos, self.thikness))
-                for piece in self.pieces:
-                    draw.rect(display, self.color, (piece, self.thikness))
-            # Death state
-            case 0:
-                ...
+        # 0 is not moving and 1 is normal
+        if self.state in [0,1]:
+            draw.rect(display, self.color, (self.pos, self.thikness))
+            for piece in self.pieces:
+                draw.rect(display, self.color, (piece, self.thikness))
+        # Death state
+        elif self.state == 2:
+            ...
+    
+    def kill(self):
+        raise NotImplementedError
 
 class Walls:
     def __init__(self, external_box: Vector2, custom_walls: list[Vector2], thikness: Vector2, color: Color):
