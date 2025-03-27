@@ -17,14 +17,14 @@ class Snake:
         self.thikness = thikness
         self.direction = Vector2(0,0)
 
-        # Load the textures
+        # Load the textures and scale them to the right size
         self.textures = pygame.image.load('textures\\snakes\\'+textures).convert_alpha()
         self.textures = pygame.transform.scale(self.textures, (thikness.x*3, thikness.y*6))
 
         # State 0 is 'not moving', 1 is normal and 2 is dead
         self.state = 0
         # Create the pieces of the snake
-        self.pieces = [Vector2(pos)-Vector2(0,thikness.y) for _ in range(length)]
+        self.pieces = [Vector2(pos)+Vector2(0,thikness.y) for _ in range(length)]
     
     def move(self, key) -> None:
 
@@ -63,7 +63,8 @@ class Snake:
         if self.state in [0,1]:
 
             # Head
-            if   self.direction == Vector2(0,-1): display.blit(self.textures, self.pos, (0, self.thikness.y*0, self.thikness.x, self.thikness.y))
+            if   self.direction == Vector2(0,0):  display.blit(self.textures, self.pos, (0, self.thikness.y*0, self.thikness.x, self.thikness.y)) # State 0, the snake is still
+            elif self.direction == Vector2(0,-1): display.blit(self.textures, self.pos, (0, self.thikness.y*0, self.thikness.x, self.thikness.y))
             elif self.direction == Vector2(-1,0): display.blit(self.textures, self.pos, (0, self.thikness.y*1, self.thikness.x, self.thikness.y))
             elif self.direction == Vector2(0,1):  display.blit(self.textures, self.pos, (0, self.thikness.y*2, self.thikness.x, self.thikness.y))
             elif self.direction == Vector2(1,0):  display.blit(self.textures, self.pos, (0, self.thikness.y*3, self.thikness.x, self.thikness.y))
@@ -79,7 +80,7 @@ class Snake:
                 # thikness (not really necessary to reassign it, but whatever)
                 th = self.thikness
 
-                # At first only God and i new how i did this, now only God does
+                # At first only God and i new how this code was written, now only God nows
                 if   abs((pc1-pc3).x) == th.x*2: display.blit(self.textures, pc2, (th.x, self.thikness.y*1, self.thikness.x, self.thikness.y))
                 elif abs((pc1-pc3).y) == th.y*2: display.blit(self.textures, pc2, (th.x, self.thikness.y*0, self.thikness.x, self.thikness.y))
 

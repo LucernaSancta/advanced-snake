@@ -66,7 +66,8 @@ snakes: list[Snake] = [
     Snake(
         key_map(pygame.K_w,pygame.K_s,pygame.K_a,pygame.K_d),
         thikness=snake_grid_thikness,
-        textures=snake_default_textures
+        textures=snake_default_textures,
+        pos=Vector2(snake_grid_size.x // 2 * snake_grid_thikness.x, snake_grid_size.y // 2 * snake_grid_thikness.y)
         )
 ]
 
