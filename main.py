@@ -7,7 +7,7 @@ from pygame.color import Color
 from os import getenv
 from dotenv import load_dotenv
 
-from various import colors, key_map
+from various import key_map
 from game_objects import Snake, Walls, Apple
 
 
@@ -21,16 +21,17 @@ tps = float (getenv('TICK_PER_SECOND'))
 
 snake_default_textures = getenv('SNAKE_DEFAULT_TEXTURES')
 food_default_textures = getenv('FOOD_DEFAULT_TEXTURES')
+walls_default_textures = getenv('WALLS_DEFAULT_TEXTURES')
 
 wall_map = getenv('WALLS_MAP')
 
-colors.bg = Color(getenv('C_BACKGROUND'))
-colors.walls_default = Color(getenv('C_WALLS'))
+bg_color = Color(getenv('BACKGROUND_COLOR'))
 
 initial_apples = int(getenv('INITIAL_APPLES'))
 default_apple_power = int(getenv('DEFAULT_APPLES_POWER'))
 
 snake_grid_thikness = Vector2(screen_size.x / snake_grid_size.x, screen_size.y / snake_grid_size.y)
+
 
 # Apple generator function
 def apple_spawner(snakes: list[Snake], walls: Walls) -> Apple:
@@ -62,14 +63,14 @@ pygame.init()
 display = pygame.display.set_mode(screen_size)
 clock = pygame.time.Clock()
 
-walls = Walls(screen_size,wall_map,snake_grid_thikness,colors.walls_default)
+walls = Walls(screen_size,wall_map,snake_grid_thikness,walls_default_textures)
 
 snakes: list[Snake] = [
     Snake(
         key_map(pygame.K_w,pygame.K_s,pygame.K_a,pygame.K_d),
         thikness=snake_grid_thikness,
         textures=snake_default_textures,
-        pos=Vector2(snake_grid_size.x // 2 * snake_grid_thikness.x, snake_grid_size.y // 2 * snake_grid_thikness.y)
+        pos=Vector2(4*snake_grid_thikness.x,4*snake_grid_thikness.y)
         )
 ]
 
@@ -116,9 +117,9 @@ while True:
         snake.update()
 
         # Check for walls collisions
-        if snake in walls:
-            snake.kill()
-            continue
+        #if snake in walls:                                     ##########################################################
+        #    snake.kill()                                       ##########################################################
+        #    continue                                           ##########################################################
         
         # Check for collision with itself
         if snake.pos in snake.pieces:
@@ -154,7 +155,7 @@ while True:
         
 
     # Clear the screen and update
-    display.fill(colors.bg)
+    display.fill(bg_color)
 
     # Draw the snakes in whatever state they are
     for snake in snakes:

@@ -111,11 +111,16 @@ class Snake:
 
 
 class Walls:
-    def __init__(self, external_box: Vector2, walls_map: str, thikness: Vector2, color: pygame.color.Color):
+    def __init__(self,
+                 external_box: Vector2,
+                 walls_map: str,
+                 thikness: Vector2,
+                 textures: str = 'default.png'
+                 ) -> None:
+        
         self.external_box = external_box
-        self.color = color
         self.thikness = thikness
-        self.custom_walls = []
+        self.custom_walls: list[Vector2] = []
 
         # Open the csv file
         csv_file = open('maps/'+walls_map)
@@ -126,14 +131,13 @@ class Walls:
             if i == 0:
                 continue
             try:
-                self.custom_walls.append(
-                    Vector2(
-                        int(row[0])*thikness.x,
-                        int(row[1])*thikness.y
-                        ))
+                self.custom_walls.append(Vector2(int(row[0]),int(row[1])))
             except (IndexError, ValueError):
                 raise SyntaxError('Wrong tiling')
 
+        # Load the textures and scale them to the right size
+        self.textures = pygame.image.load('textures/walls/'+textures).convert_alpha()
+        self.textures = pygame.transform.scale(self.textures, (thikness.x*4, thikness.y*4))
 
     def __contains__(self, snake: Snake) -> bool:
         '''Check collision for a given snake and the walls'''
@@ -146,9 +150,44 @@ class Walls:
         return False
     
     def frame(self, display: pygame.surface.Surface):
-        # pygame.draw the custom walls
+
+        # Reassign for better performances
+        th = self.thikness
+
+        # Draw the walls according to the four other walls in their surroundings
         for wall in self.custom_walls:
-            pygame.draw.rect(display, self.color, (wall, self.thikness))
+
+            # Define surroundings
+            pc1, pc2, pc3, pc4= False, False, False, False
+            for wall2 in self.custom_walls:
+                delta = wall - wall2
+
+                if   delta == Vector2(0,1):  pc1 = True
+                elif delta == Vector2(-1,0): pc2 = True
+                elif delta == Vector2(0,-1): pc3 = True
+                elif delta == Vector2(1,0):  pc4 = True
+            
+            match [pc1,pc2,pc3,pc4]:
+                case [False, False, False, False]: display.blit(self.textures, Vector2(wall.x*th.x,wall.y*th.y), (0,      0,      th.x, th.y))
+                case [True,  False, False, False]: display.blit(self.textures, Vector2(wall.x*th.x,wall.y*th.y), (th.x*2, th.y*2, th.x, th.y))
+                case [False, True,  False, False]: display.blit(self.textures, Vector2(wall.x*th.x,wall.y*th.y), (th.x*2, th.y,   th.x, th.y))
+                case [True,  True,  False, False]: display.blit(self.textures, Vector2(wall.x*th.x,wall.y*th.y), (th.x,   0,      th.x, th.y))
+                
+                case [False, False, True,  False]: display.blit(self.textures, Vector2(wall.x*th.x,wall.y*th.y), (th.x*2, 0,      th.x, th.y))
+                case [True,  False, True,  False]: display.blit(self.textures, Vector2(wall.x*th.x,wall.y*th.y), (0,      th.y*3, th.x, th.y))
+                case [False, True,  True,  False]: display.blit(self.textures, Vector2(wall.x*th.x,wall.y*th.y), (th.x,   th.y*1, th.x, th.y))
+                case [True,  True,  True,  False]: display.blit(self.textures, Vector2(wall.x*th.x,wall.y*th.y), (th.x*3, th.y,   th.x, th.y))
+                
+                case [False, False, False, True]:  display.blit(self.textures, Vector2(wall.x*th.x,wall.y*th.y), (th.x*2, th.y*3, th.x, th.y))
+                case [True,  False, False, True]:  display.blit(self.textures, Vector2(wall.x*th.x,wall.y*th.y), (th.x,   th.y*3, th.x, th.y))
+                case [False, True,  False, True]:  display.blit(self.textures, Vector2(wall.x*th.x,wall.y*th.y), (0,      th.y*2, th.x, th.y))
+                case [True,  True,  False, True]:  display.blit(self.textures, Vector2(wall.x*th.x,wall.y*th.y), (th.x*3, th.y*2, th.x, th.y))
+                
+                case [False, False, True,  True]:  display.blit(self.textures, Vector2(wall.x*th.x,wall.y*th.y), (th.x,   th.y*2, th.x, th.y))
+                case [True,  False, True,  True]:  display.blit(self.textures, Vector2(wall.x*th.x,wall.y*th.y), (th.x*3, th.y*3, th.x, th.y))
+                case [False, True,  True,  True]:  display.blit(self.textures, Vector2(wall.x*th.x,wall.y*th.y), (th.x*3, 0,      th.x, th.y))
+                case [True,  True,  True,  True]:  display.blit(self.textures, Vector2(wall.x*th.x,wall.y*th.y), (0,      th.y*1, th.x, th.y))
+            
 
 
 class Apple:
