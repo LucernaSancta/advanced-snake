@@ -1,7 +1,8 @@
+import csv
 import pygame
 from pygame.math import Vector2
-
 from various import key_map
+
 
 class Snake:
     def __init__(self,
@@ -108,12 +109,31 @@ class Snake:
     def kill(self):
         raise NotImplementedError
 
+
 class Walls:
-    def __init__(self, external_box: Vector2, custom_walls: list[Vector2], thikness: Vector2, color: pygame.color.Color):
+    def __init__(self, external_box: Vector2, walls_map: str, thikness: Vector2, color: pygame.color.Color):
         self.external_box = external_box
-        self.custom = custom_walls
         self.color = color
         self.thikness = thikness
+        self.custom_walls = []
+
+        # Open the csv file
+        csv_file = open('maps/'+walls_map)
+        csv_reader = csv.reader(csv_file, delimiter=',')
+        # Extract the values
+        for i, row in enumerate(csv_reader):
+            # Exclude the first row (key row)
+            if i == 0:
+                continue
+            try:
+                self.custom_walls.append(
+                    Vector2(
+                        int(row[0])*thikness.x,
+                        int(row[1])*thikness.y
+                        ))
+            except (IndexError, ValueError):
+                raise SyntaxError('Wrong tiling')
+
 
     def __contains__(self, snake: Snake) -> bool:
         '''Check collision for a given snake and the walls'''
@@ -121,14 +141,15 @@ class Walls:
         if snake.pos.x not in range(int(self.external_box.x)): return True
         if snake.pos.y not in range(int(self.external_box.y)): return True
         # Check for custom walls collisions
-        if snake.pos in self.custom: return True
+        if snake.pos in self.custom_walls: return True
         
         return False
     
     def frame(self, display: pygame.surface.Surface):
         # pygame.draw the custom walls
-        for wall in self.custom:
+        for wall in self.custom_walls:
             pygame.draw.rect(display, self.color, (wall, self.thikness))
+
 
 class Apple:
     def __init__(self,

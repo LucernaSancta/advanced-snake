@@ -22,6 +22,8 @@ tps = float (getenv('TICK_PER_SECOND'))
 snake_default_textures = getenv('SNAKE_DEFAULT_TEXTURES')
 food_default_textures = getenv('FOOD_DEFAULT_TEXTURES')
 
+wall_map = getenv('WALLS_MAP')
+
 colors.bg = Color(getenv('C_BACKGROUND'))
 colors.walls_default = Color(getenv('C_WALLS'))
 
@@ -46,7 +48,7 @@ def apple_spawner(snakes: list[Snake], walls: Walls) -> Apple:
             if piece in spots: spots.remove(piece)
     
     # Remove the spots where the walls are
-    for wall in walls.custom:
+    for wall in walls.custom_walls:
         if wall in spots: spots.remove(wall)
 
     if not len(spots):
@@ -60,7 +62,7 @@ pygame.init()
 display = pygame.display.set_mode(screen_size)
 clock = pygame.time.Clock()
 
-walls = Walls(screen_size,[],snake_grid_thikness,colors.walls_default)
+walls = Walls(screen_size,wall_map,snake_grid_thikness,colors.walls_default)
 
 snakes: list[Snake] = [
     Snake(
