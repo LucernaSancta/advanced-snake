@@ -23,12 +23,10 @@ python main.py
 
 * Local multiplayer (manual code modification)
 * Custom textures
+* Cutom walls
 
 ## TODO
 
-* Test if walls work
-* Custom textures (walls)
 * Implement kill function in snakes
 * Implement some method to select the amount of player in the .env file
-* Custom maps
 * Fix the bug were the snake in state 0 is not rendered properly
