@@ -145,7 +145,9 @@ class Walls:
         if snake.pos.x not in range(int(self.external_box.x)): return True
         if snake.pos.y not in range(int(self.external_box.y)): return True
         # Check for custom walls collisions
-        if snake.pos in self.custom_walls: return True
+        for wall in self.custom_walls:
+            if snake.pos == Vector2(wall.x*self.thikness.x,wall.y*self.thikness.y):
+                return True
         
         return False
     
@@ -172,7 +174,7 @@ class Walls:
                 case [True,  False, False, False]: display.blit(self.textures, Vector2(wall.x*th.x,wall.y*th.y), (th.x*2, th.y*2, th.x, th.y))
                 case [False, True,  False, False]: display.blit(self.textures, Vector2(wall.x*th.x,wall.y*th.y), (th.x*2, th.y,   th.x, th.y))
                 case [True,  True,  False, False]: display.blit(self.textures, Vector2(wall.x*th.x,wall.y*th.y), (th.x,   0,      th.x, th.y))
-                
+
                 case [False, False, True,  False]: display.blit(self.textures, Vector2(wall.x*th.x,wall.y*th.y), (th.x*2, 0,      th.x, th.y))
                 case [True,  False, True,  False]: display.blit(self.textures, Vector2(wall.x*th.x,wall.y*th.y), (0,      th.y*3, th.x, th.y))
                 case [False, True,  True,  False]: display.blit(self.textures, Vector2(wall.x*th.x,wall.y*th.y), (th.x,   th.y*1, th.x, th.y))

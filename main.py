@@ -117,9 +117,9 @@ while True:
         snake.update()
 
         # Check for walls collisions
-        #if snake in walls:                                     ##########################################################
-        #    snake.kill()                                       ##########################################################
-        #    continue                                           ##########################################################
+        if snake in walls:
+            snake.kill()
+            continue
         
         # Check for collision with itself
         if snake.pos in snake.pieces:
