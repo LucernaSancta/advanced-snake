@@ -18,7 +18,7 @@ class Snake:
         self.direction = Vector2(0,0)
 
         # Load the textures and scale them to the right size
-        self.textures = pygame.image.load('textures\\snakes\\'+textures).convert_alpha()
+        self.textures = pygame.image.load('textures/snakes/'+textures).convert_alpha()
         self.textures = pygame.transform.scale(self.textures, (thikness.x*3, thikness.y*6))
 
         # State 0 is 'not moving', 1 is normal and 2 is dead
@@ -142,7 +142,7 @@ class Apple:
         self.thikness = thikness
 
         # Load the textures and scale them to the right size
-        self.texture = pygame.image.load('textures\\food\\'+texture).convert_alpha()
+        self.texture = pygame.image.load('textures/food/'+texture).convert_alpha()
         self.texture = pygame.transform.scale(self.texture, thikness)
     
     def frame(self, display: pygame.surface.Surface):
