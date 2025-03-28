@@ -19,7 +19,7 @@ Execute the 'main' file
 python main.py
 ```
 
-## Featurs
+## Features
 
 * Local multiplayer (manual code modification)
 * Custom textures
@@ -28,5 +28,6 @@ python main.py
 ## TODO
 
 * Implement kill function in snakes
+* Multiplayer (done decently)
 * Implement some method to select the amount of player in the .env file
 * Fix the bug were the snake in state 0 is not rendered properly
