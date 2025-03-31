@@ -8,4 +8,4 @@ class key_map:
         self.keys = [up,down,left,right]
 
     def __contains__(self, key) -> bool:
-        return True if key in self.keys else False
+        return key in self.keys
