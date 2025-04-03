@@ -24,3 +24,15 @@ python main.py
 * Local multiplayer (manual code modification)
 * Custom textures
 * Cutom walls
+
+## Environment Variables
+
+Before running the game, create a `.env` file in the root directory.
+```
+
+Use `.env.example` as a reference:
+
+copy .env.example .env (Windows)
+cp .env.example .env   (Linux/macOS)
+
+
