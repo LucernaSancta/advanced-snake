@@ -107,7 +107,7 @@ class Snake:
             ...
     
     def kill(self):
-        raise NotImplementedError
+        print('Player elimenated!')
 
 
 class Walls:

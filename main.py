@@ -71,6 +71,12 @@ snakes: list[Snake] = [
         thikness=snake_grid_thikness,
         textures=snake_default_textures,
         pos=Vector2(4*snake_grid_thikness.x,4*snake_grid_thikness.y)
+        ),
+    Snake(
+        key_map(pygame.K_UP,pygame.K_DOWN,pygame.K_LEFT,pygame.K_RIGHT),
+        thikness=snake_grid_thikness,
+        textures=snake_default_textures,
+        pos=Vector2(snake_grid_thikness.x,snake_grid_thikness.y)
         )
 ]
 
@@ -119,11 +125,13 @@ while True:
         # Check for walls collisions
         if snake in walls:
             snake.kill()
+            snakes.remove(snake)
             continue
         
         # Check for collision with itself
         if snake.pos in snake.pieces:
             snake.kill()
+            snakes.remove(snake)
             continue
         
         # Check fro snake to snake collisions
@@ -134,10 +142,13 @@ while True:
             if snake.pos == second_snake.pos:
                 snake.kill()
                 second_snake.kill()
+                snakes.remove(snake)
+                snakes.remove(second_snake)
                 break
             # Head to tail collision
             if snake.pos in second_snake.pieces:
                 snake.kill()
+                snakes.remove(snake)
                 break
         
         # If no collision was found then continue
