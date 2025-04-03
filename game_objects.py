@@ -6,6 +6,7 @@ from various import key_map
 
 class Snake:
     def __init__(self,
+                 name: str,
                  keybindings: key_map,
                  pos: Vector2 = Vector2(0,0),
                  textures: str = 'default.png',
@@ -13,6 +14,7 @@ class Snake:
                  length: int = 3
                  ) -> None:
         
+        self.name = name
         self.pos = pos
         self.keybindings = keybindings
         self.thikness = thikness
@@ -107,7 +109,7 @@ class Snake:
             ...
     
     def kill(self):
-        print('Player elimenated!')
+        print(f'Player {self.name} elimenated with a total score of {len(self.pieces)} points!')
 
 
 class Walls:

@@ -1,6 +1,7 @@
 import pygame
 import os.path
 import random
+import yaml
 
 from pygame.math import Vector2
 from pygame.color import Color
@@ -65,20 +66,23 @@ clock = pygame.time.Clock()
 
 walls = Walls(screen_size,wall_map,snake_grid_thikness,walls_default_textures)
 
-snakes: list[Snake] = [
-    Snake(
-        key_map(pygame.K_w,pygame.K_s,pygame.K_a,pygame.K_d),
-        thikness=snake_grid_thikness,
-        textures=snake_default_textures,
-        pos=Vector2(4*snake_grid_thikness.x,4*snake_grid_thikness.y)
-        ),
-    Snake(
-        key_map(pygame.K_UP,pygame.K_DOWN,pygame.K_LEFT,pygame.K_RIGHT),
-        thikness=snake_grid_thikness,
-        textures=snake_default_textures,
-        pos=Vector2(snake_grid_thikness.x,snake_grid_thikness.y)
-        )
-]
+
+# Load the players
+snakes: list[Snake] = []
+for filename in os.listdir('players'):
+    if filename.endswith(".yml"):
+        with open('players/'+filename, 'r') as file:
+            player_data = yaml.safe_load(file)
+            snakes.append(
+                Snake(
+                    name=player_data['name'],
+                    keybindings=key_map(*player_data['keybindings']),
+                    thikness=snake_grid_thikness,
+                    textures=player_data['textures'],
+                    pos=Vector2(player_data['starting_pos'][0]*snake_grid_thikness.x,player_data['starting_pos'][1]*snake_grid_thikness.y)
+                    )
+                )
+
 
 apples: list[Apple] = [apple_spawner(snakes, walls) for _ in range(initial_apples)]
 
@@ -163,7 +167,14 @@ while True:
                     apples.remove(apple)
                     apples.append(apple_spawner(snakes,walls))
                     break
-        
+    
+    
+    # Quit by game over
+    if not len(snakes):
+        print('Game over!')
+        pygame.quit()
+        quit()
+
 
     # Clear the screen and update
     display.fill(bg_color)
