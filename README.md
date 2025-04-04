@@ -25,16 +25,5 @@ python main.py
 * Custom textures
 * Cutom walls
 
-## Environment Variables
-
-Before running the game, create a `.env` file in the root directory.
-
-
-* Use `.env.example` as a reference:
-
-```
-copy .env.example .env (Windows)
-cp .env.example .env   (Linux/macOS)
-```
-
-
+## Global variables
+Before running the game, you can modify global variables and game settings in the config.toml file

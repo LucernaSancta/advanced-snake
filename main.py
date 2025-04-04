@@ -10,6 +10,8 @@ from pygame.color import Color
 from various import key_map
 from game_objects import Snake, Walls, Apple
 
+
+# Set up global config
 config_file = 'config.toml'
 
 if os.path.isfile(config_file):
@@ -18,22 +20,20 @@ else:
     print(f"Config file {config_file} not found. Using default settings.")
     config = {}
 
-screen_size =     Vector2(config.get('SCREEN_SIZE_X', 800), config.get('SCREEN_SIZE_Y', 800))
+# Assign global config variables
+screen_size =     Vector2(config.get('SCREEN_SIZE_X', 800),    config.get('SCREEN_SIZE_Y', 800))
 snake_grid_size = Vector2(config.get('SNAKE_GRID_SIZE_X', 10), config.get('SNAKE_GRID_SIZE_Y', 10))
+snake_default_textures =  config.get('SNAKE_DEFAULT_TEXTURES', "default.png")
+food_default_textures =   config.get('FOOD_DEFAULT_TEXTURES',  "default.png")
+walls_default_textures =  config.get('WALLS_DEFAULT_TEXTURES', "default.png")
+initial_apples =      int(config.get('INITIAL_APPLES', 2))
+default_apple_power = int(config.get('DEFAULT_APPLES_POWER', 1))
 tps = float(config.get('TICK_PER_SECOND', 2))
-
-snake_default_textures = config.get('SNAKE_DEFAULT_TEXTURES', "default.png")
-food_default_textures = config.get('FOOD_DEFAULT_TEXTURES', "default.png")
-walls_default_textures = config.get('WALLS_DEFAULT_TEXTURES', "default.png")
-
-wall_map = config.get('WALLS_MAP', "default.csv")
-
+wall_map =  config.get('WALLS_MAP', "default.csv")
 bg_color = Color(config.get('BACKGROUND_COLOR', "#eeeeee"))
 
-initial_apples = int(config.get('INITIAL_APPLES', 2))
-default_apple_power = int(config.get('DEFAULT_APPLES_POWER', 1))
-
 snake_grid_thikness = Vector2(screen_size.x / snake_grid_size.x, screen_size.y / snake_grid_size.y)
+
 
 # Apple generator function
 def apple_spawner(snakes: list[Snake], walls: Walls) -> Apple:
