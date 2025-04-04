@@ -53,8 +53,10 @@ def apple_spawner(snakes: list[Snake], walls: Walls) -> Apple:
     for wall in walls.custom_walls:
         if wall in spots: spots.remove(wall)
 
-    if not len(spots):
-        print('You won!')
+    if len(spots) == 0:
+        print('Game Over, you won!')
+        pygame.quit()
+        quit()
 
     pos = random.choice(spots)
     return Apple(pos, default_apple_power, snake_grid_thikness, food_default_textures)
@@ -172,7 +174,7 @@ while True:
     
     # Quit by game over
     if not len(snakes):
-        print('Game over!')
+        print('Game over, every one is dead.')
         pygame.quit()
         quit()
 
