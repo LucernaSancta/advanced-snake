@@ -2,37 +2,38 @@ import pygame
 import os.path
 import random
 import yaml
+import toml
 
 from pygame.math import Vector2
 from pygame.color import Color
-from os import getenv
-from dotenv import load_dotenv
 
 from various import key_map
 from game_objects import Snake, Walls, Apple
 
+config_file = 'config.toml'
 
-# Get program envirement
-if os.path.isfile('.env'): load_dotenv('.env')
-else:                      load_dotenv('.env.example')
+if os.path.isfile(config_file):
+    config = toml.load(config_file)
+else:
+    print(f"Config file {config_file} not found. Using default settings.")
+    config = {}
 
-screen_size =     Vector2(int(getenv('SCREEN_SIZE_X')),    int(getenv('SCREEN_SIZE_Y')))
-snake_grid_size = Vector2(int(getenv('SNAKE_GRID_SIZE_X')),int(getenv('SNAKE_GRID_SIZE_Y')))
-tps = float (getenv('TICK_PER_SECOND'))
+screen_size =     Vector2(config.get('SCREEN_SIZE_X', 800), config.get('SCREEN_SIZE_Y', 800))
+snake_grid_size = Vector2(config.get('SNAKE_GRID_SIZE_X', 10), config.get('SNAKE_GRID_SIZE_Y', 10))
+tps = float(config.get('TICK_PER_SECOND', 2))
 
-snake_default_textures = getenv('SNAKE_DEFAULT_TEXTURES')
-food_default_textures = getenv('FOOD_DEFAULT_TEXTURES')
-walls_default_textures = getenv('WALLS_DEFAULT_TEXTURES')
+snake_default_textures = config.get('SNAKE_DEFAULT_TEXTURES', "default.png")
+food_default_textures = config.get('FOOD_DEFAULT_TEXTURES', "default.png")
+walls_default_textures = config.get('WALLS_DEFAULT_TEXTURES', "default.png")
 
-wall_map = getenv('WALLS_MAP')
+wall_map = config.get('WALLS_MAP', "default.csv")
 
-bg_color = Color(getenv('BACKGROUND_COLOR'))
+bg_color = Color(config.get('BACKGROUND_COLOR', "#eeeeee"))
 
-initial_apples = int(getenv('INITIAL_APPLES'))
-default_apple_power = int(getenv('DEFAULT_APPLES_POWER'))
+initial_apples = int(config.get('INITIAL_APPLES', 2))
+default_apple_power = int(config.get('DEFAULT_APPLES_POWER', 1))
 
 snake_grid_thikness = Vector2(screen_size.x / snake_grid_size.x, screen_size.y / snake_grid_size.y)
-
 
 # Apple generator function
 def apple_spawner(snakes: list[Snake], walls: Walls) -> Apple:
