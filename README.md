@@ -27,4 +27,4 @@ python main.py
 * Cutom food
 
 ## Documentation
-You can consult the [`documentation`](./docs/README.md) for more information on customazing your game and using its full potential
+You can consult the [`documentation`](./docs) for more information on customazing your game and using its full potential
