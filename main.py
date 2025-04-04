@@ -79,7 +79,8 @@ for filename in os.listdir('players'):
                     keybindings=player_data['keybindings'],
                     thikness=snake_grid_thikness,
                     textures=player_data['textures'],
-                    pos=Vector2(player_data['starting_pos'][0]*snake_grid_thikness.x,player_data['starting_pos'][1]*snake_grid_thikness.y)
+                    pos=Vector2(player_data['starting_pos'][0]*snake_grid_thikness.x,player_data['starting_pos'][1]*snake_grid_thikness.y),
+                    length=player_data['starting_length']
                     )
                 )
 
