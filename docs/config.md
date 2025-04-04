@@ -1,7 +1,8 @@
+# Global Variables for Advanced Snake Game
 
-# Environment Variables for Advanced Snake Game
+The `config.toml` file is used to configure the game settings. Here’s what each variable does:
 
-The `.env` file is used to configure the game settings. Here’s what each variable does:
+<br>
 
 `SCREEN_SIZE_X` & `SCREEN_SIZE_Y` : Defines the screen width and height in pixels.
 
