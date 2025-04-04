@@ -3,3 +3,4 @@
 - [`global configs`](./config.md)
 - [`players & multiplayer configs`](./players.md)
 - [`textures`](./textures.md)
+- [`walls`](./walls.md)
