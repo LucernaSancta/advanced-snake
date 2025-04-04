@@ -2,5 +2,5 @@
 
 - [`global configs`](./config.md)
 - [`players & multiplayer configs`](./players.md)
-- [`textures`](./textures.md)
+- [`textures`](./textures)
 - [`walls`](./walls.md)
