@@ -7,7 +7,6 @@ import toml
 from pygame.math import Vector2
 from pygame.color import Color
 
-from various import key_map
 from game_objects import Snake, Walls, Apple
 
 
@@ -77,7 +76,7 @@ for filename in os.listdir('players'):
             snakes.append(
                 Snake(
                     name=player_data['name'],
-                    keybindings=key_map(*player_data['keybindings']),
+                    keybindings=player_data['keybindings'],
                     thikness=snake_grid_thikness,
                     textures=player_data['textures'],
                     pos=Vector2(player_data['starting_pos'][0]*snake_grid_thikness.x,player_data['starting_pos'][1]*snake_grid_thikness.y)

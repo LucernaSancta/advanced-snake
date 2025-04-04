@@ -1,13 +1,25 @@
 import csv
 import pygame
 from pygame.math import Vector2
-from various import key_map
+
+
+class key_map:
+    def __init__(self,up,down,left,right):
+        self.up =    pygame.key.key_code(up)
+        self.down =  pygame.key.key_code(down)
+        self.left =  pygame.key.key_code(left)
+        self.right = pygame.key.key_code(right)
+
+        self.keys = [self.up,self.down,self.left,self.right]
+
+    def __contains__(self, key) -> bool:
+        return key in self.keys
 
 
 class Snake:
     def __init__(self,
                  name: str,
-                 keybindings: key_map,
+                 keybindings: list,
                  pos: Vector2 = Vector2(0,0),
                  textures: str = 'default.png',
                  thikness: Vector2 = Vector2(10,10),
@@ -16,7 +28,7 @@ class Snake:
         
         self.name = name
         self.pos = pos
-        self.keybindings = keybindings
+        self.keybindings = key_map(*keybindings)
         self.thikness = thikness
         self.direction = Vector2(0,0)
 
