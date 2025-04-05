@@ -39,7 +39,7 @@ class Snake:
         # State 0 is 'not moving', 1 is normal and 2 is dead
         self.state = 0
         # Create the pieces of the snake
-        self.pieces = [Vector2(pos)+Vector2(0,thikness.y) for _ in range(length)]
+        self.pieces = [Vector2(pos) + Vector2(0, thikness.y*(i+1)) for i in range(length)]
     
     def move(self, key) -> None:
 
