@@ -41,7 +41,7 @@ def apple_spawner(snakes: list[Snake], walls: Walls) -> Apple:
     spots = []
     for x in range(int(snake_grid_size.x)):
         for y in range(int(snake_grid_size.y)):
-            spots.append(Vector2(x*snake_grid_thikness.x,y*snake_grid_thikness.y))
+            spots.append(Vector2(x*snake_grid_thikness.x, y*snake_grid_thikness.y))
     
     # Remove the spots where the snakes are
     for snake in snakes:
@@ -52,14 +52,28 @@ def apple_spawner(snakes: list[Snake], walls: Walls) -> Apple:
     # Remove the spots where the walls are
     for wall in walls.custom_walls:
         if wall in spots: spots.remove(wall)
-
+    # Fix: Remove spots where apples already exist
+    if 'apples' in globals():
+        for apple in apples:
+            if apple.pos in spots: spots.remove(apple.pos)
+    
     if len(spots) == 0:
         print('Game Over, you won!')
         pygame.quit()
         quit()
 
     pos = random.choice(spots)
+    # Fix: Ensure apple does not spawn inside a snake head.
+    # (This accounts for possible rounding issues in snake.pos.)
+    for snake in snakes:
+        snake_head = Vector2(
+            int(snake.pos.x / snake_grid_thikness.x) * snake_grid_thikness.x,
+            int(snake.pos.y / snake_grid_thikness.y) * snake_grid_thikness.y
+        )
+        if pos == snake_head:
+            return apple_spawner(snakes, walls)
     return Apple(pos, default_apple_power, snake_grid_thikness, food_default_textures)
+
 
 # Initialize pygame
 pygame.init()
