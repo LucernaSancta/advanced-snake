@@ -35,7 +35,7 @@ snake_grid_thikness = Vector2(screen_size.x / snake_grid_size.x, screen_size.y /
 
 
 # Apple generator function
-def apple_spawner(snakes: list[Snake], walls: Walls) -> Apple:
+def apple_spawner(snakes: list[Snake], walls: Walls, apples_local: list[Apple]) -> Apple:
 
     # Create a list with every spot in the grid
     spots = []
@@ -52,10 +52,10 @@ def apple_spawner(snakes: list[Snake], walls: Walls) -> Apple:
     # Remove the spots where the walls are
     for wall in walls.custom_walls:
         if wall in spots: spots.remove(wall)
+
     # Fix: Remove spots where apples already exist
-    if 'apples' in globals():
-        for apple in apples:
-            if apple.pos in spots: spots.remove(apple.pos)
+    for apple in apples_local:
+        if apple.pos in spots: spots.remove(apple.pos)
     
     if len(spots) == 0:
         print('Game Over, you won!')
@@ -63,15 +63,6 @@ def apple_spawner(snakes: list[Snake], walls: Walls) -> Apple:
         quit()
 
     pos = random.choice(spots)
-    # Fix: Ensure apple does not spawn inside a snake head.
-    # (This accounts for possible rounding issues in snake.pos.)
-    for snake in snakes:
-        snake_head = Vector2(
-            int(snake.pos.x / snake_grid_thikness.x) * snake_grid_thikness.x,
-            int(snake.pos.y / snake_grid_thikness.y) * snake_grid_thikness.y
-        )
-        if pos == snake_head:
-            return apple_spawner(snakes, walls)
     return Apple(pos, default_apple_power, snake_grid_thikness, food_default_textures)
 
 
@@ -100,8 +91,9 @@ for filename in os.listdir('players'):
                     )
                 )
 
-
-apples: list[Apple] = [apple_spawner(snakes, walls) for _ in range(initial_apples)]
+apples: list[Apple] = []
+for _ in range(initial_apples):
+    apples.append(apple_spawner(snakes, walls, apples))
 
 paused = False
 
@@ -182,7 +174,7 @@ while True:
                     snake.eat(apple.power)
                     # Remove the pervious apple from the list and add a new one
                     apples.remove(apple)
-                    apples.append(apple_spawner(snakes,walls))
+                    apples.append(apple_spawner(snakes,walls,apples))
                     break
     
     
