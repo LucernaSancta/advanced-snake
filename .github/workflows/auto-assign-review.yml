@@ -1,0 +1,15 @@
+name: Auto-Assign PR Reviewer
+
+on:
+  pull_request:
+    types: [opened, reopened, ready_for_review]
+
+jobs:
+  auto-assign:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Assign reviewer
+        uses: kentaro-m/auto-assign-action@v1.2.3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          reviewers: LucernaSancta
