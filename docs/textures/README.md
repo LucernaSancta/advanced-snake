@@ -13,15 +13,18 @@ textures/
 Each folder contains `.png` files that can be referenced dynamically at runtime.
 
 ## 🧠 How the Game Loads Textures
-Texture names are pulled directly from the main config file 📄`config.toml`
+Texture names are pulled directly from the main config file 📄`config.toml` and `.yml` files for players
 
 These are the default texture settings:
-```
-SNAKE_DEFAULT_TEXTURES = "default.png"
-FOOD_DEFAULT_TEXTURES  = "default.png"
-WALLS_DEFAULT_TEXTURES = "default.png"
-```
-If nothing else is specified (like in a player `.yml` file), these defaults are used.
+- `config.toml`
+    ```
+    FOOD_DEFAULT_TEXTURES  = "default.png"
+    WALLS_DEFAULT_TEXTURES = "default.png"
+    ```
+- `.yml` files
+    ```
+    textures: 'default.png'
+    ```
 
 ## 📌 Texture Assignment by Type
 | Type | Source of Texture Info | Location |
