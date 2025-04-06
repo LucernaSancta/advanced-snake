@@ -58,9 +58,8 @@ def apple_spawner(snakes: list[Snake], walls: Walls, apples_local: list[Apple]) 
         if apple.pos in spots: spots.remove(apple.pos)
     
     if len(spots) == 0:
-        print('Game Over, you won!')
-        pygame.quit()
-        quit()
+        print('No space to spawn new food, removing one, total food remaining:', len(apples_local))
+        return None
 
     pos = random.choice(spots)
     return Apple(pos, default_apple_power, snake_grid_thikness, food_default_textures)
@@ -126,8 +125,16 @@ while True:
                 if event.key in snake.keybindings:
                     snake.move(event.key)
     
+    # Winning condition
+    if len(apples) == 0 and paused == False:
+        paused = True
+        print('Game over, you won!')
+        print('press ESC to exit')
+
+
     if paused:
         continue
+
     
     # Update snakes logics
     for snake in snakes:
@@ -191,6 +198,9 @@ while True:
     # Draw the snakes in whatever state they are
     for snake in snakes:
         snake.frame(display)
+
+    # Remove None elements from apple list, None elements are created by the apple spawner
+    apples = list(filter(lambda x: x is not None, apples))
 
     # Draw the apples
     for apple in apples:
