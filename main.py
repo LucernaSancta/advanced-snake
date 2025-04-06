@@ -31,7 +31,7 @@ tps = float(config.get('TICK_PER_SECOND', 2))
 wall_map =  config.get('WALLS_MAP', "default.csv")
 bg_color = Color(config.get('BACKGROUND_COLOR', "#eeeeee"))
 
-snake_grid_thikness = Vector2(screen_size.x / snake_grid_size.x, screen_size.y / snake_grid_size.y)
+snake_grid_thikness = Vector2(screen_size.x // snake_grid_size.x, screen_size.y // snake_grid_size.y)
 
 
 # Apple generator function
