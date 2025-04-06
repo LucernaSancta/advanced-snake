@@ -20,16 +20,18 @@ else:
     config = {}
 
 # Assign global config variables
-screen_size =     Vector2(config.get('SCREEN_SIZE_X', 800),    config.get('SCREEN_SIZE_Y', 800))
-snake_grid_size = Vector2(config.get('SNAKE_GRID_SIZE_X', 10), config.get('SNAKE_GRID_SIZE_Y', 10))
+screen_size =     Vector2(config.get('SCREEN_SIZE_X',     800), config.get('SCREEN_SIZE_Y',     800))
+snake_grid_size = Vector2(config.get('SNAKE_GRID_SIZE_X', 10),  config.get('SNAKE_GRID_SIZE_Y', 10))
 snake_default_textures =  config.get('SNAKE_DEFAULT_TEXTURES', "default.png")
 food_default_textures =   config.get('FOOD_DEFAULT_TEXTURES',  "default.png")
 walls_default_textures =  config.get('WALLS_DEFAULT_TEXTURES', "default.png")
-initial_apples =      int(config.get('INITIAL_APPLES', 2))
+initial_apples =      int(config.get('INITIAL_APPLES',       2))
 default_apple_power = int(config.get('DEFAULT_APPLES_POWER', 1))
-tps = float(config.get('TICK_PER_SECOND', 2))
-wall_map =  config.get('WALLS_MAP', "default.csv")
-bg_color = Color(config.get('BACKGROUND_COLOR', "#eeeeee"))
+pause_key =  config.get('PAUSE_KEY', 'SPACE')
+exit_key =   config.get('EXIT_KEY',  'ESCAPE')
+tps =      float(config.get('TICK_PER_SECOND', 2))
+wall_map =       config.get('WALLS_MAP', 'default.csv')
+bg_color = Color(config.get('BACKGROUND_COLOR', '#eeeeee'))
 
 snake_grid_thikness = Vector2(screen_size.x // snake_grid_size.x, screen_size.y // snake_grid_size.y)
 
@@ -70,8 +72,13 @@ pygame.init()
 display = pygame.display.set_mode(screen_size)
 clock = pygame.time.Clock()
 
+# Load walls
 walls = Walls(screen_size,wall_map,snake_grid_thikness,walls_default_textures)
 
+original_exit_key = str(exit_key)
+# Translate exit and pause keys
+pause_key = pygame.key.key_code(pause_key)
+exit_key = pygame.key.key_code(exit_key)
 
 # Load the players
 snakes: list[Snake] = []
@@ -110,11 +117,11 @@ while True:
         if event.type == pygame.KEYDOWN:
             
             # Quality of life, quit when ESC
-            if event.key == pygame.K_ESCAPE:
+            if event.key == exit_key:
                 pygame.quit()
                 quit()
             
-            elif event.key == pygame.K_SPACE:
+            elif event.key == pause_key:
                 paused = not paused
 
             if paused:
@@ -129,7 +136,7 @@ while True:
     if len(apples) == 0 and paused == False:
         paused = True
         print('Game over, you won!')
-        print('press ESC to exit')
+        print(f'press {original_exit_key} to exit')
 
 
     if paused:
