@@ -140,6 +140,7 @@ while True:
 
 
     if paused:
+        clock.tick(60)
         continue
 
     
