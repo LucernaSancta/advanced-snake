@@ -10,7 +10,7 @@ Inside tha players folder every `.yml` file is considered a different player, th
 
 `starting_pos` : Vector of two integer representing the starting position in the grid.
 
-`textures` : Name of the textures file in the textures/snakes folder (see [`textures`](./textures.md) for more informations).
+`textures` : Name of the textures file in the `textures/snakes` folder (see [`Custom Snake Textures`](./textures/snakes.md) for more informations).
 
 `starting_length` : Starting lenght of the snakes tail.
 
