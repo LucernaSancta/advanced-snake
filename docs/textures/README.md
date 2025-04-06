@@ -24,14 +24,11 @@ WALLS_DEFAULT_TEXTURES = "default.png"
 📝If nothing else is specified (like in a player `.yml` file), these defaults are used.
 
 ## 📌Texture Assignment by Type
-| 🎮Type | 🗂️ Source of Texture Info | 📁Location |
+| 🎮Type | 🗂️Source of Texture Info | 🗂️Location |
 | ------- | ------- | ------- |
-| 🐍Snake | Set per-player in `players/*.yml` | `textures/snakes/` |
-| 🍎Food | Set in `config.toml` | `textures/food/` |
-| 🎮 Type	🗂️ Source of Texture Info	📁 Location
-🐍 Snake	Set per-player in players/*.yml	textures/snakes/
-🍎 Food	Set in config.toml	textures/food/
-🧱 Walls | Set in `config.toml` | `textures/walls/` |
+| Snake | Set per-player in `players/*.yml` | `textures/snakes/` |
+| Food | Set in `config.toml` | `textures/food/` |
+| Walls | Set in `config.toml` | `textures/walls/` |
 
 Each section has its own detailed guide:
 - 🐍[`Snakes`](./snakes.md) – How to design full snake spritesheets
