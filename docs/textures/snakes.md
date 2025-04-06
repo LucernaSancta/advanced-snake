@@ -30,15 +30,15 @@ Each one defines a complete skin for a snake — head, body, tail, curves — al
 📐The engine automatically slices this grid so it will always match the snake dimensions.
 
 ## 🖼️Image Guidelines
-- 🧱Must be a 3×6 grid of equally sized tiles
-- 🖌️Use .png for transparency support
+- Must be a 3×6 grid of equally sized tiles
+- Use .png for transparency support
 
 ## 🎨How to Make Your Own
-1. 📝Duplicate default.png in textures/snakes/
-2. 🧑‍🎨Open it in your favorite editor
-3. ✏️Replace each tile with your own design
-4. 💾Save as a new .png file
-5. 🔧In the player's .yml, set:
+1. Duplicate default.png in textures/snakes/
+2. Open it in your favorite editor
+3. Replace each tile with your own design
+4. Save as a new .png file
+5. In the player's .yml, set:
 ```
 textures: your_texture_name.png
 ```

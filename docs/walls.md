@@ -3,9 +3,9 @@
 Walls are more than just barriers, they shape the level and influence gameplay.🕹️
 
 ## 🔍What Walls Do
-- 🧭Define the playable boundaries (both visual and collision-based)
-- 🗺️Load optional level-specific walls from a map file
-- 🎨Use tile-aware rendering to make things look smooth and connected
+- Define the playable boundaries (both visual and collision-based)
+- Load optional level-specific walls from a map file
+- Use tile-aware rendering to make things look smooth and connected
 
 ## ✏️Want to Edit or Add Walls?
 You can customize walls using a simple CSV file:
