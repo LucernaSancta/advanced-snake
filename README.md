@@ -1,4 +1,11 @@
-# Advanced snake
+# Advanced snake 🐍
+
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/LucernaSancta/advanced_snake)
+![Pygame](https://img.shields.io/badge/Made%20with-Pygame-1f425f.svg?logo=pygame&logoColor=white)
+![Python](https://img.shields.io/badge/python-3.8+-blue.svg)
+![Genre](https://img.shields.io/badge/genre-Arcade-green)
+![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
+
 
 A snake game with added functionalities made in python with PyGame
 
