@@ -1,4 +1,4 @@
-# Advanced snake docs
+# 🐍Advanced snake docs
 
 - [`global configs`](./config.md)
 - [`players & multiplayer configs`](./players.md)
