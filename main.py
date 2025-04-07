@@ -213,7 +213,7 @@ def main() -> None:
             # Possible compenetration message (#32)
             if not frames:
                 print('└── This is probably caused by a misplaced snakes compenetration with walls or borders')
-                print('    Please ehck the snakes setting')
+                print('    Please check the snakes setting or open the map creator for a static view')
 
             pygame.quit()
             quit()
