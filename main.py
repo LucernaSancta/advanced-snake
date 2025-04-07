@@ -97,9 +97,13 @@ for filename in os.listdir('players'):
                     )
                 )
 
+# Initiate apples
 apples: list[Apple] = []
 for _ in range(initial_apples):
-    apples.append(apple_spawner(snakes, walls, apples))
+    apple = apple_spawner(snakes, walls, apples)
+    if apple is not None:
+        apples.append(apple)
+
 
 paused = False
 
