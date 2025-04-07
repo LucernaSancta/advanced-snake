@@ -61,6 +61,7 @@ def init_players(snake_grid_thikness: Vector2) -> list[Snake]:
 
 
 def main() -> None:
+
     # Set up global config
     config_file = 'config.toml'
 
@@ -113,6 +114,7 @@ def main() -> None:
 
 
     paused = False
+    frames = 0
 
     while True:
 
@@ -207,6 +209,12 @@ def main() -> None:
         # Quit by game over
         if not len(snakes):
             print('Game over, every one is dead.')
+
+            # Possible compenetration message (#32)
+            if not frames:
+                print('└── This is probably caused by a misplaced snakes compenetration with walls or borders')
+                print('    Please ehck the snakes setting')
+
             pygame.quit()
             quit()
 
@@ -232,6 +240,8 @@ def main() -> None:
 
         # Limit the refresh rate to the tps
         clock.tick(tps)
+
+        frames += 1
 
 
 if __name__ == '__main__':
