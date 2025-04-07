@@ -33,7 +33,7 @@ python main.py
 * Cutom walls
 * Cutom food
 
-## Map creation tool
+## Map creator tool
 Easely create custom maps by simply clicking on the screen, learn how with the [`map creator docs`](./docs/map_creator.md)
 
 ## Documentation
