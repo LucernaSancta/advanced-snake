@@ -7,3 +7,4 @@
     - [`Snakes`](./textures/snakes.md)
     - [`Food`](./textures/food.md)
     - [`Walls`](./textures/walls.md)
+- [`Map creator`](./map_creator.md)
