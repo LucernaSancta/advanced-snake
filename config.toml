@@ -12,7 +12,7 @@ WALLS_DEFAULT_TEXTURES = "default.png"
 
 BACKGROUND_COLOR = "#eeeeee"
 
-WALLS_MAP = "default.csv"
+WALLS_MAP = "smile.csv"
 
 PAUSE_KEY = "SPACE"
 EXIT_KEY = "ESCAPE"

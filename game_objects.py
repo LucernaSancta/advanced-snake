@@ -137,17 +137,17 @@ class Walls:
         self.custom_walls: list[Vector2] = []
 
         # Open the csv file
-        csv_file = open('maps/'+walls_map)
-        csv_reader = csv.reader(csv_file, delimiter=',')
-        # Extract the values
-        for i, row in enumerate(csv_reader):
-            # Exclude the first row (key row)
-            if i == 0:
-                continue
-            try:
-                self.custom_walls.append(Vector2(int(row[0]),int(row[1])))
-            except (IndexError, ValueError):
-                raise SyntaxError('Wrong tiling')
+        with open('maps/'+walls_map) as csv_file:
+            csv_reader = csv.reader(csv_file, delimiter=',')
+            # Extract the values
+            for i, row in enumerate(csv_reader):
+                # Exclude the first row (key row)
+                if i == 0:
+                    continue
+                try:
+                    self.custom_walls.append(Vector2(int(row[0]),int(row[1])))
+                except (IndexError, ValueError):
+                    raise SyntaxError('Wrong walls tiling')
 
         # Load the textures and scale them to the right size
         self.textures = pygame.image.load('textures/walls/'+textures).convert_alpha()
@@ -164,6 +164,29 @@ class Walls:
                 return True
         
         return False
+    
+    def add(self, pos: Vector2) -> None:
+        '''Add a wall to the current walls'''
+        tile = Vector2(pos.x // self.thikness.x, pos.y // self.thikness.y)
+        if tile not in self.custom_walls:
+            self.custom_walls.append(tile)
+    
+    def remove(self, pos: Vector2) -> None:
+        '''Remove a wall to the current walls'''
+        tile = Vector2(pos.x // self.thikness.x, pos.y // self.thikness.y)
+        if tile in self.custom_walls:
+            self.custom_walls.remove(tile)
+
+    def export(self, file_name: str) -> None:
+        '''Export the current walls to a CSV file'''
+        # Open the csv file
+        with open(f'maps/{file_name}.csv', 'w') as csv_file:
+            csv_writer = csv.writer(csv_file, delimiter=',', lineterminator='\n')
+            csv_writer.writerow(('x','y')) # Write first row
+
+            walls = [(int(v.x),int(v.y)) for v in self.custom_walls] # Clear walls (convert from float to int)
+            csv_writer.writerows(walls)
+
     
     def frame(self, display: pygame.surface.Surface):
 
