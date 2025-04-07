@@ -73,7 +73,6 @@ def main() -> None:
     # Assign global config variables
     screen_size =     Vector2(config.get('SCREEN_SIZE_X',     800), config.get('SCREEN_SIZE_Y',     800))
     snake_grid_size = Vector2(config.get('SNAKE_GRID_SIZE_X', 10),  config.get('SNAKE_GRID_SIZE_Y', 10))
-    snake_default_textures =  config.get('SNAKE_DEFAULT_TEXTURES', "default.png")
     food_default_textures =   config.get('FOOD_DEFAULT_TEXTURES',  "default.png")
     walls_default_textures =  config.get('WALLS_DEFAULT_TEXTURES', "default.png")
     initial_apples =      int(config.get('INITIAL_APPLES',       2))
