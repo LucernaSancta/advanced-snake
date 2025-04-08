@@ -37,4 +37,4 @@ python main.py
 Easely create custom maps by simply clicking on the screen, learn how with the [`map creator docs`](./docs/map_creator.md)
 
 ## Documentation
-You can consult the [`documentation`](./docs) for more information on customazing your game and using its full potential
+You can consult the [`documentation`](./docs/README.md) for more information on customazing your game and using its full potential
