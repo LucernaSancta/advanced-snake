@@ -40,11 +40,11 @@ def main() -> None:
         config = {}
 
     # Assign global config variables
-    screen_size =     Vector2(config.get('SCREEN_SIZE_X',     800), config.get('SCREEN_SIZE_Y',     800))
-    snake_grid_size = Vector2(config.get('SNAKE_GRID_SIZE_X', 10),  config.get('SNAKE_GRID_SIZE_Y', 10))
-    walls_default_textures =  config.get('WALLS_DEFAULT_TEXTURES', "default.png")
-    wall_map =       config.get('WALLS_MAP', 'default.csv')
-    bg_color = Color(config.get('BACKGROUND_COLOR', '#eeeeee'))
+    screen_size =     Vector2(config.get('SCREEN_SIZE_X'),     config.get('SCREEN_SIZE_Y'))
+    snake_grid_size = Vector2(config.get('SNAKE_GRID_SIZE_X'), config.get('SNAKE_GRID_SIZE_Y'))
+    walls_default_textures =  config.get('WALLS_DEFAULT_TEXTURES')
+    wall_map =       config.get('WALLS_MAP')
+    bg_color = Color(config.get('BACKGROUND_COLOR'))
 
     snake_grid_thikness = Vector2(screen_size.x // snake_grid_size.x, screen_size.y // snake_grid_size.y)
 

@@ -72,17 +72,17 @@ def main() -> None:
         config = {}
 
     # Assign global config variables
-    screen_size =     Vector2(config.get('SCREEN_SIZE_X',     800), config.get('SCREEN_SIZE_Y',     800))
-    snake_grid_size = Vector2(config.get('SNAKE_GRID_SIZE_X', 10),  config.get('SNAKE_GRID_SIZE_Y', 10))
-    food_default_textures =   config.get('FOOD_DEFAULT_TEXTURES',  "default.png")
-    walls_default_textures =  config.get('WALLS_DEFAULT_TEXTURES', "default.png")
-    initial_apples =      int(config.get('INITIAL_APPLES',       2))
-    default_apple_power = int(config.get('DEFAULT_APPLES_POWER', 1))
-    pause_key =  config.get('PAUSE_KEY', 'SPACE')
-    exit_key =   config.get('EXIT_KEY',  'ESCAPE')
-    tps =      float(config.get('TICK_PER_SECOND', 2))
-    wall_map =       config.get('WALLS_MAP', 'default.csv')
-    bg_color = Color(config.get('BACKGROUND_COLOR', '#eeeeee'))
+    screen_size =     Vector2(config.get('SCREEN_SIZE_X'),     config.get('SCREEN_SIZE_Y'))
+    snake_grid_size = Vector2(config.get('SNAKE_GRID_SIZE_X'), config.get('SNAKE_GRID_SIZE_Y'))
+    food_default_textures =   config.get('FOOD_DEFAULT_TEXTURES')
+    walls_default_textures =  config.get('WALLS_DEFAULT_TEXTURES')
+    initial_apples =      int(config.get('INITIAL_APPLES'))
+    default_apple_power = int(config.get('DEFAULT_APPLES_POWER'))
+    pause_key =  config.get('PAUSE_KEY')
+    exit_key =   config.get('EXIT_KEY')
+    tps =      float(config.get('TICK_PER_SECOND'))
+    wall_map =       config.get('WALLS_MAP')
+    bg_color = Color(config.get('BACKGROUND_COLOR'))
 
     snake_grid_thikness = Vector2(screen_size.x // snake_grid_size.x, screen_size.y // snake_grid_size.y)
 
