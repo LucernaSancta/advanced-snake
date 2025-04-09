@@ -8,7 +8,10 @@ Walls are more than just barriers, they shape the level and influence gameplay.
 - Use tile-aware rendering to make things look smooth and connected
 
 ## ✏️ Want to Edit or Add Walls?
-You can customize walls using a simple CSV file:
+You can sutomize maps by drawing them with the map creator tool! \
+See the [`Map creator`](./map_creator.md) docs for more information on how to do it.
+
+Alternatively you can customize walls using a simple CSV file:
 
 - Location: `maps/`
 - Format:
