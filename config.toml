@@ -9,8 +9,7 @@ DEFAULT_APPLES_POWER = 1
 
 FOOD_DEFAULT_TEXTURES = "apple.png"
 WALLS_DEFAULT_TEXTURES = "default.png"
-
-BACKGROUND_COLOR = "#eeeeee"
+BACKGROUND_TEXTURE = "grass.png"
 
 WALLS_MAP = "smile.csv"
 
