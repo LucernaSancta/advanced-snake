@@ -226,6 +226,17 @@ class Walls:
                 case [True,  False, True,  True]:  display.blit(self.textures, Vector2(wall.x*th.x,wall.y*th.y), (th.x*3, th.y*3, th.x, th.y))
                 case [False, True,  True,  True]:  display.blit(self.textures, Vector2(wall.x*th.x,wall.y*th.y), (th.x*3, 0,      th.x, th.y))
                 case [True,  True,  True,  True]:  display.blit(self.textures, Vector2(wall.x*th.x,wall.y*th.y), (0,      th.y*1, th.x, th.y))
+    
+    @property
+    def walls_absolute(self) -> list[Vector2]:
+        '''Returns the absolute position of every wall'''
+        walls = []
+
+        th = self.thikness
+        for wall in self.custom_walls:
+            walls.append(Vector2(wall.x*th.x,wall.y*th.y))
+        
+        return walls
             
 
 

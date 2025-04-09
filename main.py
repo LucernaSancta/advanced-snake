@@ -26,12 +26,12 @@ def apple_spawner(snakes: list[Snake], walls: Walls, apples_local: list[Apple], 
             if piece in spots: spots.remove(piece)
     
     # Remove the spots where the walls are
-    for wall in walls.custom_walls:
+    for wall in walls.walls_absolute:
         if wall in spots: spots.remove(wall)
 
     # Fix: Remove spots where apples already exist
     for apple in apples_local:
-        if apple.pos in spots: spots.remove(apple.pos)
+        if apple.pos in spots: spots.remove(apple.pos); print(wall)
     
     if len(spots) == 0:
         print('No space to spawn new food, removing one, total food remaining:', len(apples_local))
