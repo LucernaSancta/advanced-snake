@@ -1,5 +1,5 @@
 name: 'Alex'
 starting_pos: [5, 3]
-textures: 'default.png'
+textures: 'google.png'
 starting_length: 3
 keybindings: ['w','s','a','d']
