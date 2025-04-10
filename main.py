@@ -5,7 +5,6 @@ import yaml
 import toml
 
 from pygame.math import Vector2
-from pygame.color import Color
 
 from game_objects import Snake, Walls, Apple
 
