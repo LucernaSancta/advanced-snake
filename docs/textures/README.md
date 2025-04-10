@@ -18,8 +18,10 @@ Texture names are pulled directly from the main config file 📄`config.toml` an
 These are the default texture settings:
 - `config.toml`
     ```
-    FOOD_DEFAULT_TEXTURES  = "default.png"
-    WALLS_DEFAULT_TEXTURES = "default.png"
+    [textures]
+    apples  = "default.png"
+    walls = "default.png"
+    background = "default.png"
     ```
 - `.yml` files
     ```
