@@ -1,17 +1,24 @@
-SCREEN_SIZE_X = 800
-SCREEN_SIZE_Y = 800
-SNAKE_GRID_SIZE_X = 10
-SNAKE_GRID_SIZE_Y = 10
+[display]
+screen_size.x = 800
+screen_size.y = 800
+grid_size.x = 10
+grid_size.y = 10
 
-TICK_PER_SECOND = 2
-INITIAL_APPLES = 2
-DEFAULT_APPLES_POWER = 1
+[game]
+tps = 2
 
-FOOD_DEFAULT_TEXTURES = "apple.png"
-WALLS_DEFAULT_TEXTURES = "mud.png"
-BACKGROUND_TEXTURE = "grass.png"
+[apples]
+number = 2
+power = 1
 
-WALLS_MAP = "smile.csv"
+[textures]
+apples = "apple.png"
+walls = "mud.png"
+background = "grass.png"
 
-PAUSE_KEY = "SPACE"
-EXIT_KEY = "ESCAPE"
+[walls]
+map = "smile.csv"
+
+[keys]
+pause = "SPACE"
+exit = "ESCAPE"

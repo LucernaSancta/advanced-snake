@@ -71,17 +71,17 @@ def main() -> None:
         config = {}
 
     # Assign global config variables
-    screen_size =     Vector2(config.get('SCREEN_SIZE_X'),     config.get('SCREEN_SIZE_Y'))
-    snake_grid_size = Vector2(config.get('SNAKE_GRID_SIZE_X'), config.get('SNAKE_GRID_SIZE_Y'))
-    food_default_textures =   config.get('FOOD_DEFAULT_TEXTURES')
-    walls_default_textures =  config.get('WALLS_DEFAULT_TEXTURES')
-    initial_apples =      int(config.get('INITIAL_APPLES'))
-    default_apple_power = int(config.get('DEFAULT_APPLES_POWER'))
-    pause_key =  config.get('PAUSE_KEY')
-    exit_key =   config.get('EXIT_KEY')
-    bg_texture = config.get('BACKGROUND_TEXTURE')
-    wall_map =   config.get('WALLS_MAP')
-    tps =      float(config.get('TICK_PER_SECOND'))
+    screen_size =     Vector2(config['display']['screen_size']['x'], config['display']['screen_size']['y'])
+    snake_grid_size = Vector2(config['display']['grid_size']['x'],   config['display']['grid_size']['y'])
+    food_default_textures =   config['textures']['apples']
+    walls_default_textures =  config['textures']['walls']
+    bg_texture =              config['textures']['background']
+    initial_apples =      int(config['apples']['number'])
+    default_apple_power = int(config['apples']['power'])
+    pause_key =  config['keys']['pause']
+    exit_key =   config['keys']['exit']
+    wall_map =   config['walls']['map']
+    tps =      float(config['game']['tps'])
 
 
     # Calculate tils thikness
