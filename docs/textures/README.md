@@ -20,7 +20,7 @@ These are the default texture settings:
 - `config.toml`
     ```
     [apples]
-    textures = "default.png"
+    textures = "apple.png"
 
     [walls]
     textures = "default.png"
