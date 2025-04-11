@@ -19,10 +19,14 @@ Texture names are pulled directly from the main config file 📄`config.toml` an
 These are the default texture settings:
 - `config.toml`
     ```
-    [textures]
-    apples  = "default.png"
-    walls = "default.png"
-    background = "default.png"
+    [apples]
+    textures = "default.png"
+
+    [walls]
+    textures = "default.png"
+
+    [background]
+    textures = "default.png"
     ```
 - `.yml` files
     ```
