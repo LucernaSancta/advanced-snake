@@ -40,6 +40,6 @@ The engine automatically slices this grid so it will always match the snake dime
 3. Replace each tile with your own design
 4. Save as a new .png file
 5. In the player's `.yml`, set:
-```toml
+```yml
 textures: your_texture_name.png
 ```
