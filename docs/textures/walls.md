@@ -26,7 +26,7 @@ For example:
     ```
 - Default used: `default.png`
 
-You can swap textures in the `textures.walls` variable of the `config.toml`
+You can swap textures in the `walls.textures` variable of the `config.toml`
 
 ## 🎯 Tips for custom textures
 - Try starting from `default.png` as a template, then recolor, reshape, or stylize as you like.
