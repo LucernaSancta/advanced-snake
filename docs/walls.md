@@ -22,7 +22,7 @@ x,y
 7,10
 ```
 - Each entry adds a wall tile at `(x * tile_width, y * tile_height)`
-- Change the `WALLS_MAP` variable in the `config.toml` file to the name of your CSV file
+- Change the `walls.map` variable in the `config.toml` file to the name of your CSV file
 
 ## 🖼️ Wall Textures
 You can swap out how the walls look by adding a texture file and changing the `config.toml` file accordingly.
