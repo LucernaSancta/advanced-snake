@@ -1,14 +1,14 @@
 [display]
-screen_size.x = 800
-screen_size.y = 800
-grid_size.x = 10
-grid_size.y = 10
+screen_size.x = 900
+screen_size.y = 900
+grid_size.x = 20
+grid_size.y = 20
 
 [game]
-tps = 2
+tps = 3
 
 [apples]
-number = 2
+number = 3
 power = 1
 
 [textures]
@@ -17,7 +17,7 @@ walls = "mud.png"
 background = "grass.png"
 
 [walls]
-map = "smile.csv"
+map = "fountain10x10.csv"
 
 [keys]
 pause = "SPACE"

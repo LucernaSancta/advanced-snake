@@ -40,11 +40,11 @@ def main() -> None:
         config = {}
 
     # Assign global config variables
-    screen_size =     Vector2(config.get('SCREEN_SIZE_X'),     config.get('SCREEN_SIZE_Y'))
-    snake_grid_size = Vector2(config.get('SNAKE_GRID_SIZE_X'), config.get('SNAKE_GRID_SIZE_Y'))
-    walls_default_textures =  config.get('WALLS_DEFAULT_TEXTURES')
-    wall_map =       config.get('WALLS_MAP')
-    bg_color = Color(config.get('BACKGROUND_COLOR'))
+    screen_size =     Vector2(config['display']['screen_size']['x'], config['display']['screen_size']['y'])
+    snake_grid_size = Vector2(config['display']['grid_size']['x'],   config['display']['grid_size']['y'])
+    walls_default_textures =  config['textures']['walls']
+    wall_map =   config['walls']['map']
+    bg_texture = config['textures']['background']
 
     snake_grid_thikness = Vector2(screen_size.x // snake_grid_size.x, screen_size.y // snake_grid_size.y)
 
@@ -53,6 +53,10 @@ def main() -> None:
     pygame.init()
     display = pygame.display.set_mode(screen_size)
     clock = pygame.time.Clock()
+
+    # Scale the background texture
+    bg_texture = pygame.image.load('textures/background/'+bg_texture).convert_alpha()
+    bg_texture = pygame.transform.scale(bg_texture, snake_grid_thikness)
 
     # Load walls
     walls = Walls(screen_size,wall_map,snake_grid_thikness,walls_default_textures)
@@ -89,8 +93,10 @@ def main() -> None:
                         quit()
                         
             
-        # Clear the screen
-        display.fill(bg_color)
+        # Render the background
+        for x in range(int(snake_grid_size.x)):
+            for y in range(int(snake_grid_size.y)):
+                display.blit(bg_texture, (x*snake_grid_thikness.x,y*snake_grid_thikness.y))
 
 
         # When a button is pressed

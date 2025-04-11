@@ -1,0 +1,5 @@
+name: 'Steve'
+starting_pos: [7, 7]
+textures: 'test.png'
+starting_length: 2
+keybindings: ['w','s','a','d']
