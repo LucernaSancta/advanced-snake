@@ -117,10 +117,12 @@ class Snake:
                     elif d31 == Vector2( th.x,-th.y): display.blit(self.textures, pc2, (th.x*3, th.y*3, th.x, th.y))
 
             # Last piece
-            if   self.pieces[-1]-self.pieces[-2] == Vector2(0, th.y): display.blit(self.textures, self.pieces[-1], (th.x*0, th.y*4, th.x, th.y))
-            elif self.pieces[-1]-self.pieces[-2] == Vector2(th.x, 0): display.blit(self.textures, self.pieces[-1], (th.x*1, th.y*4, th.x, th.y))
-            elif self.pieces[-1]-self.pieces[-2] == Vector2(0,-th.y): display.blit(self.textures, self.pieces[-1], (th.x*2, th.y*4, th.x, th.y))
-            elif self.pieces[-1]-self.pieces[-2] == Vector2(-th.x,0): display.blit(self.textures, self.pieces[-1], (th.x*3, th.y*4, th.x, th.y))
+            pc1 = self.pieces[-1]
+            pc2 = self.pieces[-2] if len(self.pieces) > 1 else self.pos
+            if   pc1-pc2 == Vector2(0, th.y): display.blit(self.textures, pc1, (th.x*0, th.y*4, th.x, th.y))
+            elif pc1-pc2 == Vector2(th.x, 0): display.blit(self.textures, pc1, (th.x*1, th.y*4, th.x, th.y))
+            elif pc1-pc2 == Vector2(0,-th.y): display.blit(self.textures, pc1, (th.x*2, th.y*4, th.x, th.y))
+            elif pc1-pc2 == Vector2(-th.x,0): display.blit(self.textures, pc1, (th.x*3, th.y*4, th.x, th.y))
 
         # Death state
         elif self.state == 2:
