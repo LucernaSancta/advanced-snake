@@ -1,8 +1,8 @@
 [display]
 screen_size.x = 900
 screen_size.y = 900
-grid_size.x = 20
-grid_size.y = 20
+grid_size.x = 15
+grid_size.y = 15
 
 [game]
 tps = 3
@@ -17,7 +17,7 @@ walls = "mud.png"
 background = "grass.png"
 
 [walls]
-map = "fountain10x10.csv"
+map = "zen15x15.csv"
 
 [keys]
 pause = "SPACE"
