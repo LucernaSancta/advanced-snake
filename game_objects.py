@@ -92,22 +92,24 @@ class Snake:
                 pc1 = self.pos if i == 0 else self.pieces[i-1] # If we are considering the fist piece then use the head as pc1
                 pc2 = piece
                 pc3 = self.pieces[i+1]
+                d21 = (pc2-pc1)
+                d13 = (pc1-pc3)
                 # thikness (not really necessary to reassign it, but whatever)
                 th = self.thikness
 
                 # At first only God and i new how this code was written, now only God nows
-                if   abs((pc1-pc3).x) == th.x*2: display.blit(self.textures, pc2, (th.x, self.thikness.y*1, self.thikness.x, self.thikness.y))
-                elif abs((pc1-pc3).y) == th.y*2: display.blit(self.textures, pc2, (th.x, self.thikness.y*0, self.thikness.x, self.thikness.y))
+                if   abs(d13.x) == th.x*2: display.blit(self.textures, pc2, (th.x, self.thikness.y*1, self.thikness.x, self.thikness.y))
+                elif abs(d13.y) == th.y*2: display.blit(self.textures, pc2, (th.x, self.thikness.y*0, self.thikness.x, self.thikness.y))
 
-                elif (pc2-pc1) == Vector2(0,  th.y) and (pc1-pc3) == Vector2(-th.x, -th.y): display.blit(self.textures, pc2, (th.x, self.thikness.y*2, self.thikness.x, self.thikness.y))
-                elif (pc2-pc1) == Vector2(-th.x, 0) and (pc1-pc3) == Vector2(th.x,  -th.y): display.blit(self.textures, pc2, (th.x, self.thikness.y*3, self.thikness.x, self.thikness.y))
-                elif (pc2-pc1) == Vector2(0, -th.y) and (pc1-pc3) == Vector2(th.x,   th.y): display.blit(self.textures, pc2, (th.x, self.thikness.y*4, self.thikness.x, self.thikness.y))
-                elif (pc2-pc1) == Vector2(th.x,  0) and (pc1-pc3) == Vector2(-th.x,  th.y): display.blit(self.textures, pc2, (th.x, self.thikness.y*5, self.thikness.x, self.thikness.y))
+                elif d21 == Vector2(0,  th.y) and d13 == Vector2(-th.x, -th.y): display.blit(self.textures, pc2, (th.x, self.thikness.y*2, self.thikness.x, self.thikness.y))
+                elif d21 == Vector2(-th.x, 0) and d13 == Vector2(th.x,  -th.y): display.blit(self.textures, pc2, (th.x, self.thikness.y*3, self.thikness.x, self.thikness.y))
+                elif d21 == Vector2(0, -th.y) and d13 == Vector2(th.x,   th.y): display.blit(self.textures, pc2, (th.x, self.thikness.y*4, self.thikness.x, self.thikness.y))
+                elif d21 == Vector2(th.x,  0) and d13 == Vector2(-th.x,  th.y): display.blit(self.textures, pc2, (th.x, self.thikness.y*5, self.thikness.x, self.thikness.y))
 
-                elif (pc2-pc1) == Vector2(th.x,  0) and (pc1-pc3) == Vector2(-th.x, -th.y): display.blit(self.textures, pc2, (th.x, self.thikness.y*4, self.thikness.x, self.thikness.y))
-                elif (pc2-pc1) == Vector2(0,  th.y) and (pc1-pc3) == Vector2(th.x,  -th.y): display.blit(self.textures, pc2, (th.x, self.thikness.y*5, self.thikness.x, self.thikness.y))
-                elif (pc2-pc1) == Vector2(-th.x, 0) and (pc1-pc3) == Vector2(th.x,   th.y): display.blit(self.textures, pc2, (th.x, self.thikness.y*2, self.thikness.x, self.thikness.y))
-                elif (pc2-pc1) == Vector2(0, -th.y) and (pc1-pc3) == Vector2(-th.x,  th.y): display.blit(self.textures, pc2, (th.x, self.thikness.y*3, self.thikness.x, self.thikness.y))
+                elif d21 == Vector2(th.x,  0) and d13 == Vector2(-th.x, -th.y): display.blit(self.textures, pc2, (th.x, self.thikness.y*4, self.thikness.x, self.thikness.y))
+                elif d21 == Vector2(0,  th.y) and d13 == Vector2(th.x,  -th.y): display.blit(self.textures, pc2, (th.x, self.thikness.y*5, self.thikness.x, self.thikness.y))
+                elif d21 == Vector2(-th.x, 0) and d13 == Vector2(th.x,   th.y): display.blit(self.textures, pc2, (th.x, self.thikness.y*2, self.thikness.x, self.thikness.y))
+                elif d21 == Vector2(0, -th.y) and d13 == Vector2(-th.x,  th.y): display.blit(self.textures, pc2, (th.x, self.thikness.y*3, self.thikness.x, self.thikness.y))
 
 
             # Last piece
