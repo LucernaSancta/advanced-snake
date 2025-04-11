@@ -34,7 +34,7 @@ class Snake:
 
         # Load the textures and scale them to the right size
         self.textures = pygame.image.load('textures/snakes/'+textures).convert_alpha()
-        self.textures = pygame.transform.scale(self.textures, (thikness.x*3, thikness.y*6))
+        self.textures = pygame.transform.scale(self.textures, (thikness.x*4, thikness.y*5))
 
         # State 0 is 'not moving', 1 is normal and 2 is dead
         self.state = 0
@@ -77,12 +77,15 @@ class Snake:
         # 0 is not moving and 1 is normal
         if self.state in [0,1]:
 
+            # thikness (not really necessary to reassign it, but whatever)
+            th = self.thikness
+
             # Head
-            if   self.direction == Vector2(0,0):  display.blit(self.textures, self.pos, (0, self.thikness.y*0, self.thikness.x, self.thikness.y)) # State 0, the snake is still
-            elif self.direction == Vector2(0,-1): display.blit(self.textures, self.pos, (0, self.thikness.y*0, self.thikness.x, self.thikness.y))
-            elif self.direction == Vector2(-1,0): display.blit(self.textures, self.pos, (0, self.thikness.y*1, self.thikness.x, self.thikness.y))
-            elif self.direction == Vector2(0,1):  display.blit(self.textures, self.pos, (0, self.thikness.y*2, self.thikness.x, self.thikness.y))
-            elif self.direction == Vector2(1,0):  display.blit(self.textures, self.pos, (0, self.thikness.y*3, self.thikness.x, self.thikness.y))
+            if   self.direction == Vector2(0, 0): display.blit(self.textures, self.pos, (th.x*0, 0, th.x, th.y)) # State 0, the snake is still
+            elif self.direction == Vector2(0,-1): display.blit(self.textures, self.pos, (th.x*0, 0, th.x, th.y))
+            elif self.direction == Vector2(-1,0): display.blit(self.textures, self.pos, (th.x*1, 0, th.x, th.y))
+            elif self.direction == Vector2(0, 1): display.blit(self.textures, self.pos, (th.x*2, 0, th.x, th.y))
+            elif self.direction == Vector2(1, 0): display.blit(self.textures, self.pos, (th.x*3, 0, th.x, th.y))
 
 
             # Middle pieces
@@ -93,30 +96,31 @@ class Snake:
                 pc2 = piece
                 pc3 = self.pieces[i+1]
                 d21 = (pc2-pc1)
-                d13 = (pc1-pc3)
-                # thikness (not really necessary to reassign it, but whatever)
-                th = self.thikness
+                d31 = (pc3-pc1)
 
                 # At first only God and i new how this code was written, now only God nows
-                if   abs(d13.x) == th.x*2: display.blit(self.textures, pc2, (th.x, self.thikness.y*1, self.thikness.x, self.thikness.y))
-                elif abs(d13.y) == th.y*2: display.blit(self.textures, pc2, (th.x, self.thikness.y*0, self.thikness.x, self.thikness.y))
-
-                elif d21 == Vector2(0,  th.y) and d13 == Vector2(-th.x, -th.y): display.blit(self.textures, pc2, (th.x, self.thikness.y*2, self.thikness.x, self.thikness.y))
-                elif d21 == Vector2(-th.x, 0) and d13 == Vector2(th.x,  -th.y): display.blit(self.textures, pc2, (th.x, self.thikness.y*3, self.thikness.x, self.thikness.y))
-                elif d21 == Vector2(0, -th.y) and d13 == Vector2(th.x,   th.y): display.blit(self.textures, pc2, (th.x, self.thikness.y*4, self.thikness.x, self.thikness.y))
-                elif d21 == Vector2(th.x,  0) and d13 == Vector2(-th.x,  th.y): display.blit(self.textures, pc2, (th.x, self.thikness.y*5, self.thikness.x, self.thikness.y))
-
-                elif d21 == Vector2(th.x,  0) and d13 == Vector2(-th.x, -th.y): display.blit(self.textures, pc2, (th.x, self.thikness.y*4, self.thikness.x, self.thikness.y))
-                elif d21 == Vector2(0,  th.y) and d13 == Vector2(th.x,  -th.y): display.blit(self.textures, pc2, (th.x, self.thikness.y*5, self.thikness.x, self.thikness.y))
-                elif d21 == Vector2(-th.x, 0) and d13 == Vector2(th.x,   th.y): display.blit(self.textures, pc2, (th.x, self.thikness.y*2, self.thikness.x, self.thikness.y))
-                elif d21 == Vector2(0, -th.y) and d13 == Vector2(-th.x,  th.y): display.blit(self.textures, pc2, (th.x, self.thikness.y*3, self.thikness.x, self.thikness.y))
-
+                if   d21.y ==  th.y:
+                    if   d31 == Vector2( -th.x,th.y): display.blit(self.textures, pc2,      (0, th.y*1, th.x, th.y))
+                    elif d31 == Vector2(   0,2*th.y): display.blit(self.textures, pc2,      (0, th.y*2, th.x, th.y))
+                    elif d31 == Vector2(  th.x,th.y): display.blit(self.textures, pc2,      (0, th.y*3, th.x, th.y))
+                elif d21.x == -th.x:
+                    if   d31 == Vector2(-th.x,-th.y): display.blit(self.textures, pc2,   (th.x, th.y*1, th.x, th.y))
+                    elif d31 == Vector2(  -2*th.x,0): display.blit(self.textures, pc2,   (th.x, th.y*2, th.x, th.y))
+                    elif d31 == Vector2( -th.x,th.y): display.blit(self.textures, pc2,   (th.x, th.y*3, th.x, th.y))
+                elif d21.y == -th.y:
+                    if   d31 == Vector2( th.x,-th.y): display.blit(self.textures, pc2, (th.x*2, th.y*1, th.x, th.y))
+                    elif d31 == Vector2(  0,-2*th.y): display.blit(self.textures, pc2, (th.x*2, th.y*2, th.x, th.y))
+                    elif d31 == Vector2(-th.x,-th.y): display.blit(self.textures, pc2, (th.x*2, th.y*3, th.x, th.y))
+                elif d21.x ==  th.x:
+                    if   d31 == Vector2(  th.x,th.y): display.blit(self.textures, pc2, (th.x*3, th.y*1, th.x, th.y))
+                    elif d31 == Vector2(   2*th.x,0): display.blit(self.textures, pc2, (th.x*3, th.y*2, th.x, th.y))
+                    elif d31 == Vector2( th.x,-th.y): display.blit(self.textures, pc2, (th.x*3, th.y*3, th.x, th.y))
 
             # Last piece
-            if   self.pieces[-1]-self.pieces[-2] == Vector2(0,-self.thikness.y): display.blit(self.textures, self.pieces[-1], (self.thikness.x*2, self.thikness.y*0, self.thikness.x, self.thikness.y))
-            elif self.pieces[-1]-self.pieces[-2] == Vector2(-self.thikness.x,0): display.blit(self.textures, self.pieces[-1], (self.thikness.x*2, self.thikness.y*1, self.thikness.x, self.thikness.y))
-            elif self.pieces[-1]-self.pieces[-2] == Vector2(0,self.thikness.y):  display.blit(self.textures, self.pieces[-1], (self.thikness.x*2, self.thikness.y*2, self.thikness.x, self.thikness.y))
-            elif self.pieces[-1]-self.pieces[-2] == Vector2(self.thikness.x,0):  display.blit(self.textures, self.pieces[-1], (self.thikness.x*2, self.thikness.y*3, self.thikness.x, self.thikness.y))
+            if   self.pieces[-1]-self.pieces[-2] == Vector2(0, th.y): display.blit(self.textures, self.pieces[-1], (th.x*0, th.y*4, th.x, th.y))
+            elif self.pieces[-1]-self.pieces[-2] == Vector2(th.x, 0): display.blit(self.textures, self.pieces[-1], (th.x*1, th.y*4, th.x, th.y))
+            elif self.pieces[-1]-self.pieces[-2] == Vector2(0,-th.y): display.blit(self.textures, self.pieces[-1], (th.x*2, th.y*4, th.x, th.y))
+            elif self.pieces[-1]-self.pieces[-2] == Vector2(-th.x,0): display.blit(self.textures, self.pieces[-1], (th.x*3, th.y*4, th.x, th.y))
 
         # Death state
         elif self.state == 2:
