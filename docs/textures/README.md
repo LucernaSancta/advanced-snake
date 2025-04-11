@@ -18,7 +18,7 @@ Texture names are pulled directly from the main config file 📄`config.toml` an
 
 These are the default texture settings:
 - `config.toml`
-    ```
+    ```toml
     [apples]
     textures = "apple.png"
 
@@ -29,7 +29,7 @@ These are the default texture settings:
     textures = "default.png"
     ```
 - `.yml` files
-    ```
+    ```toml
     textures: 'default.png'
     ```
 

@@ -13,16 +13,16 @@ A snake game with added functionalities made in python with PyGame
 (This game was made in python 3.12 with pygame 2.5.1, if you use other version there might be some issues)
 
 Clone the repo
-```
+```bash
 git clone https://github.com/LucernaSancta/advanced_snake.git
 cd advanced_snake
 ```
 Downaload the required libraries
-```
+```bash
 pip install -r requirements.txt
 ```
 Execute the 'main' file
-```
+```bash
 python main.py
 ```
 

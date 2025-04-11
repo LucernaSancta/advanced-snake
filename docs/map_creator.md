@@ -9,11 +9,11 @@ The Map Creator Tool is a standalone graphical utility designed for creating and
 The map creator tool runs with the same libraries used by the main game so if you have already installed them you don't have to do that again
 
 Downaload the required libraries
-```
+```bash
 pip install -r requirements.txt
 ```
 Execute the 'map_creator' file
-```
+```bash
 python map_creator.py
 ```
 

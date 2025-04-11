@@ -15,7 +15,7 @@ Alternatively you can customize walls using a simple CSV file:
 
 - Location: `maps/`
 - Format:
-```
+```csv
 x,y
 5,10
 6,10

@@ -27,7 +27,7 @@ textures/background/
 
 ## 🎨 Loading Custom Textures
 To use a custom background texture, modify the `config.toml` file by modifying the `[background]` section:
-```
+```toml
 [background]
 textures = "custom_background.png"
 ```
