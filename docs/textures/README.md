@@ -29,7 +29,7 @@ These are the default texture settings:
     textures = "default.png"
     ```
 - `.yml` files
-    ```yml
+    ```yaml
     textures: 'default.png'
     ```
 
