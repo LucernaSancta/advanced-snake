@@ -41,10 +41,10 @@ def main() -> None:
 
     # Assign global config variables
     screen_size =     Vector2(config['display']['screen_size']['x'], config['display']['screen_size']['y'])
-    snake_grid_size = Vector2(config['display']['grid_size']['x'],   config['display']['grid_size']['y'])
-    walls_default_textures =  config['textures']['walls']
+    snake_grid_size = Vector2(config['game']['grid_size']['x'],      config['game']['grid_size']['y'])
+    walls_default_textures =  config['walls']['textures']
     wall_map =   config['walls']['map']
-    bg_texture = config['textures']['background']
+    bg_texture = config['background']['textures']
 
     snake_grid_thikness = Vector2(screen_size.x // snake_grid_size.x, screen_size.y // snake_grid_size.y)
 

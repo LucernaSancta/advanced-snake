@@ -1,23 +1,23 @@
 [display]
 screen_size.x = 900
 screen_size.y = 900
-grid_size.x = 15
-grid_size.y = 15
 
 [game]
 tps = 2
+grid_size.x = 15
+grid_size.y = 15
 
 [apples]
 number = 3
 power = 1
-
-[textures]
-apples = "apple.png"
-walls = "mud.png"
-background = "grass.png"
+textures = "apple.png"
 
 [walls]
 map = "zen15x15.csv"
+textures = "mud.png"
+
+[background]
+textures = "grass.png"
 
 [keys]
 pause = "SPACE"

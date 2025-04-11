@@ -72,10 +72,10 @@ def main() -> None:
 
     # Assign global config variables
     screen_size =     Vector2(config['display']['screen_size']['x'], config['display']['screen_size']['y'])
-    snake_grid_size = Vector2(config['display']['grid_size']['x'],   config['display']['grid_size']['y'])
-    food_default_textures =   config['textures']['apples']
-    walls_default_textures =  config['textures']['walls']
-    bg_texture =              config['textures']['background']
+    snake_grid_size = Vector2(config['game']['grid_size']['x'],      config['game']['grid_size']['y'])
+    food_default_textures =   config['apples']['textures']
+    walls_default_textures =  config['walls']['textures']
+    bg_texture =              config['background']['textures']
     initial_apples =      int(config['apples']['number'])
     default_apple_power = int(config['apples']['power'])
     pause_key =  config['keys']['pause']
