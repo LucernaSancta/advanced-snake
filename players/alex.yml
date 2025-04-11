@@ -1,5 +1,5 @@
 name: 'Alex'
-starting_pos: [13, 7]
-textures: 'test.png'
+starting_pos: [14, 7]
+textures: 'google.png'
 starting_length: 2
 keybindings: ['UP','DOWN','LEFT','RIGHT']

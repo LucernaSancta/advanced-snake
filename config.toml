@@ -5,7 +5,7 @@ grid_size.x = 15
 grid_size.y = 15
 
 [game]
-tps = 3
+tps = 2
 
 [apples]
 number = 3
