@@ -156,18 +156,24 @@ class Walls:
                     self.custom_walls.append(Vector2(int(row[0]),int(row[1])))
                 except (IndexError, ValueError):
                     raise SyntaxError('Wrong walls tiling')
+        
+        # Create boarders
+        self.boarders = []
+        for i in range(-1, int(external_box.x // thikness.x)+1):
+            self.boarders.append(Vector2(i,-1))
+            self.boarders.append(Vector2(i,int(external_box.y // thikness.y)))
+        for i in range(int(external_box.y // thikness.y)):
+            self.boarders.append(Vector2(-1,i))
+            self.boarders.append(Vector2(int(external_box.x // thikness.x),i))
+
 
         # Load the textures and scale them to the right size
         self.textures = pygame.image.load('textures/walls/'+textures).convert_alpha()
         self.textures = pygame.transform.scale(self.textures, (thikness.x*12, thikness.y*4))
 
     def __contains__(self, snake: Snake) -> bool:
-        '''Check collision for a given snake and the walls'''
-        # Check for boarders collisions
-        if snake.pos.x not in range(int(self.external_box.x)): return True
-        if snake.pos.y not in range(int(self.external_box.y)): return True
         # Check for custom walls collisions
-        for wall in self.custom_walls:
+        for wall in (self.custom_walls + self.boarders):
             if snake.pos == Vector2(wall.x*self.thikness.x,wall.y*self.thikness.y):
                 return True
         
@@ -201,11 +207,11 @@ class Walls:
         th = self.thikness
 
         # Draw the walls according to the four other walls in their surroundings
-        for wall in self.custom_walls:
+        for wall in (self.custom_walls + self.boarders):
 
             # Define surroundings
             pc1, pc2, pc3, pc4, pc5, pc6, pc7, pc8 = False, False, False, False, False, False, False, False
-            for wall2 in self.custom_walls:
+            for wall2 in (self.custom_walls + self.boarders):
                 delta = wall - wall2
 
                 if   delta == Vector2(0,1):  pc1 = True
