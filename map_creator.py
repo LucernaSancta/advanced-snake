@@ -32,6 +32,7 @@ class Map_creator(Game):
         # Initialize pygame
         pygame.init()
         self.display = pygame.display.set_mode(self.screen_size)
+        pygame.display.set_caption('Advanced Snake - Map Creator')
         self.clock = pygame.time.Clock()
 
         # Scale the background texture

@@ -40,6 +40,7 @@ class Game:
         # Initialize pygame
         pygame.init()
         self.display = pygame.display.set_mode(self.screen_size)
+        pygame.display.set_caption('Advanced Snake - main')
         self.clock = pygame.time.Clock()
 
         # Scale the background texture
