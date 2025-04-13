@@ -119,6 +119,28 @@ class Game:
         pos = random.choice(spots)
         return Apple(pos, self.apple_power, self.snake_grid_thikness, self.apples_textures)
 
+    def render_background(self) -> None:
+        for x in range(int(self.snake_grid_size.x)):
+            for y in range(int(self.snake_grid_size.y)):
+                self.display.blit(self.bg_texture, (x*self.snake_grid_thikness.x,y*self.snake_grid_thikness.y))
+
+    def render_snakes(self) -> None:
+        # Draw the snakes in whatever state they are
+        for snake in self.snakes:
+            snake.frame(self.display)
+
+    def render_apples(self) -> None:
+        # Remove None elements from apple list, None elements are created by the apple spawner
+        self.apples = list(filter(lambda x: x is not None, self.apples))
+
+        # Draw the apples
+        for apple in self.apples:
+            apple.frame(self.display)
+
+    def render_walls(self) -> None:
+        # Draw the walls
+        self.walls.frame(self.display)
+
     def run(self) -> None:
         paused = False
         frames = 0
@@ -159,6 +181,7 @@ class Game:
                 print(f'press {self.original_exit_key} to exit')
 
 
+            # If the game is poused, skip the updates
             if paused:
                 self.clock.tick(60)
                 continue
@@ -226,25 +249,11 @@ class Game:
                 quit()
 
 
-            # Render the background
-            for x in range(int(self.snake_grid_size.x)):
-                for y in range(int(self.snake_grid_size.y)):
-                    self.display.blit(self.bg_texture, (x*self.snake_grid_thikness.x,y*self.snake_grid_thikness.y))
-
-
-            # Draw the snakes in whatever state they are
-            for snake in self.snakes:
-                snake.frame(self.display)
-
-            # Remove None elements from apple list, None elements are created by the apple spawner
-            self.apples = list(filter(lambda x: x is not None, self.apples))
-
-            # Draw the apples
-            for apple in self.apples:
-                apple.frame(self.display)
-
-            # Draw the walls
-            self.walls.frame(self.display)
+            # Render the game
+            self.render_background()
+            self.render_snakes()
+            self.render_apples()
+            self.render_walls()
 
             pygame.display.update()
 
