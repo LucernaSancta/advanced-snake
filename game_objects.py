@@ -72,7 +72,7 @@ class Snake:
         for _ in range(power):
             self.pieces.append(self.last_removed)
     
-    def frame(self, display: pygame.surface.Surface) -> None:
+    def render(self, display: pygame.surface.Surface) -> None:
 
         # 0 is not moving and 1 is normal
         if self.state in [0,1]:
@@ -196,7 +196,7 @@ class Walls:
             csv_writer.writerows(walls)
 
     
-    def frame(self, display: pygame.surface.Surface):
+    def render(self, display: pygame.surface.Surface):
 
         # Reassign for better performances
         th = self.thikness
@@ -263,5 +263,5 @@ class Apple:
         self.texture = pygame.image.load('textures/food/'+texture).convert_alpha()
         self.texture = pygame.transform.scale(self.texture, thikness)
     
-    def frame(self, display: pygame.surface.Surface):
+    def render(self, display: pygame.surface.Surface):
         display.blit(self.texture, self.pos)

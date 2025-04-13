@@ -127,7 +127,7 @@ class Game:
     def render_snakes(self) -> None:
         # Draw the snakes in whatever state they are
         for snake in self.snakes:
-            snake.frame(self.display)
+            snake.render(self.display)
 
     def render_apples(self) -> None:
         # Remove None elements from apple list, None elements are created by the apple spawner
@@ -135,11 +135,60 @@ class Game:
 
         # Draw the apples
         for apple in self.apples:
-            apple.frame(self.display)
+            apple.render(self.display)
 
     def render_walls(self) -> None:
         # Draw the walls
-        self.walls.frame(self.display)
+        self.walls.render(self.display)
+
+    def update_snakes(self) -> None:
+        # Update snakes logics
+        for snake in self.snakes:
+
+            # Update the position
+            snake.update()
+
+            # Check for walls collisions
+            if snake in self.walls:
+                snake.kill()
+                self.snakes.remove(snake)
+                continue
+            
+            # Check for collision with itself
+            if snake.pos in snake.pieces:
+                snake.kill()
+                self.snakes.remove(snake)
+                continue
+            
+            # Check fro snake to snake collisions
+            snakes_copy = self.snakes[:]
+            snakes_copy.remove(snake)
+            for second_snake in snakes_copy:
+                # Head to head collision
+                if snake.pos == second_snake.pos:
+                    snake.kill()
+                    second_snake.kill()
+                    self.snakes.remove(snake)
+                    self.snakes.remove(second_snake)
+                    break
+                # Head to tail collision
+                if snake.pos in second_snake.pieces:
+                    snake.kill()
+                    self.snakes.remove(snake)
+                    break
+            
+            # If no collision was found then continue
+            else:
+
+                # Check for apple collisions
+                for apple in self.apples:
+                    if apple.pos == snake.pos:
+                        # Update the snake
+                        snake.eat(apple.power)
+                        # Remove the pervious apple from the list and add a new one
+                        self.apples.remove(apple)
+                        self.apples.append(self.apple_spawner())
+                        break
 
     def run(self) -> None:
         paused = False
@@ -188,52 +237,7 @@ class Game:
 
             
             # Update snakes logics
-            for snake in self.snakes:
-
-                # Update the position
-                snake.update()
-
-                # Check for walls collisions
-                if snake in self.walls:
-                    snake.kill()
-                    self.snakes.remove(snake)
-                    continue
-                
-                # Check for collision with itself
-                if snake.pos in snake.pieces:
-                    snake.kill()
-                    self.snakes.remove(snake)
-                    continue
-                
-                # Check fro snake to snake collisions
-                snakes_copy = self.snakes[:]
-                snakes_copy.remove(snake)
-                for second_snake in snakes_copy:
-                    # Head to head collision
-                    if snake.pos == second_snake.pos:
-                        snake.kill()
-                        second_snake.kill()
-                        self.snakes.remove(snake)
-                        self.snakes.remove(second_snake)
-                        break
-                    # Head to tail collision
-                    if snake.pos in second_snake.pieces:
-                        snake.kill()
-                        self.snakes.remove(snake)
-                        break
-                
-                # If no collision was found then continue
-                else:
-
-                    # Check for apple collisions
-                    for apple in self.apples:
-                        if apple.pos == snake.pos:
-                            # Update the snake
-                            snake.eat(apple.power)
-                            # Remove the pervious apple from the list and add a new one
-                            self.apples.remove(apple)
-                            self.apples.append(self.apple_spawner())
-                            break
+            self.update_snakes()
             
             
             # Quit by game over
