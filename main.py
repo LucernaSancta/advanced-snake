@@ -59,6 +59,12 @@ class Game:
         # Initiate apples
         self.apples: list[Apple] = [] # To spawn new apples there must be an existing 'apples' list
         self.apples: list[Apple] = self.init_apples()
+
+        # Render static objects
+        self.static_surface = pygame.Surface(self.screen_size)
+        self.static_surface.fill((0, 0, 0))
+        self.static_surface = self.render_background(self.static_surface)
+        self.static_surface = self.render_walls(self.static_surface)
     
     def init_walls(self) -> Walls:
         return Walls(self.screen_size,self.wall_map,self.snake_grid_thikness,self.walls_textures)
@@ -118,10 +124,13 @@ class Game:
         pos = random.choice(spots)
         return Apple(pos, self.apple_power, self.snake_grid_thikness, self.apples_textures)
 
-    def render_background(self) -> None:
+    def render_background(self, surface: pygame.surface.Surface) -> pygame.surface.Surface:
+        # Fill the screen with the background texture
         for x in range(int(self.snake_grid_size.x)):
             for y in range(int(self.snake_grid_size.y)):
-                self.display.blit(self.bg_texture, (x*self.snake_grid_thikness.x,y*self.snake_grid_thikness.y))
+                surface.blit(self.bg_texture, (x*self.snake_grid_thikness.x,y*self.snake_grid_thikness.y))
+        
+        return surface
 
     def render_snakes(self) -> None:
         # Draw the snakes in whatever state they are
@@ -136,9 +145,11 @@ class Game:
         for apple in self.apples:
             apple.render(self.display)
 
-    def render_walls(self) -> None:
+    def render_walls(self, surface: pygame.surface.Surface) -> pygame.surface.Surface:
         # Draw the walls
-        self.walls.render(self.display)
+        self.walls.render(surface)
+
+        return surface
 
     def update_snakes(self) -> None:
         # Update snakes logics
@@ -252,11 +263,11 @@ class Game:
                 quit()
 
 
-            # Render the game
-            self.render_background()
+            # Render static objects
+            self.display.blit(self.static_surface, (0, 0))
+            # Render moving objects
             self.render_snakes()
             self.render_apples()
-            self.render_walls()
 
             pygame.display.update()
 
