@@ -238,10 +238,10 @@ class Walls:
                 case [True,  False, False, False,     _,     _,     _,     _]: display.blit(self.textures, (wall.x*th.x,wall.y*th.y), (th.x*3, th.y*2, th.x, th.y))
                 case [False, False, False, True,      _,     _,     _,     _]: display.blit(self.textures, (wall.x*th.x,wall.y*th.y), (th.x*3, th.y*3, th.x, th.y))
 
-                case [False, True,  True,  True,  False, False, False, False]: display.blit(self.textures, (wall.x*th.x,wall.y*th.y), (th.x*4, th.y*0, th.x, th.y))
-                case [True,  True,  True,  False, False, False, False, False]: display.blit(self.textures, (wall.x*th.x,wall.y*th.y), (th.x*4, th.y*1, th.x, th.y))
-                case [True,  True,  False, True,  False, False, False, False]: display.blit(self.textures, (wall.x*th.x,wall.y*th.y), (th.x*4, th.y*2, th.x, th.y))
-                case [True,  False, True,  True,  False, False, False, False]: display.blit(self.textures, (wall.x*th.x,wall.y*th.y), (th.x*4, th.y*3, th.x, th.y))
+                case [False, True,  True,  True,      _,     _, False, False]: display.blit(self.textures, (wall.x*th.x,wall.y*th.y), (th.x*4, th.y*0, th.x, th.y))
+                case [True,  True,  True,  False,     _, False, False,     _]: display.blit(self.textures, (wall.x*th.x,wall.y*th.y), (th.x*4, th.y*1, th.x, th.y))
+                case [True,  True,  False, True,  False, False,     _,     _]: display.blit(self.textures, (wall.x*th.x,wall.y*th.y), (th.x*4, th.y*2, th.x, th.y))
+                case [True,  False, True,  True,  False,     _,     _, False]: display.blit(self.textures, (wall.x*th.x,wall.y*th.y), (th.x*4, th.y*3, th.x, th.y))
 
                 case [True,  True,  False, False,     _, True,      _,     _]: display.blit(self.textures, (wall.x*th.x,wall.y*th.y), (th.x*5, th.y*0, th.x, th.y))
                 case [False, True,  True,  False,     _,     _, True,      _]: display.blit(self.textures, (wall.x*th.x,wall.y*th.y), (th.x*5, th.y*1, th.x, th.y))
@@ -277,7 +277,7 @@ class Walls:
                 case [True,  True,  True,  False,     _, True,  False,     _]: display.blit(self.textures, (wall.x*th.x,wall.y*th.y), (th.x*11, th.y*1, th.x, th.y))
                 case [True,  True,  False, True,  False, True,      _,     _]: display.blit(self.textures, (wall.x*th.x,wall.y*th.y), (th.x*11, th.y*2, th.x, th.y))
                 case [True,  False, True,  True,  True,      _,     _, False]: display.blit(self.textures, (wall.x*th.x,wall.y*th.y), (th.x*11, th.y*3, th.x, th.y))
-                
+
                 case _: display.blit(self.textures, (wall.x*th.x,wall.y*th.y), (th.x*0, th.y*3, th.x, th.y))
 
     @property
