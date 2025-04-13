@@ -170,7 +170,7 @@ class Game:
                 self.snakes.remove(snake)
                 continue
             
-            # Check fro snake to snake collisions
+            # Check for snake to snake collisions
             snakes_copy = self.snakes[:]
             snakes_copy.remove(snake)
             for second_snake in snakes_copy:
