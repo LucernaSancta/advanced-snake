@@ -9,7 +9,6 @@ from pygame.math import Vector2
 from game_objects import Snake, Walls, Apple
 
 
-
 class Game:
     def __init__(self, config_file: str = 'config.toml'):
 
@@ -67,7 +66,7 @@ class Game:
     def init_players(self) -> list[Snake]:
         players = []
         for filename in os.listdir('players'):
-            if filename.endswith(".yml"):
+            if filename.endswith(".yaml"):
                 with open('players/'+filename, 'r') as file:
                     player_data = yaml.safe_load(file)
                     players.append(

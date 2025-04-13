@@ -247,7 +247,6 @@ class Walls:
         return walls
             
 
-
 class Apple:
     def __init__(self,
                  pos: Vector2,
