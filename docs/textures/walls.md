@@ -7,17 +7,11 @@
 
 ## 🖼️ Image Rules
 - Must be a PNG file
-- Must be a square image (1:1 ratio)
-- Must contain 16 tiles, laid out in a 4×4 grid
+- Must contain 48 tiles, laid out in a 4×12 grid
 - Each tile must be equally sized
 - Transparent backgrounds work great (for rounded or styled walls)
 
-For example:
-- 128×128 → 32×32 tiles
-- 256×256 → 64×64 tiles
-- 512×512 → 128×128 tiles
-
-🔍You can scale up or down, just keep that grid clean.
+🔍You can scale up or down, just keep that grid clean and 4×12.
 
 ## 📁 Where to Put Them
 - All wall textures live in:
