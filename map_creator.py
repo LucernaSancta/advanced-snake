@@ -44,6 +44,11 @@ class Map_creator(Game):
         # Load the players
         self.snakes: list[Snake] = self.init_players()
 
+        # Render static objects
+        self.bg_surface = pygame.Surface(self.screen_size)
+        self.bg_surface.fill((0, 0, 0))
+        self.bg_surface = self.render_background(self.bg_surface)
+
     def run(self) -> None:
 
         while True:
@@ -75,7 +80,7 @@ class Map_creator(Game):
                             
                 
             # Render the background
-            self.render_background()
+            self.display.blit(self.bg_surface, (0, 0))
 
 
             # When a button is pressed
@@ -106,7 +111,7 @@ class Map_creator(Game):
 
             # Render all the other stuff
             self.render_snakes()
-            self.render_walls()
+            self.display.blit(self.render_walls(self.display), (0, 0))
 
             pygame.display.update()
 
