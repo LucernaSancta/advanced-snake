@@ -219,7 +219,7 @@ class Walls:
                 elif delta == Vector2(1,-1): pc8 = True
             
             match [pc1,pc2,pc3,pc4,pc5,pc6,pc7,pc8]:
-                case [False, False, False, False, False, False, False, False]: display.blit(self.textures, (wall.x*th.x,wall.y*th.y), (th.x*0, th.y*0, th.x, th.y))
+                case [False, False, False, False,     _,     _,     _,     _]: display.blit(self.textures, (wall.x*th.x,wall.y*th.y), (th.x*0, th.y*0, th.x, th.y))
                 case [True,  True,  True,  True,  False, False, False, False]: display.blit(self.textures, (wall.x*th.x,wall.y*th.y), (th.x*0, th.y*1, th.x, th.y))
                 case [True,  True,  True,  True,  True,  True,  True,  True ]: display.blit(self.textures, (wall.x*th.x,wall.y*th.y), (th.x*0, th.y*2, th.x, th.y))
 
@@ -261,7 +261,7 @@ class Walls:
                 case [True,  True,  True,  True,  True,  True,  False, False]: display.blit(self.textures, (wall.x*th.x,wall.y*th.y), (th.x*8, th.y*0, th.x, th.y))
                 case [True,  True,  True,  True,  True,  False, False, True ]: display.blit(self.textures, (wall.x*th.x,wall.y*th.y), (th.x*8, th.y*1, th.x, th.y))
                 case [True,  True,  True,  True,  False, False, True,  True ]: display.blit(self.textures, (wall.x*th.x,wall.y*th.y), (th.x*8, th.y*2, th.x, th.y))
-                case [True,  True,  True,  True,  False, True,  False, True ]: display.blit(self.textures, (wall.x*th.x,wall.y*th.y), (th.x*8, th.y*3, th.x, th.y))
+                case [True,  True,  True,  True,  False, True,  True,  False]: display.blit(self.textures, (wall.x*th.x,wall.y*th.y), (th.x*8, th.y*3, th.x, th.y))
 
                 case [True,  True,  True,  True,  False, False, False, True ]: display.blit(self.textures, (wall.x*th.x,wall.y*th.y), (th.x*9, th.y*0, th.x, th.y))
                 case [True,  True,  True,  True,  True,  False, False, False]: display.blit(self.textures, (wall.x*th.x,wall.y*th.y), (th.x*9, th.y*1, th.x, th.y))
