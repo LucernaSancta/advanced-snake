@@ -20,3 +20,4 @@ Advanced snake is an open source project that adds new functionalities to the cl
     - [`Background`](./textures/background.md)
 - [`Map creator`](./map_creator.md)
 - [`Support this project`](./supporting.md)
+- [`Contrinuting`](../CONTRIBUTING.md)
