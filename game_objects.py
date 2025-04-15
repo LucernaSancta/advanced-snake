@@ -7,6 +7,8 @@ from logger import logger as log
 
 class key_map:
     def __init__(self,up,down,left,right):
+        log.debug(f'Initializing keybindings: {up}, {down}, {left}, {right}')
+
         self.up =    pygame.key.key_code(up)
         self.down =  pygame.key.key_code(down)
         self.left =  pygame.key.key_code(left)

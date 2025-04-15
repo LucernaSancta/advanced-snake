@@ -1,5 +1,5 @@
 name: 'Steve'
 starting_pos: [0, 7]
-textures: 'default.png'
+textures: 'google_yellow.png'
 starting_length: 2
 keybindings: ['w','s','a','d']
