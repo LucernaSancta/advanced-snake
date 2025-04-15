@@ -2,6 +2,8 @@ import csv
 import pygame
 from pygame.math import Vector2
 
+from logger import logger as log
+
 
 class key_map:
     def __init__(self,up,down,left,right):
@@ -129,7 +131,7 @@ class Snake:
             ...
     
     def kill(self):
-        print(f'Player {self.name} elimenated with a total score of {len(self.pieces)} points!')
+        log.info(f'Player {self.name} elimenated with a total score of {len(self.pieces)} points!')
 
 
 class Walls:

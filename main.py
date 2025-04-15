@@ -8,6 +8,8 @@ from pygame.math import Vector2
 
 from game_objects import Snake, Walls, Apple
 
+from logger import logger as log
+
 
 class Game:
     def __init__(self, config_file: str = 'config.toml'):
@@ -16,8 +18,7 @@ class Game:
         if os.path.isfile(config_file):
             config = toml.load(config_file)
         else:
-            print(f"Config file {config_file} not found. Using default settings.")
-            config = {}
+            log.critical(f'Config file {config_file} not found.')
 
         # Assign global config variables
         self.screen_size =     Vector2(config['display']['screen_size']['x'], config['display']['screen_size']['y'])
@@ -119,7 +120,7 @@ class Game:
             if apple.pos in spots: spots.remove(apple.pos)
         
         if len(spots) == 0:
-            print('No space to spawn new food, removing one, total food remaining:', len(self.apples))
+            log.warning('No space to spawn new food, removing one, total food remaining:', len(self.apples))
             return None
 
         pos = random.choice(spots)
@@ -237,8 +238,8 @@ class Game:
             # Winning condition
             if len(self.apples) == 0 and paused == False:
                 paused = True
-                print('Game over, you won!')
-                print(f'press {self.original_exit_key} to exit')
+                log.info('Game over, you won!')
+                log.info(f'press {self.original_exit_key} to exit')
 
 
             # If the game is poused, skip the updates
@@ -253,12 +254,12 @@ class Game:
             
             # Quit by game over
             if not len(self.snakes):
-                print('Game over, every one is dead.')
+                log.info('Game over, every one is dead.')
 
                 # Possible compenetration message (#32)
                 if not frames:
-                    print('└── This is probably caused by a misplaced snakes compenetration with walls or borders')
-                    print('    Please check the snakes setting or open the map creator for a static view')
+                    log.critical('└── This is probably caused by a misplaced snakes compenetration with walls or borders')
+                    log.critical('    Please check the snakes setting or open the map creator for a static view')
 
                 pygame.quit()
                 quit()
@@ -279,5 +280,7 @@ class Game:
 
 
 if __name__ == '__main__':
+    log.info('Initialize game')
     game = Game()
+    log.info('Run game')
     game.run()

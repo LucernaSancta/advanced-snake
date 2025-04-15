@@ -1,12 +1,12 @@
 import pygame
 import os.path
-import yaml
 import toml
 
 from pygame.math import Vector2
 
 from main import Game
 from game_objects import Snake, Walls
+from logger import logger as log
 
 
 class Map_creator(Game):
@@ -16,8 +16,7 @@ class Map_creator(Game):
         if os.path.isfile(config_file):
             config = toml.load(config_file)
         else:
-            print(f"Config file {config_file} not found. Using default settings.")
-            config = {}
+            log.critical(f'Config file {config_file} not found.')
 
         # Assign global config variables
         self.screen_size =     Vector2(config['display']['screen_size']['x'], config['display']['screen_size']['y'])
@@ -121,5 +120,7 @@ class Map_creator(Game):
 
 
 if __name__ == '__main__':
+    log.info('Initialize map creator')
     map_creator = Map_creator()
+    log.info('Run map creator')
     map_creator.run()
