@@ -13,8 +13,8 @@ from logger import logger as log
 class Game:
     def __init__(self):
 
-        config_file = 'conf.toml'
-
+        config_file = 'config.toml'
+        log.debug('Loading config file:', config_file)
         # Set up global config
         if os.path.isfile(config_file):
             config = toml.load(config_file)
@@ -37,14 +37,16 @@ class Game:
 
         # Calculate tils thikness
         self.snake_grid_thikness = Vector2(self.screen_size.x // self.snake_grid_size.x, self.screen_size.y // self.snake_grid_size.y)
+        log.debug('Snake grid thikness:', self.snake_grid_thikness)
 
-
+        log.debug('Initializing pygame')
         # Initialize pygame
         pygame.init()
         self.display = pygame.display.set_mode(self.screen_size)
         pygame.display.set_caption('Advanced Snake - main')
         self.clock = pygame.time.Clock()
 
+        log.debug('Loading background textures')
         # Scale the background texture
         self.bg_texture = pygame.image.load('textures/background/'+self.bg_texture).convert_alpha()
         self.bg_texture = pygame.transform.scale(self.bg_texture, self.snake_grid_thikness)

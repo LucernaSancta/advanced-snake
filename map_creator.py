@@ -10,8 +10,10 @@ from logger import logger as log
 
 
 class Map_creator(Game):
-    def __init__(self, config_file = 'config.toml'):
+    def __init__(self):
 
+        config_file = 'config.toml'
+        
         # Set up global config
         if os.path.isfile(config_file):
             config = toml.load(config_file)
