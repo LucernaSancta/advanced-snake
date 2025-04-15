@@ -27,13 +27,30 @@ We welcome code contributions of all sizes. To get started:
 - Check out issues labeled **`good first issue`** or **`help wanted`**.
 - Fork the repo and create a pull request.
 
-Code guidelines:
+#### Code guidelines:
 
 - Try to follow [PEP 8](https://peps.python.org/pep-0008/) for Python code style.
 - Ensure your code is well-documented and includes meaningful comments.
 - Write clear and concise commit messages.
 - Test your changes before submitting.
 - Use common sense 😜.
+
+#### Logs
+This code provides buildin logs implemented using the `logging` module, you can change the log you see in the global config under the `logs.level` flag.
+
+```toml
+[logs]
+level="DEBUG"
+```
+The levels are:
+
+- CRITICAL
+- ERROR
+- WARNING
+- INFO
+- DEBUG
+
+Every levels shows the logs of that lavel and all levels above, we suggest to only use levels INFO and DEBUG
 
 ---
 

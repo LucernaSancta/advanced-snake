@@ -12,7 +12,9 @@ from logger import logger as log
 
 
 class Game:
-    def __init__(self, config_file: str = 'config.toml'):
+    def __init__(self):
+
+        config_file = 'conf.toml'
 
         # Set up global config
         if os.path.isfile(config_file):

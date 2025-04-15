@@ -22,3 +22,6 @@ textures = "grass.png"
 [keys]
 pause = "SPACE"
 exit = "ESCAPE"
+
+[logs]
+level="DEBUG"
