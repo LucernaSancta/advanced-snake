@@ -35,3 +35,7 @@ log.info('This is an informational message')
 ```
 
 By customizing the logging level and using the logger effectively, you can gain valuable insights into the application's behavior while debugging or monitoring.
+
+---
+
+⚠️ATTENTION⚠️ Code documentation is NOT regualary updated, this docs may be outdated
