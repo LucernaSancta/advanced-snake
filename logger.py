@@ -3,17 +3,6 @@ import toml
 import os
 
 
-config_file = 'config.toml'
-
-# Set up global config
-if os.path.isfile(config_file):
-    config = toml.load(config_file)
-else:
-    print(f'Config file {config_file} not found.')
-
-# Assign global config variables
-level_logs = config['logs']['level']
-
 # Customized code form https://stackoverflow.com/questions/384076/how-can-i-color-python-logging-output
 class CustomFormatter(logging.Formatter):
 
@@ -44,7 +33,7 @@ os.makedirs('logs', exist_ok=True)
 
 # Configure logger
 logging.basicConfig(
-    level=level_logs,
+    level='DEBUG',
     handlers=[]
 )
 
@@ -55,6 +44,24 @@ stream_handler.setFormatter(CustomFormatter())
 file_handler.setFormatter(logging.Formatter(fmt = "%(asctime)s - %(name)s@%(filename)s:%(lineno)d - %(levelname)s - %(message)s"))
 logger.addHandler(stream_handler)
 logger.addHandler(file_handler)
+
+
+# Load the log level
+config_file = 'config.toml'
+
+# Set up global config
+if os.path.isfile(config_file):
+    config = toml.load(config_file)
+else:
+    logger.critical(f'Config file {config_file} not found.')
+
+# Assign global config variables
+level_logs = config['logs']['level']
+
+
+logging.basicConfig(
+    level=level_logs
+)
 
 
 if __name__ == '__main__':

@@ -7,7 +7,6 @@ import toml
 from pygame.math import Vector2
 
 from game_objects import Snake, Walls, Apple
-
 from logger import logger as log
 
 
