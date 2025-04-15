@@ -27,6 +27,13 @@ The `config.toml` file is used to configure the game settings. Here’s what eac
     - `pause` : Key to pause the game
     - `exit` : Key to exit the game
 
+- `logs`
+    - `level` : 
+        - **DEBUG** : Provides detailed information, useful for debugging the game.
+        - **INFO** : General information about the game’s state and events.
+        - **WARNING** : Indicates potential issues that do not stop the game.
+        - **ERROR** : Logs errors that may affect game functionality.
+        - **CRITICAL** : Logs severe errors that cause the game to crash or stop.
 ---
 
 File example:
@@ -56,4 +63,7 @@ textures = "grass.png"
 [keys]
 pause = "SPACE"
 exit = "ESCAPE"
+
+[logs]
+level="INFO"
 ```

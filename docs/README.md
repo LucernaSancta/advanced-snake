@@ -21,3 +21,8 @@ Advanced snake is an open source project that adds new functionalities to the cl
 - [`Map creator`](./map_creator.md)
 - [`Support this project`](./supporting.md)
 - [`Contrinuting`](../CONTRIBUTING.md)
+- [`Code documentation`](./code/README.md)
+    - [`Main game`](./code/main.md)
+    - [`Game Objects`](./code/game_objects.md)
+    - [`Map creator`](./code/map_creator.md)
+    - [`Logger`](./code/logging.md)

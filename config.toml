@@ -1,3 +1,5 @@
+# Check the docs/config.md for informations on how to configure this file
+
 [display]
 screen_size.x = 900
 screen_size.y = 900

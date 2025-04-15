@@ -35,22 +35,7 @@ We welcome code contributions of all sizes. To get started:
 - Test your changes before submitting.
 - Use common sense 😜.
 
-#### Logs
-This code provides buildin logs implemented using the `logging` module, you can change the log you see in the global config under the `logs.level` flag.
-
-```toml
-[logs]
-level="DEBUG"
-```
-The levels are:
-
-- CRITICAL
-- ERROR
-- WARNING
-- INFO
-- DEBUG
-
-Every levels shows the logs of that lavel and all levels above, we suggest to only use levels INFO and DEBUG
+If you have any doubts you can go into the detail of how the code works in the [code docs](./docs/code/README.md)
 
 ---
 
