@@ -25,5 +25,8 @@ textures = "grass.png"
 pause = "SPACE"
 exit = "ESCAPE"
 
-[logs]
-level="DEBUG"
+[logger]
+console_level="INFO"
+file_level="DEBUG"
+max_file_size=1048576 # 1MB
+max_file_count=5

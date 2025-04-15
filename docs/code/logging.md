@@ -6,8 +6,12 @@ You can configure the logging level in the global configuration file under the `
 
 ```toml
 [logs]
-level = "DEBUG"
+console_level="INFO"
+file_level="DEBUG"
 ```
+
+- `console_level` is for the console logs level.
+- `file_level` is for the file logs level.
 
 #### Available Logging Levels:
 

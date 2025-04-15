@@ -28,12 +28,10 @@ The `config.toml` file is used to configure the game settings. Here’s what eac
     - `exit` : Key to exit the game
 
 - `logs`
-    - `level` : 
-        - **DEBUG** : Provides detailed information, useful for debugging the game.
-        - **INFO** : General information about the game’s state and events.
-        - **WARNING** : Indicates potential issues that do not stop the game.
-        - **ERROR** : Logs errors that may affect game functionality.
-        - **CRITICAL** : Logs severe errors that cause the game to crash or stop.
+    - `console_level` : set the logging level for console logs (see [logging docs](./code/logging.md) for more)
+    - `file_level` : set the logging level for file written logs
+    - `max_file_size` : set max file size for file written logs
+    - `max_file_count` : set max files for file written logs
 ---
 
 File example:
@@ -65,5 +63,8 @@ pause = "SPACE"
 exit = "ESCAPE"
 
 [logs]
-level="INFO"
+console_level="INFO"
+file_level="DEBUG"
+max_file_size=1048576 # 1MB
+max_file_count=5
 ```
