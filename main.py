@@ -14,7 +14,7 @@ class Game:
     def __init__(self):
 
         config_file = 'config.toml'
-        log.debug('Loading config file:', config_file)
+        log.debug(f'Loading config file: {config_file}')
         # Set up global config
         if os.path.isfile(config_file):
             config = toml.load(config_file)
@@ -37,7 +37,7 @@ class Game:
 
         # Calculate tils thikness
         self.snake_grid_thikness = Vector2(self.screen_size.x // self.snake_grid_size.x, self.screen_size.y // self.snake_grid_size.y)
-        log.debug('Snake grid thikness:', self.snake_grid_thikness)
+        log.debug(f'Snake grid thikness: {self.snake_grid_thikness}')
 
         log.debug('Initializing pygame')
         # Initialize pygame
@@ -65,6 +65,7 @@ class Game:
         self.apples: list[Apple] = [] # To spawn new apples there must be an existing 'apples' list
         self.apples: list[Apple] = self.init_apples()
 
+        log.debug('Render static objects')
         # Render static objects
         self.static_surface = pygame.Surface(self.screen_size)
         self.static_surface.fill((0, 0, 0))
@@ -75,6 +76,7 @@ class Game:
         return Walls(self.screen_size,self.wall_map,self.snake_grid_thikness,self.walls_textures)
     
     def init_players(self) -> list[Snake]:
+        log.debug('Loading players')
         players = []
         for filename in os.listdir('players'):
             if filename.endswith(".yaml"):
@@ -93,6 +95,7 @@ class Game:
         return players
     
     def init_apples(self) -> list[Apple]:
+        log.debug('Loading apples')
         apples = []
         for _ in range(self.initial_apples):
             apple = self.apple_spawner()
@@ -127,6 +130,7 @@ class Game:
             return None
 
         pos = random.choice(spots)
+        log.debug(f'Spawning apple at: {pos}')
         return Apple(pos, self.apple_power, self.snake_grid_thikness, self.apples_textures)
 
     def render_background(self, surface: pygame.surface.Surface) -> pygame.surface.Surface:
@@ -165,12 +169,14 @@ class Game:
 
             # Check for walls collisions
             if snake in self.walls:
+                log.debug(f'{snake.name} collided with a wall at {snake.pos}')
                 snake.kill()
                 self.snakes.remove(snake)
                 continue
             
             # Check for collision with itself
             if snake.pos in snake.pieces:
+                log.debug(f'{snake.name} collided with itself at {snake.pos}')
                 snake.kill()
                 self.snakes.remove(snake)
                 continue
@@ -181,6 +187,7 @@ class Game:
             for second_snake in snakes_copy:
                 # Head to head collision
                 if snake.pos == second_snake.pos:
+                    log.debug(f'{snake.name} collided with {second_snake.name} at {snake.pos}')
                     snake.kill()
                     second_snake.kill()
                     self.snakes.remove(snake)
@@ -188,6 +195,7 @@ class Game:
                     break
                 # Head to tail collision
                 if snake.pos in second_snake.pieces:
+                    log.debug(f'{snake.name} collided with {second_snake.name} at {snake.pos}')
                     snake.kill()
                     self.snakes.remove(snake)
                     break
@@ -198,6 +206,7 @@ class Game:
                 # Check for apple collisions
                 for apple in self.apples:
                     if apple.pos == snake.pos:
+                        log.debug(f'{snake.name} ate an apple at {apple.pos}')
                         # Update the snake
                         snake.eat(apple.power)
                         # Remove the pervious apple from the list and add a new one
@@ -224,10 +233,12 @@ class Game:
                     
                     # Quality of life, quit when ESC
                     if event.key == self.exit_key:
+                        log.debug('Quitting game by pressing exit key')
                         pygame.quit()
                         quit()
                     
                     elif event.key == self.pause_key:
+                        log.debug('Game paused')
                         paused = not paused
 
                     if paused:
@@ -236,6 +247,7 @@ class Game:
                     # Update snakes moves
                     for snake in self.snakes:
                         if event.key in snake.keybindings:
+                            log.debug(f'{snake.name} moved {pygame.key.name(event.key)}')
                             snake.move(event.key)
             
             # Winning condition
