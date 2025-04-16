@@ -5,6 +5,38 @@ from pygame.math import Vector2
 from logger import logger as log
 
 
+class Timer:
+    def __init__(self,
+            duration: int,
+            starting: float = 0,
+            paused: bool = False
+        ):
+        '''
+        duration: duration of the timer
+        starting: starting point of the timer
+        paused: create paused timer when set to True
+        '''
+
+        self.duration = duration
+        self.paused = paused
+
+        self.time = starting
+    
+    def tick(self, delta_time: float) -> bool:
+        if self.paused:
+            return False
+        
+        self.time += delta_time
+
+        if self.time > self.duration:
+            self.time %= self.duration
+            return True
+    
+    def pause(self): self.paused = True
+    def resume(self): self.paused = False
+
+
+
 class key_map:
     def __init__(self,up,down,left,right):
         log.debug(f'Initializing keybindings: {up}, {down}, {left}, {right}')
@@ -21,8 +53,6 @@ class key_map:
 
 
 class Snake:
-    UUID = 1
-
     def __init__(self,
                  name: str,
                  keybindings: list,
@@ -41,11 +71,9 @@ class Snake:
         self.thikness = thikness
         self.direction = Vector2(0,0)
         self.speed = speed
-        self.uuid = Snake.UUID
-        Snake.UUID += 1
 
         # Create custom event for the snake updating
-        self.update_event = pygame.USEREVENT + self.uuid
+        self.timer_event = Timer(1000/speed)
 
         log.debug(f'Loading snake textures: {textures}')
         # Load the textures and scale them to the right size

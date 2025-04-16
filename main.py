@@ -62,8 +62,6 @@ class Game:
 
         # Load the players and create custom events (for their different speeds)
         self.snakes: list[Snake] = self.init_players()
-        for snake in self.snakes:
-            pygame.time.set_timer(snake.update_event, 1000//snake.speed)  # Fires every 1000 ms / blocks per second
 
         # Initiate apples
         self.apples: list[Apple] = [] # To spawn new apples there must be an existing 'apples' list
@@ -222,6 +220,7 @@ class Game:
     def run(self) -> None:
         paused = False
         frames = 0
+        deltaTime = 0
 
         while True:
 
@@ -233,11 +232,6 @@ class Game:
                     pygame.quit()
                     quit()
                 
-                # Snake events
-                for snake in self.snakes:
-                    if event.type == snake.update_event:
-                        self.update_snake(snake)
-
                 # KEYBOARD PRESS EVENTS
                 if event.type == pygame.KEYDOWN:
                     
@@ -251,13 +245,9 @@ class Game:
                         if paused:
                             log.debug('Game resumed')
                             paused = False
-                            for snake in self.snakes:
-                                pygame.time.set_timer(snake.update_event, 1000//snake.speed)
                         else:
                             log.debug('Game paused')
                             paused = True
-                            for snake in self.snakes:
-                                pygame.time.set_timer(snake.update_event, 0)
 
 
                     if paused:
@@ -274,6 +264,13 @@ class Game:
             if paused:
                 self.clock.tick(60)
                 continue
+
+
+            # Snake events
+            for snake in self.snakes:
+                update = snake.timer_event.tick(deltaTime)
+                if update:
+                    self.update_snake(snake)
             
             
             # Quit by game over
@@ -306,7 +303,7 @@ class Game:
 
 
             # Limit the refresh rate to the fps
-            self.clock.tick(self.fps)
+            deltaTime = self.clock.tick(self.fps)
 
             frames += 1
 
