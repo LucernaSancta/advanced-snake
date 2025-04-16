@@ -28,5 +28,5 @@ exit = "ESCAPE"
 [logger]
 console_level="INFO"
 file_level="DEBUG"
-max_file_size=1048576 # 1MB
+max_file_size=131072 #128KB
 max_file_count=5

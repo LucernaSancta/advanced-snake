@@ -28,14 +28,16 @@ class Map_creator(Game):
         self.bg_texture =     config['background']['textures']
 
         self.snake_grid_thikness = Vector2(self.screen_size.x // self.snake_grid_size.x, self.screen_size.y // self.snake_grid_size.y)
+        log.debug(f'Snake grid thikness: {self.snake_grid_thikness}')
 
-
+        log.debug('Initializing pygame')
         # Initialize pygame
         pygame.init()
         self.display = pygame.display.set_mode(self.screen_size)
         pygame.display.set_caption('Advanced Snake - Map Creator')
         self.clock = pygame.time.Clock()
 
+        log.debug('Loading background textures')
         # Scale the background texture
         self.bg_texture = pygame.image.load('textures/background/'+self.bg_texture).convert_alpha()
         self.bg_texture = pygame.transform.scale(self.bg_texture, self.snake_grid_thikness)
@@ -46,6 +48,7 @@ class Map_creator(Game):
         # Load the players
         self.snakes: list[Snake] = self.init_players()
 
+        log.debug('Render static objects')
         # Render static objects
         self.bg_surface = pygame.Surface(self.screen_size)
         self.bg_surface.fill((0, 0, 0))
@@ -68,6 +71,7 @@ class Map_creator(Game):
                     
                     # Quality of life, quit when ESC
                     if event.key == pygame.K_ESCAPE:
+                        log.debug('Quitting game by pressing exit key')
                         pygame.quit()
                         quit()
                     
@@ -77,6 +81,7 @@ class Map_creator(Game):
 
                         if file_name:
                             self.walls.export(file_name)
+                            log.info('Map exported succesfully')
                             pygame.quit()
                             quit()
                             
@@ -90,6 +95,7 @@ class Map_creator(Game):
             if any(pressed_buttons):
 
                 mouse_pos = pygame.mouse.get_pos()
+                log.debug(f'Mouse pressed at {mouse_pos}')
 
                 # Check if mouse is in the screen
                 if mouse_pos[0] in range(int(self.screen_size.x)) and \
@@ -112,6 +118,7 @@ class Map_creator(Game):
 
 
             # Render all the other stuff
+            log.debug('Rendering other stuff')
             self.render_snakes()
             self.display.blit(self.render_walls(self.display), (0, 0))
 
