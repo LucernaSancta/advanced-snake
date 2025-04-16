@@ -134,6 +134,7 @@ class Game:
         return Apple(pos, self.apple_power, self.snake_grid_thikness, self.apples_textures)
 
     def render_background(self, surface: pygame.surface.Surface) -> pygame.surface.Surface:
+        log.debug('Rendering background')
         # Fill the screen with the background texture
         for x in range(int(self.snake_grid_size.x)):
             for y in range(int(self.snake_grid_size.y)):

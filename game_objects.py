@@ -30,12 +30,15 @@ class Snake:
                  length: int = 3
                  ) -> None:
         
+        log.debug(f'Initializing snake {name}')
+
         self.name = name
         self.pos = pos
         self.keybindings = key_map(*keybindings)
         self.thikness = thikness
         self.direction = Vector2(0,0)
 
+        log.debug(f'Loading snake textures: {textures}')
         # Load the textures and scale them to the right size
         self.textures = pygame.image.load('textures/snakes/'+textures).convert_alpha()
         self.textures = pygame.transform.scale(self.textures, (thikness.x*4, thikness.y*5))
@@ -148,6 +151,7 @@ class Walls:
         self.thikness = thikness
         self.custom_walls: list[Vector2] = []
 
+        log.debug(f'Loading wall map: {walls_map}')
         # Open the csv file
         with open('maps/'+walls_map) as csv_file:
             csv_reader = csv.reader(csv_file, delimiter=',')
@@ -161,6 +165,7 @@ class Walls:
                 except (IndexError, ValueError):
                     raise SyntaxError('Wrong walls tiling')
         
+        log.debug('Creating wall boarders')
         # Create boarders
         self.boarders = []
         for i in range(-1, int(external_box.x // thikness.x)+1):
@@ -171,6 +176,7 @@ class Walls:
             self.boarders.append(Vector2(int(external_box.x // thikness.x),i))
 
 
+        log.debug(f'Loading walls texture: {textures}')
         # Load the textures and scale them to the right size
         self.textures = pygame.image.load('textures/walls/'+textures).convert_alpha()
         self.textures = pygame.transform.scale(self.textures, (thikness.x*12, thikness.y*4))
@@ -186,17 +192,20 @@ class Walls:
     def add(self, pos: Vector2) -> None:
         '''Add a wall to the current walls'''
         tile = Vector2(pos.x // self.thikness.x, pos.y // self.thikness.y)
+        log.debug(f'Adding wall at {pos} - {tile}')
         if tile not in self.custom_walls:
             self.custom_walls.append(tile)
     
     def remove(self, pos: Vector2) -> None:
         '''Remove a wall to the current walls'''
         tile = Vector2(pos.x // self.thikness.x, pos.y // self.thikness.y)
+        log.debug(f'Removing wall at {pos} - {tile}')
         if tile in self.custom_walls:
             self.custom_walls.remove(tile)
 
     def export(self, file_name: str) -> None:
         '''Export the current walls to a CSV file'''
+        log.info(f'Exporting wall map with name {file_name} -> maps/{file_name}.csv')
         # Open the csv file
         with open(f'maps/{file_name}.csv', 'w') as csv_file:
             csv_writer = csv.writer(csv_file, delimiter=',', lineterminator='\n')
@@ -206,6 +215,8 @@ class Walls:
             csv_writer.writerows(walls)
 
     def render(self, display: pygame.surface.Surface):
+        
+        log.debug('Rendering walls')
 
         # Reassign for better performances
         th = self.thikness
@@ -288,7 +299,9 @@ class Walls:
                 case [True,  True,  False, True,  False, True,      _,     _]: display.blit(self.textures, (wall.x*th.x,wall.y*th.y), (th.x*11, th.y*2, th.x, th.y))
                 case [True,  False, True,  True,  True,      _,     _, False]: display.blit(self.textures, (wall.x*th.x,wall.y*th.y), (th.x*11, th.y*3, th.x, th.y))
 
-                case _: display.blit(self.textures, (wall.x*th.x,wall.y*th.y), (th.x*0, th.y*3, th.x, th.y))
+                case _:
+                    log.error(f'Wall without texture at {wall}')
+                    display.blit(self.textures, (wall.x*th.x,wall.y*th.y), (th.x*0, th.y*3, th.x, th.y))
 
     @property
     def walls_absolute(self) -> list[Vector2]:
@@ -313,6 +326,7 @@ class Apple:
         self.power = power
         self.thikness = thikness
 
+        log.debug(f'Loading food texture {texture}')
         # Load the textures and scale them to the right size
         self.texture = pygame.image.load('textures/food/'+texture).convert_alpha()
         self.texture = pygame.transform.scale(self.texture, thikness)
