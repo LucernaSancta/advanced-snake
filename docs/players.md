@@ -10,4 +10,5 @@ Inside tha players folder every `.yml` file is considered a different player, th
 - `starting_pos` : Vector of two integer representing the starting position in the grid.
 - `textures` : Name of the textures file in the `textures/snakes` folder (see [`Custom Snake Textures`](./textures/snakes.md) for more informations).
 - `starting_length` : Starting lenght of the snakes tail.
+- `speed` : Speed in block per second of the snake
 - `keybindings` : Array of keys used to control the snake, the key must be in the following order: [up key, down key, left key, right key], key are directly used as inputs for the [`pygame.key.key_code`](https://www.pygame.org/docs/ref/key.html#pygame.key.key_code) function and so you can use special word to define special keys such as 'up' for the up arrow or 'space' for the space bar

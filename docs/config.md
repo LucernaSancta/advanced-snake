@@ -6,9 +6,9 @@ The `config.toml` file is used to configure the game settings. Here’s what eac
 
 - `display`
     - `screen_size.x` & `screen_size.y` : Defines the screen width and height in pixels.
+    - `fps` : defines the frame per second of the game
 
 - `game`
-    - `tps` : Controls the game speed (higher value = faster game)
     - `grid_size.x` & `grid_size.y` : Defines the number of grid cells in the X and Y direction.
 
 - `apples`
