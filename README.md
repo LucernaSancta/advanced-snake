@@ -32,6 +32,7 @@ python main.py
 * Custom textures
 * Cutom walls
 * Cutom food
+* Snakes different speeds
 
 ## Map creator tool
 Easely create custom maps by simply clicking on the screen, learn how with the [`map creator docs`](./docs/map_creator.md)
