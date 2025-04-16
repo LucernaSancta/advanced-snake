@@ -2,4 +2,5 @@ name: 'Steve'
 starting_pos: [0, 7]
 textures: 'google_yellow.png'
 starting_length: 2
+speed: 2 # blocks per second
 keybindings: ['w','s','a','d']

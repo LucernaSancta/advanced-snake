@@ -32,7 +32,7 @@ class Game:
         self.pause_key =  config['keys']['pause']
         self.exit_key =   config['keys']['exit']
         self.wall_map =   config['walls']['map']
-        self.tps =      float(config['game']['tps'])
+        self.fps =  float(config['display']['fps'])
 
 
         # Calculate tils thikness
@@ -59,8 +59,12 @@ class Game:
 
         # Load walls
         self.walls: Walls = self.init_walls()
-        # Load the players
+
+        # Load the players and create custom events (for their different speeds)
         self.snakes: list[Snake] = self.init_players()
+        for snake in self.snakes:
+            pygame.time.set_timer(snake.update_event, 1000//snake.speed)  # Fires every 1000 ms / blocks per second
+
         # Initiate apples
         self.apples: list[Apple] = [] # To spawn new apples there must be an existing 'apples' list
         self.apples: list[Apple] = self.init_apples()
@@ -88,6 +92,7 @@ class Game:
                             keybindings=player_data['keybindings'],
                             thikness=self.snake_grid_thikness,
                             textures=player_data['textures'],
+                            speed=player_data['speed'],
                             pos=Vector2(player_data['starting_pos'][0]*self.snake_grid_thikness.x,player_data['starting_pos'][1]*self.snake_grid_thikness.y),
                             length=player_data['starting_length']
                             )
@@ -161,59 +166,58 @@ class Game:
 
         return surface
 
-    def update_snakes(self) -> None:
+    def update_snake(self, snake: Snake) -> None:
         # Update snakes logics
-        for snake in self.snakes:
 
-            # Update the position
-            snake.update()
+        # Update the position
+        snake.update()
 
-            # Check for walls collisions
-            if snake in self.walls:
-                log.debug(f'{snake.name} collided with a wall at {snake.pos}')
+        # Check for walls collisions
+        if snake in self.walls:
+            log.debug(f'{snake.name} collided with a wall at {snake.pos}')
+            snake.kill()
+            self.snakes.remove(snake)
+            return
+        
+        # Check for collision with itself
+        if snake.pos in snake.pieces:
+            log.debug(f'{snake.name} collided with itself at {snake.pos}')
+            snake.kill()
+            self.snakes.remove(snake)
+            return
+        
+        # Check for snake to snake collisions
+        snakes_copy = self.snakes[:]
+        snakes_copy.remove(snake)
+        for second_snake in snakes_copy:
+            # Head to head collision
+            if snake.pos == second_snake.pos:
+                log.debug(f'{snake.name} collided with {second_snake.name} at {snake.pos}')
+                snake.kill()
+                second_snake.kill()
+                self.snakes.remove(snake)
+                self.snakes.remove(second_snake)
+                break
+            # Head to tail collision
+            if snake.pos in second_snake.pieces:
+                log.debug(f'{snake.name} collided with {second_snake.name} at {snake.pos}')
                 snake.kill()
                 self.snakes.remove(snake)
-                continue
-            
-            # Check for collision with itself
-            if snake.pos in snake.pieces:
-                log.debug(f'{snake.name} collided with itself at {snake.pos}')
-                snake.kill()
-                self.snakes.remove(snake)
-                continue
-            
-            # Check for snake to snake collisions
-            snakes_copy = self.snakes[:]
-            snakes_copy.remove(snake)
-            for second_snake in snakes_copy:
-                # Head to head collision
-                if snake.pos == second_snake.pos:
-                    log.debug(f'{snake.name} collided with {second_snake.name} at {snake.pos}')
-                    snake.kill()
-                    second_snake.kill()
-                    self.snakes.remove(snake)
-                    self.snakes.remove(second_snake)
-                    break
-                # Head to tail collision
-                if snake.pos in second_snake.pieces:
-                    log.debug(f'{snake.name} collided with {second_snake.name} at {snake.pos}')
-                    snake.kill()
-                    self.snakes.remove(snake)
-                    break
-            
-            # If no collision was found then continue
-            else:
+                break
+        
+        # If no collision was found then continue
+        else:
 
-                # Check for apple collisions
-                for apple in self.apples:
-                    if apple.pos == snake.pos:
-                        log.debug(f'{snake.name} ate an apple at {apple.pos}')
-                        # Update the snake
-                        snake.eat(apple.power)
-                        # Remove the pervious apple from the list and add a new one
-                        self.apples.remove(apple)
-                        self.apples.append(self.apple_spawner())
-                        break
+            # Check for apple collisions
+            for apple in self.apples:
+                if apple.pos == snake.pos:
+                    log.debug(f'{snake.name} ate an apple at {apple.pos}')
+                    # Update the snake
+                    snake.eat(apple.power)
+                    # Remove the pervious apple from the list and add a new one
+                    self.apples.remove(apple)
+                    self.apples.append(self.apple_spawner())
+                    break
 
     def run(self) -> None:
         paused = False
@@ -228,6 +232,11 @@ class Game:
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     quit()
+                
+                # Snake events
+                for snake in self.snakes:
+                    if event.type == snake.update_event:
+                        self.update_snake(snake)
 
                 # KEYBOARD PRESS EVENTS
                 if event.type == pygame.KEYDOWN:
@@ -239,8 +248,17 @@ class Game:
                         quit()
                     
                     elif event.key == self.pause_key:
-                        log.debug('Game paused')
-                        paused = not paused
+                        if paused:
+                            log.debug('Game resumed')
+                            paused = False
+                            for snake in self.snakes:
+                                pygame.time.set_timer(snake.update_event, 1000//snake.speed)
+                        else:
+                            log.debug('Game paused')
+                            paused = True
+                            for snake in self.snakes:
+                                pygame.time.set_timer(snake.update_event, 0)
+
 
                     if paused:
                         continue
@@ -248,24 +266,14 @@ class Game:
                     # Update snakes moves
                     for snake in self.snakes:
                         if event.key in snake.keybindings:
-                            log.debug(f'{snake.name} moved {pygame.key.name(event.key)}')
+                            log.debug(f'{snake.name} changed direction with {pygame.key.name(event.key)}')
                             snake.move(event.key)
-            
-            # Winning condition
-            if len(self.apples) == 0 and paused == False:
-                paused = True
-                log.info('Game over, you won!')
-                log.info(f'press {self.original_exit_key} to exit')
 
 
             # If the game is poused, skip the updates
             if paused:
                 self.clock.tick(60)
                 continue
-
-            
-            # Update snakes logics
-            self.update_snakes()
             
             
             # Quit by game over
@@ -289,8 +297,16 @@ class Game:
 
             pygame.display.update()
 
-            # Limit the refresh rate to the tps
-            self.clock.tick(self.tps)
+
+            # Winning condition
+            if len(self.apples) == 0:
+                paused = True
+                log.info('Game over, you won!')
+                log.info(f'press {self.original_exit_key} to exit')
+
+
+            # Limit the refresh rate to the fps
+            self.clock.tick(self.fps)
 
             frames += 1
 

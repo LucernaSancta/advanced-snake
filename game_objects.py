@@ -21,10 +21,13 @@ class key_map:
 
 
 class Snake:
+    UUID = 1
+
     def __init__(self,
                  name: str,
                  keybindings: list,
                  pos: Vector2 = Vector2(0,0),
+                 speed: int = 2,
                  textures: str = 'default.png',
                  thikness: Vector2 = Vector2(10,10),
                  length: int = 3
@@ -37,6 +40,12 @@ class Snake:
         self.keybindings = key_map(*keybindings)
         self.thikness = thikness
         self.direction = Vector2(0,0)
+        self.speed = speed
+        self.uuid = Snake.UUID
+        Snake.UUID += 1
+
+        # Create custom event for the snake updating
+        self.update_event = pygame.USEREVENT + self.uuid
 
         log.debug(f'Loading snake textures: {textures}')
         # Load the textures and scale them to the right size
@@ -88,11 +97,13 @@ class Snake:
             th = self.thikness
 
             # Head
-            if   self.direction == Vector2(0, 0): display.blit(self.textures, self.pos, (th.x*0, 0, th.x, th.y)) # State 0, the snake is still
-            elif self.direction == Vector2(0,-1): display.blit(self.textures, self.pos, (th.x*0, 0, th.x, th.y))
-            elif self.direction == Vector2(-1,0): display.blit(self.textures, self.pos, (th.x*1, 0, th.x, th.y))
-            elif self.direction == Vector2(0, 1): display.blit(self.textures, self.pos, (th.x*2, 0, th.x, th.y))
-            elif self.direction == Vector2(1, 0): display.blit(self.textures, self.pos, (th.x*3, 0, th.x, th.y))
+            delta = self.pieces[0] - self.pos
+            if   self.state == 0: display.blit(self.textures, self.pos, (th.x*0, 0, th.x, th.y))
+            elif delta == Vector2(0, th.y): display.blit(self.textures, self.pos, (th.x*0, 0, th.x, th.y))
+            elif delta == Vector2( th.x,0): display.blit(self.textures, self.pos, (th.x*1, 0, th.x, th.y))
+            elif delta == Vector2(0,-th.y): display.blit(self.textures, self.pos, (th.x*2, 0, th.x, th.y))
+            elif delta == Vector2(-th.x,0): display.blit(self.textures, self.pos, (th.x*3, 0, th.x, th.y))
+            else: log.error(f'Delta out of range: {delta}')
 
 
             # Middle pieces
