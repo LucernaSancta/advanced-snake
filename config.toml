@@ -20,13 +20,17 @@ textures = "mud.png"
 
 [background]
 textures = "grass.png"
+    [background.tiling]
+    active = true
+    size.x = 1
+    size.y = 1
 
 [keys]
 pause = "SPACE"
 exit = "ESCAPE"
 
 [logger]
-console_level="INFO"
+console_level="DEBUG"
 file_level="DEBUG"
 max_file_size=131072 #128KB
 max_file_count=5

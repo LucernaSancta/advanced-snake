@@ -34,6 +34,8 @@ class Game:
         self.wall_map =   config['walls']['map']
         self.fps =  float(config['display']['fps'])
 
+        self.bg_tiling = config['background']['tiling']
+
 
         # Calculate tils thikness
         self.snake_grid_thikness = Vector2(self.screen_size.x // self.snake_grid_size.x, self.screen_size.y // self.snake_grid_size.y)
@@ -46,10 +48,15 @@ class Game:
         pygame.display.set_caption('Advanced Snake - main')
         self.clock = pygame.time.Clock()
 
-        log.debug('Loading background textures')
+        log.debug('Loading and scaling the background texture')
         # Scale the background texture
         self.bg_texture = pygame.image.load('textures/background/'+self.bg_texture).convert_alpha()
-        self.bg_texture = pygame.transform.scale(self.bg_texture, self.snake_grid_thikness)
+        if self.bg_tiling['active']:
+            self.bg_texture = pygame.transform.scale(self.bg_texture, (self.snake_grid_thikness.x*self.bg_tiling['size']['x'], self.snake_grid_thikness.y*self.bg_tiling['size']['y']))
+        else:
+            # Scale the background texture to the screen size
+            self.bg_texture = pygame.transform.scale(self.bg_texture, (self.screen_size.x, self.screen_size.y))
+
 
         # Store the exit key to print it later when the player wins
         self.original_exit_key = str(self.exit_key)
@@ -137,11 +144,20 @@ class Game:
         return Apple(pos, self.apple_power, self.snake_grid_thikness, self.apples_textures)
 
     def render_background(self, surface: pygame.surface.Surface) -> pygame.surface.Surface:
-        log.debug('Rendering background')
-        # Fill the screen with the background texture
-        for x in range(int(self.snake_grid_size.x)):
-            for y in range(int(self.snake_grid_size.y)):
-                surface.blit(self.bg_texture, (x*self.snake_grid_thikness.x,y*self.snake_grid_thikness.y))
+        log.debug(f'Rendering background, tiling={self.bg_tiling}')
+
+        if self.bg_tiling['active']:
+            # Fill the screen with the tiled background texture
+            for x in range(int(self.snake_grid_size.x)):
+                for y in range(int(self.snake_grid_size.y)):
+                    surface.blit(self.bg_texture, (
+                        x*self.snake_grid_thikness.x*self.bg_tiling['size']['x'],
+                        y*self.snake_grid_thikness.y*self.bg_tiling['size']['y']
+                    ))
+        
+        else:
+            # Fill the screen with a non tiled background texture
+            surface.blit(self.bg_texture, (0, 0))
         
         return surface
 
