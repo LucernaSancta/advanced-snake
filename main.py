@@ -268,9 +268,11 @@ class Game:
 
             # Snake events
             for snake in self.snakes:
-                update = snake.timer_event.tick(deltaTime)
-                if update:
-                    self.update_snake(snake)
+                # Start the timer only when the snakes start moving
+                if snake.state != 0:
+                    update = snake.timer_event.tick(deltaTime)
+                    if update:
+                        self.update_snake(snake)
             
             
             # Quit by game over
