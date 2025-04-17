@@ -254,8 +254,7 @@ class Walls:
             csv_writer.writerows(walls)
 
     def render(self, display: pygame.surface.Surface):
-        
-        log.debug('Rendering walls')
+        """Render the walls considering the surroundings"""
 
         # Reassign for better performances
         th = self.thikness

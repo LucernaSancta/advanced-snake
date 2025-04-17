@@ -105,7 +105,6 @@ class Map_creator(Game):
 
 
             # Render all the other stuff
-            log.debug('Rendering other stuff')
             self.render_snakes()
             self.display.blit(self.render_walls(self.display), (0, 0))
 
