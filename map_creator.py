@@ -21,8 +21,8 @@ class Map_creator(Game):
             log.critical(f'Config file {config_file} not found.')
 
         # Assign global config variables
-        self.screen_size =     Vector2(config['display']['screen_size']['x'], config['display']['screen_size']['y'])
-        self.snake_grid_size = Vector2(config['game']['grid_size']['x'],      config['game']['grid_size']['y'])
+        self.screen_size =     Vector2(config['display']['screen_size'])
+        self.snake_grid_size = Vector2(config['game']['grid_size'])
         self.walls_textures = config['walls']['textures']
         self.wall_map =       config['walls']['map']
         self.bg_texture =     config['background']['textures']

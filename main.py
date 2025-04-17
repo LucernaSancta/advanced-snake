@@ -22,8 +22,8 @@ class Game:
             log.critical(f'Config file {config_file} not found.')
 
         # Assign global config variables
-        self.screen_size =     Vector2(config['display']['screen_size']['x'], config['display']['screen_size']['y'])
-        self.snake_grid_size = Vector2(config['game']['grid_size']['x'],      config['game']['grid_size']['y'])
+        self.screen_size =     Vector2(config['display']['screen_size'])
+        self.snake_grid_size = Vector2(config['game']['grid_size'])
         self.apples_textures =    config['apples']['textures']
         self.walls_textures =     config['walls']['textures']
         self.bg_texture =         config['background']['textures']
@@ -35,6 +35,7 @@ class Game:
         self.fps =  float(config['display']['fps'])
 
         self.bg_tiling = config['background']['tiling']
+        self.bg_tiling_size = Vector2(config['background']['tiling']['size'])
 
 
         # Calculate tils thikness
@@ -52,7 +53,7 @@ class Game:
         # Scale the background texture
         self.bg_texture = pygame.image.load('textures/background/'+self.bg_texture).convert_alpha()
         if self.bg_tiling['active']:
-            self.bg_texture = pygame.transform.scale(self.bg_texture, (self.snake_grid_thikness.x*self.bg_tiling['size']['x'], self.snake_grid_thikness.y*self.bg_tiling['size']['y']))
+            self.bg_texture = pygame.transform.scale(self.bg_texture, (self.snake_grid_thikness.x*self.bg_tiling_size.x, self.snake_grid_thikness.y*self.bg_tiling_size.y))
         else:
             # Scale the background texture to the screen size
             self.bg_texture = pygame.transform.scale(self.bg_texture, (self.screen_size.x, self.screen_size.y))
@@ -151,8 +152,8 @@ class Game:
             for x in range(int(self.snake_grid_size.x)):
                 for y in range(int(self.snake_grid_size.y)):
                     surface.blit(self.bg_texture, (
-                        x*self.snake_grid_thikness.x*self.bg_tiling['size']['x'],
-                        y*self.snake_grid_thikness.y*self.bg_tiling['size']['y']
+                        x*self.snake_grid_thikness.x*self.bg_tiling_size.x,
+                        y*self.snake_grid_thikness.y*self.bg_tiling_size.y
                     ))
         
         else:
