@@ -1,7 +1,4 @@
 import pygame
-import os.path
-import toml
-
 from pygame.math import Vector2
 
 from main import Game
@@ -71,15 +68,15 @@ class Map_creator(Game):
                             log.info('Map exported succesfully')
                             pygame.quit()
                             quit()
-                            
-                
-            # Render the background
-            self.display.blit(self.bg_surface, (0, 0))
 
 
             # When a button is pressed
             pressed_buttons = pygame.mouse.get_pressed()
             if any(pressed_buttons):
+
+                # Render the background
+                # This is done separately so that the blue and red rectangels are not drawn under the background
+                self.display.blit(self.bg_surface, (0, 0))
 
                 mouse_pos = pygame.mouse.get_pos()
                 log.debug(f'Mouse pressed at {mouse_pos}')
@@ -94,21 +91,21 @@ class Map_creator(Game):
 
                     # pressed_buttons[0] is left click, pressed_buttons[2] is right click
                     if pressed_buttons[0]:
-                        
                         pygame.draw.rect(self.display, 'blue', (*tile, *self.snake_grid_thikness))
                         self.walls.add(tile)
 
                     elif pressed_buttons[2]:
-                        
                         pygame.draw.rect(self.display, 'red', (*tile, *self.snake_grid_thikness))
                         self.walls.remove(tile)
 
 
-            # Render all the other stuff
-            self.render_snakes()
-            self.display.blit(self.render_walls(self.display), (0, 0))
+                # Render the snakes
+                self.render_snakes()
+                # Render the walls
+                self.display.blit(self.render_walls(self.display), (0, 0))
 
-            pygame.display.update()
+                pygame.display.update()
+
 
             # Limit the refresh rate to the tps
             self.clock.tick(60)
