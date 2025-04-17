@@ -36,7 +36,6 @@ class Timer:
     def resume(self): self.paused = False
 
 
-
 class key_map:
     def __init__(self,up,down,left,right):
         log.debug(f'Initializing keybindings: {up}, {down}, {left}, {right}')
@@ -230,16 +229,22 @@ class Walls:
     
     def add(self, pos: Vector2) -> None:
         '''Add a wall to the current walls'''
+
         tile = Vector2(pos.x // self.thikness.x, pos.y // self.thikness.y)
-        log.debug(f'Adding wall at {pos} - {tile}')
+        
+        # Check if the wall exists in the list
         if tile not in self.custom_walls:
+            log.debug(f'Adding wall at {pos} - {tile}')
             self.custom_walls.append(tile)
     
     def remove(self, pos: Vector2) -> None:
         '''Remove a wall to the current walls'''
+
         tile = Vector2(pos.x // self.thikness.x, pos.y // self.thikness.y)
-        log.debug(f'Removing wall at {pos} - {tile}')
+        
+        # Check if the wall exists in the list
         if tile in self.custom_walls:
+            log.debug(f'Removing wall at {pos} - {tile}')
             self.custom_walls.remove(tile)
 
     def export(self, file_name: str) -> None:
