@@ -54,6 +54,9 @@ cover/
 # Tests
 test.py
 
+# Logs
+/logs
+
 # Translations
 *.mo
 *.pot
