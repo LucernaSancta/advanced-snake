@@ -12,20 +12,7 @@ from logger import logger as log
 class Map_creator(Game):
     def __init__(self):
 
-        config_file = 'config.toml'
-        
-        # Set up global config
-        if os.path.isfile(config_file):
-            config = toml.load(config_file)
-        else:
-            log.critical(f'Config file {config_file} not found.')
-
-        # Assign global config variables
-        self.screen_size =     Vector2(config['display']['screen_size'])
-        self.snake_grid_size = Vector2(config['game']['grid_size'])
-        self.walls_textures = config['walls']['textures']
-        self.wall_map =       config['walls']['map']
-        self.bg_texture =     config['background']['textures']
+        self.load_configs('config.toml')
 
         self.snake_grid_thikness = Vector2(self.screen_size.x // self.snake_grid_size.x, self.screen_size.y // self.snake_grid_size.y)
         log.debug(f'Snake grid thikness: {self.snake_grid_thikness}')

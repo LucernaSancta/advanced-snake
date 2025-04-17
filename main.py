@@ -13,30 +13,8 @@ from logger import logger as log
 class Game:
     def __init__(self):
 
-        config_file = 'config.toml'
-        log.debug(f'Loading config file: {config_file}')
-        # Set up global config
-        if os.path.isfile(config_file):
-            config = toml.load(config_file)
-        else:
-            log.critical(f'Config file {config_file} not found.')
-
-        # Assign global config variables
-        self.screen_size =     Vector2(config['display']['screen_size'])
-        self.snake_grid_size = Vector2(config['game']['grid_size'])
-        self.apples_textures =    config['apples']['textures']
-        self.walls_textures =     config['walls']['textures']
-        self.bg_texture =         config['background']['textures']
-        self.initial_apples = int(config['apples']['number'])
-        self.apple_power =    int(config['apples']['power'])
-        self.pause_key =  config['keys']['pause']
-        self.exit_key =   config['keys']['exit']
-        self.wall_map =   config['walls']['map']
-        self.fps =  float(config['display']['fps'])
-
-        self.bg_tiling = config['background']['tiling']
-        self.bg_tiling_size = Vector2(config['background']['tiling']['size'])
-
+        # Load config file
+        self.load_configs('config.toml')
 
         # Calculate tils thikness
         self.snake_grid_thikness = Vector2(self.screen_size.x // self.snake_grid_size.x, self.screen_size.y // self.snake_grid_size.y)
@@ -81,6 +59,32 @@ class Game:
         self.static_surface.fill((0, 0, 0))
         self.static_surface = self.render_background(self.static_surface)
         self.static_surface = self.render_walls(self.static_surface)
+    
+    def load_configs(self, config_file: str) -> None:
+        """Load the config file and assign the variables to the class"""
+
+        log.debug(f'Loading config file: {config_file}')
+        # Set up global config
+        if os.path.isfile(config_file):
+            config = toml.load(config_file)
+        else:
+            log.critical(f'Config file {config_file} not found.')
+
+        # Assign global config variables
+        self.screen_size =     Vector2(config['display']['screen_size'])
+        self.snake_grid_size = Vector2(config['game']['grid_size'])
+        self.apples_textures =    config['apples']['textures']
+        self.walls_textures =     config['walls']['textures']
+        self.bg_texture =         config['background']['textures']
+        self.initial_apples = int(config['apples']['number'])
+        self.apple_power =    int(config['apples']['power'])
+        self.pause_key =  config['keys']['pause']
+        self.exit_key =   config['keys']['exit']
+        self.wall_map =   config['walls']['map']
+        self.fps =  float(config['display']['fps'])
+
+        self.bg_tiling = config['background']['tiling']
+        self.bg_tiling_size = Vector2(config['background']['tiling']['size'])
     
     def init_walls(self) -> Walls:
         return Walls(self.screen_size,self.wall_map,self.snake_grid_thikness,self.walls_textures)
