@@ -9,6 +9,8 @@ from logger import logger as log
 class Map_creator(Game):
     def __init__(self):
 
+        self.print_new_game('MAP CREATOR SCRIPT')
+
         self.load_configs('config.toml')
 
         self.snake_grid_thikness = Vector2(self.screen_size.x // self.snake_grid_size.x, self.screen_size.y // self.snake_grid_size.y)
@@ -39,6 +41,13 @@ class Map_creator(Game):
         self.bg_surface = self.render_background(self.bg_surface)
 
     def run(self) -> None:
+
+        # The game renders only when is necessary so the first frame must be rendered manually
+        self.display.blit(self.bg_surface, (0, 0)) # Render the background
+        self.render_snakes() # Render the snakes
+        self.display.blit(self.render_walls(self.display), (0, 0)) # Render the walls
+        pygame.display.update() # Update the display
+
 
         while True:
 
