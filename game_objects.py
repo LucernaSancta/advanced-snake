@@ -72,7 +72,8 @@ class Snake:
         self.speed = speed
 
         # Create custom event for the snake updating
-        self.timer_event = Timer(1000/speed)
+        # Set the initial time to the maximum time so it doesn't update at the beginning (#62)
+        self.timer_event = Timer(1000/speed, 1000/speed)
 
         log.debug(f'Loading snake textures: {textures}')
         # Load the textures and scale them to the right size
