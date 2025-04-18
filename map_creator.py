@@ -88,7 +88,6 @@ class Map_creator(Game):
                 self.display.blit(self.bg_surface, (0, 0))
 
                 mouse_pos = pygame.mouse.get_pos()
-                log.debug(f'Mouse pressed at {mouse_pos}')
 
                 # Check if mouse is in the screen
                 if mouse_pos[0] in range(int(self.screen_size.x)) and \
