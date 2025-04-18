@@ -5,11 +5,11 @@ The `config.toml` file is used to configure the game settings. Here’s what eac
 ---
 
 - `display`
-    - `screen_size.x` & `screen_size.y` : Defines the screen width and height in pixels.
+    - `screen_size` : Defines the screen width and height in pixels.
     - `fps` : defines the frame per second of the game
 
 - `game`
-    - `grid_size.x` & `grid_size.y` : Defines the number of grid cells in the X and Y direction.
+    - `grid_size` : Defines the number of grid cells in the X and Y direction.
 
 - `apples`
     - `number` : Number of apples generated at the start.
@@ -22,6 +22,9 @@ The `config.toml` file is used to configure the game settings. Here’s what eac
 
 - `background`
     - `textures` :  Specifies the file path for the background texture.
+    - `tiling`:
+        - `active`: Set tu `true` to activate background tiling
+        - `size`: Background tiling size relative to the game grid size
 
 - `keys`
     - `pause` : Key to pause the game
@@ -38,13 +41,11 @@ File example:
 
 ```toml
 [display]
-screen_size.x = 900
-screen_size.y = 900
+screen_size = [900, 900]
+fps = 60
 
 [game]
-tps = 2
-grid_size.x = 15
-grid_size.y = 15
+grid_size = [15, 15]
 
 [apples]
 number = 3
@@ -57,14 +58,17 @@ textures = "mud.png"
 
 [background]
 textures = "grass.png"
+    [background.tiling]
+    active = true
+    size = [1, 1]
 
 [keys]
 pause = "SPACE"
 exit = "ESCAPE"
 
-[logs]
+[logger]
 console_level="INFO"
 file_level="DEBUG"
-max_file_size=1048576 # 1MB
+max_file_size=131072 #128KB
 max_file_count=5
 ```

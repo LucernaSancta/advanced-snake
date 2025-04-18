@@ -1,12 +1,10 @@
 # 🎑 Background Textures Documentation
 
 ## ⚙️ How It Works
-Background textures are used to create the ground or sky in-game environments. Each texture is a grid of tiles that can be repeated to cover large areas seamlessly.
-The background texture is repeated to every tile in the games grid.
+Background textures are used to create the ground or sky in-game environments. Each texture is a grid of tiles that can be repeated to cover large areas seamlessly or stretched to the whole screen.
 
 ## 🖼️ Image Rules
 - Must be a PNG file.
-- Must be a square image (`1:1` aspect ratio).
 
 ## 📁 Where to Put Them
 All background textures are stored in:
@@ -33,3 +31,14 @@ textures = "custom_background.png"
 ```
 
 This will apply your custom background texture to the game environment.
+
+## 🏁 Tiling
+Tiling cna be applied to background textures to repeat them in a grid-like patters, to activate tiling simpli set the `background.tiling.active` flag to `true` and set a zixe relative to the game grid size, for example:
+```toml
+[background]
+textures = "grass.png"
+    [background.tiling]
+    active = true
+    size = [1, 1]
+```
+In this example the grass texture is tiled across the screen with the same size of the game grid tiles.
