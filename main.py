@@ -348,7 +348,7 @@ class Game:
 
 
 if __name__ == '__main__':
-    log.name = 'GA' # Set the logger name to 'GA' for GAme
+    log.name = 'game' # Set the logger name
     log.info('Initialize game')
     game = Game()
     log.info('Run game')
