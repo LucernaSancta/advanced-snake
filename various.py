@@ -45,3 +45,38 @@ class key_map:
 
     def __contains__(self, key) -> bool:
         return key in self.keys
+
+
+class Menu:
+    def __init__(self,
+            screen: pygame.surface.Surface,
+            title: str,
+            font: pygame.font.Font
+        ) -> None:
+        
+        log.debug(f'Initializing menu: {title}')
+        self.screen = screen
+        self.title = title
+        self.font = font
+        self.center = (screen.get_width() / 2, screen.get_height() / 2)
+
+        pygame.display.set_caption(title)
+
+    def run(self):
+        # Main loop
+        while True:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    log.debug('Quitting menu by pressing exit button')
+                    return
+
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_ESCAPE:
+                        log.debug('Quitting menu by pressing exit key')
+                        return
+
+            # Render the menu
+            self.screen.fill((0, 0, 0))
+
+
+            pygame.display.flip()
