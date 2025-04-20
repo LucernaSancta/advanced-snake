@@ -120,6 +120,7 @@ class Map_creator(Game):
 
 
 if __name__ == '__main__':
+    log.name = 'MC' # Set the logger name to 'MC' for Map Creator
     log.info('Initialize map creator')
     map_creator = Map_creator()
     log.info('Run map creator')
