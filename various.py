@@ -176,6 +176,11 @@ class Menu:
         # Set the center position of the option
         self.options[name]['rect'].center = center_pos
 
+    def quit(self) -> None:
+        log.debug('Quitting menu')
+        pygame.quit()
+        quit()
+
     def _run(self):
         # Main loop
         while True:
@@ -195,7 +200,6 @@ class Menu:
                         if option['rect'].collidepoint(event.pos):
                             log.debug(f'Option {name} clicked')
                             option['action']()
-                            return
 
             if not self.bg_texture:
                 # Fill the screen with the background color
