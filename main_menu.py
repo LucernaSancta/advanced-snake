@@ -1,76 +1,40 @@
-import pygame
-import sys
-from main import Game
+from various import Menu
+from logger import logger as log
 
-# Initialize pygame
-pygame.init()
 
-# Screen settings
-WIDTH, HEIGHT = 800, 800
-screen = pygame.display.set_mode((WIDTH, HEIGHT))
-pygame.display.set_caption("Main Menu")
-
-# Colors
-WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
+WHITE = (255, 255, 255)
 GRAY = (200, 200, 200)
 
-# Font
-font = pygame.font.Font('menu_assets/font.ttf', 30)
+# Initialize menu
+menu = Menu(
+    (800,800),
+    'menu_assets/font.ttf',
+    32,
+    'Advanced Snake - Main Menu',
+    WHITE
+)
 
-# Menu options
-start_text = font.render('LOCAL',        True, BLACK)
-multi_text = font.render('ONLINE',       True, BLACK)
-sett_text =  font.render('SETTINGS',    True, BLACK)
-contr_text = font.render('CONTRINUTORS', True, BLACK)
-quit_text =  font.render('QUIT',         True, BLACK)
-
-# Rects for buttons
-screen_width_center = WIDTH // 2
+# Define buttun costants
+b_cl = BLACK # Button color
+b_th = (400, 60) # Button dimensions
 delta_height = 35
-rects_dimensions = [400, 60]
-start_rect = pygame.Rect(0,0,*rects_dimensions)
-multi_rect = pygame.Rect(0,0,*rects_dimensions)
-sett_rect =  pygame.Rect(0,0,*rects_dimensions)
-contr_rect = pygame.Rect(0,0,*rects_dimensions)
-quit_rect =  pygame.Rect(0,0,*rects_dimensions)
 
-start_rect.center = [screen_width_center, HEIGHT // 2 -   delta_height]
-multi_rect.center = [screen_width_center, HEIGHT // 2 +   delta_height]
-sett_rect.center =  [screen_width_center, HEIGHT // 2 + 3*delta_height]
-contr_rect.center = [screen_width_center, HEIGHT // 2 + 5*delta_height]
-quit_rect.center =  [screen_width_center, HEIGHT // 2 + 7*delta_height]
+# Define buttons
+options = [
+    ['local',        'LOCAL',        BLACK, lambda: log.debug('BUTT - Local'),        b_th, [menu.center.x, menu.center.y -   delta_height], GRAY],
+    ['online',       'ONLINE',       BLACK, lambda: log.debug('BUTT - Online'),       b_th, [menu.center.x, menu.center.y +   delta_height], GRAY],
+    ['settings',     'SETTINGS',     BLACK, lambda: log.debug('BUTT - Setting'),      b_th, [menu.center.x, menu.center.y + 3*delta_height], GRAY],
+    ['contributors', 'CONTRIBUTORS', BLACK, lambda: log.debug('BUTT - Contributors'), b_th, [menu.center.x, menu.center.y + 5*delta_height], GRAY],
+    ['quit',         'QUIT',         BLACK, lambda: log.debug('BUTT - Quit'),         b_th, [menu.center.x, menu.center.y + 7*delta_height], GRAY]
+]
 
-def main_menu():
-    while True:
-        screen.fill(WHITE)
+# Add buttons to menu
+for option in options:
+    menu.add_option(*option)
 
-        # Draw buttons
-        pygame.draw.rect(screen, GRAY, start_rect)
-        pygame.draw.rect(screen, GRAY, multi_rect)
-        pygame.draw.rect(screen, GRAY, sett_rect)
-        pygame.draw.rect(screen, GRAY, contr_rect)
-        pygame.draw.rect(screen, GRAY, quit_rect)
-        screen.blit(start_text, start_text.get_rect(center=start_rect.center))
-        screen.blit(multi_text, multi_text.get_rect(center=multi_rect.center))
-        screen.blit(sett_text, sett_text.get_rect(center=sett_rect.center))
-        screen.blit(contr_text, contr_text.get_rect(center=contr_rect.center))
-        screen.blit(quit_text, quit_text.get_rect(center=quit_rect.center))
-
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
-
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                if start_rect.collidepoint(event.pos):
-                    Game().run()
-                    return
-                if quit_rect.collidepoint(event.pos):
-                    pygame.quit()
-                    sys.exit()
-
-        pygame.display.flip()
-
-if __name__ == "__main__":
-    main_menu()
+# Run the menu
+if __name__ == '__main__':
+    # Run the menu
+    log.debug('Running menu')
+    menu._run()

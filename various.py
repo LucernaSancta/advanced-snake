@@ -1,4 +1,5 @@
 import pygame
+from pygame.math import Vector2
 from logger import logger as log
 
 class Timer:
@@ -69,7 +70,7 @@ class Menu:
         self.title = title
         self.font = pygame.font.Font(font_path, font_size)
         self.bg_color = bg_color
-        self.center = (screen_size[0] / 2, screen_size[1] / 2)
+        self.center = Vector2(screen_size[0] / 2, screen_size[1] / 2)
         self.options = {}
 
         pygame.display.set_caption(title)
@@ -80,8 +81,8 @@ class Menu:
             text: str,
             text_color: pygame.Color,
             action: callable,
-            center_pos: tuple[int, int],
             thikness: tuple[int, int],
+            center_pos: tuple[int, int],
             button_color: pygame.Color = None,
             button_texture: str = None
         ) -> None:
