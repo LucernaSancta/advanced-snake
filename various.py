@@ -118,7 +118,7 @@ class Menu:
                 self.bg_texture = None
         else:
             self.bg_texture = None
-        if not all([self.bg_color, self.bg_texture]):
+        if not any([self.bg_color, self.bg_texture]):
             log.warning('No background color or texture set. Using default black.')
             self.bg_color = pygame.Color(0, 0, 0)
 
