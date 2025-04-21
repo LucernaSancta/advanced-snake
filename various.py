@@ -177,7 +177,7 @@ class Menu:
         self.options[name]['rect'].center = center_pos
 
     def quit(self) -> None:
-        log.debug('Quitting menu')
+        log.info(f'Quitting menu: {self.title}')
         pygame.quit()
         quit()
 
