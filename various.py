@@ -64,7 +64,7 @@ class Menu:
 
         pygame.display.set_caption(title)
 
-    def run(self):
+    def _run(self):
         # Main loop
         while True:
             for event in pygame.event.get():

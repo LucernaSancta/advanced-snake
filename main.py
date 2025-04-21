@@ -255,7 +255,7 @@ class Game:
                     self.apples.append(self.apple_spawner())
                     break
 
-    def run(self) -> None:
+    def _run(self) -> None:
         '''Main game loop'''
 
         paused = False
@@ -355,4 +355,4 @@ if __name__ == '__main__':
     log.info('Initialize game')
     game = Game()
     log.info('Run game')
-    game.run()
+    game._run()

@@ -40,7 +40,7 @@ class Map_creator(Game):
         self.bg_surface.fill((0, 0, 0))
         self.bg_surface = self.render_background(self.bg_surface)
 
-    def run(self) -> None:
+    def _run(self) -> None:
 
         # The game renders only when is necessary so the first frame must be rendered manually
         self.display.blit(self.bg_surface, (0, 0)) # Render the background
@@ -124,4 +124,4 @@ if __name__ == '__main__':
     log.info('Initialize map creator')
     map_creator = Map_creator()
     log.info('Run map creator')
-    map_creator.run()
+    map_creator._run()
