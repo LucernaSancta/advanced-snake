@@ -22,9 +22,13 @@ Downaload the required libraries
 ```bash
 pip install -r requirements.txt
 ```
-Execute the 'main' file
+At this point you can directly play the game with
 ```bash
 python main.py
+```
+Or you can access the main menu with
+```bash
+python main_menu.py
 ```
 
 ## Features
