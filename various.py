@@ -49,6 +49,38 @@ class key_map:
         return key in self.keys
 
 
+class Renderable:
+    def render(self, surface: pygame.Surface) -> None:
+        '''
+        Render the object on the given surface.
+        '''
+        log.critical('This is a blueprint for a renderable object. DO NOT USE IT!')
+        raise NotImplementedError('Renderable is an abstract class.')
+
+
+class Image(Renderable):
+    def __init__(
+            self, path: str,
+            position: tuple[int, int],
+            scale: tuple[int, int] = None
+        ) -> None:
+
+        log.debug(f'Initializing image: {path}')
+
+        self.image = pygame.image.load(path).convert_alpha()
+        if scale:
+            size = self.image.get_size()
+            self.image = pygame.transform.scale(self.image, [size[0]*scale[0], size[1]*scale[1]])
+
+        self.rect = self.image.get_rect(center=position)
+    
+    def render(self, surface: pygame.Surface) -> None:
+        '''
+        Render the image on the given surface.
+        '''
+        surface.blit(self.image, self.rect)
+
+
 class Menu:
     def __init__(
             self,
@@ -56,7 +88,8 @@ class Menu:
             font_path: str,
             font_size: int,
             title: str,
-            bg_color: pygame.Color
+            bg_color: pygame.Color,
+            fps: int = 60
         ) -> None:
 
         log.debug(f'Initializing menu: {title}')
@@ -71,9 +104,19 @@ class Menu:
         self.font = pygame.font.Font(font_path, font_size)
         self.bg_color = bg_color
         self.center = Vector2(screen_size[0] / 2, screen_size[1] / 2)
+        self.clock = pygame.time.Clock()
+        self.fps = fps
         self.options = {}
+        self.custom_renderables: Renderable = []
 
         pygame.display.set_caption(title)
+    
+    def add_custom_renderable(self, renderable: Renderable) -> None:
+        '''
+        Add a renderable object to the menu.
+        '''
+        log.debug(f'Adding renderable: {renderable}')
+        self.custom_renderables.append(renderable)
     
     def add_option(
             self,
@@ -101,7 +144,7 @@ class Menu:
         if button_texture:
             try:
                 button_texture = pygame.image.load(button_texture).convert_alpha()
-            except pygame.error as e:
+            except pygame.error:
                 log.error(f'Failed to load texture: {button_texture}')
                 button_texture = None
 
@@ -157,5 +200,11 @@ class Menu:
                     option['text'],
                     option['text'].get_rect(center=option['rect'].center)
                 )
+            
+            # Render custom renderables
+            for renderable in self.custom_renderables:
+                renderable.render(self.screen)
 
             pygame.display.flip()
+
+            self.clock.tick(self.fps)

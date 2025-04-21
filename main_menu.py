@@ -1,10 +1,11 @@
-from various import Menu
+from various import Menu, Image
 from logger import logger as log
 
 
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
 GRAY = (200, 200, 200)
+GREEN = (24, 135, 0)
 
 # Initialize menu
 menu = Menu(
@@ -12,7 +13,7 @@ menu = Menu(
     'menu_assets/font.ttf',
     32,
     'Advanced Snake - Main Menu',
-    WHITE
+    GREEN
 )
 
 # Define buttun costants
@@ -32,6 +33,12 @@ options = [
 # Add buttons to menu
 for option in options:
     menu.add_option(*option)
+
+menu.add_custom_renderable(Image(
+    'menu_assets/title.png',
+    (menu.center.x, menu.center.y - 6*delta_height),
+    (2,2)
+))
 
 # Run the menu
 if __name__ == '__main__':
