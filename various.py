@@ -88,8 +88,9 @@ class Menu:
             font_path: str,
             font_size: int,
             title: str,
-            bg_color: pygame.Color,
-            fps: int = 60
+            bg_color: pygame.Color = None,
+            bg_texture: str = None,
+            fps: int = 60,
         ) -> None:
 
         log.debug(f'Initializing menu: {title}')
@@ -102,10 +103,25 @@ class Menu:
         
         self.title = title
         self.font = pygame.font.Font(font_path, font_size)
-        self.bg_color = bg_color
         self.center = Vector2(screen_size[0] / 2, screen_size[1] / 2)
+
         self.clock = pygame.time.Clock()
         self.fps = fps
+
+        self.bg_color = bg_color
+        if bg_texture:
+            try:
+                self.bg_texture = pygame.image.load(bg_texture).convert_alpha()
+                self.bg_texture = pygame.transform.scale(self.bg_texture, screen_size)
+            except pygame.error:
+                log.error(f'Failed to load background texture: {bg_texture}')
+                self.bg_texture = None
+        else:
+            self.bg_texture = None
+        if not all([self.bg_color, self.bg_texture]):
+            log.warning('No background color or texture set. Using default black.')
+            self.bg_color = pygame.Color(0, 0, 0)
+
         self.options = {}
         self.custom_renderables: Renderable = []
 
@@ -181,7 +197,12 @@ class Menu:
                             option['action']()
                             return
 
-            self.screen.fill(self.bg_color)
+            if not self.bg_texture:
+                # Fill the screen with the background color
+                self.screen.fill(self.bg_color)
+            else:
+                # Fill the screen with the background texture
+                self.screen.blit(self.bg_texture, (0, 0))
 
             # Draw buttons
             for name, option in self.options.items():
