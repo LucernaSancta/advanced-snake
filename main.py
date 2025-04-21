@@ -165,6 +165,7 @@ class Game:
         return Apple(pos, self.apple_power, self.snake_grid_thikness, self.apples_textures)
 
     def render_background(self, surface: pygame.surface.Surface) -> pygame.surface.Surface:
+
         log.debug(f'Rendering background, tiling={self.bg_tiling}')
 
         if self.bg_tiling['active']:
@@ -202,7 +203,7 @@ class Game:
         return surface
 
     def update_snake(self, snake: Snake) -> None:
-        # Update snakes logics
+        '''Update snakes logics'''
 
         # Update the position
         snake.update()
@@ -255,6 +256,8 @@ class Game:
                     break
 
     def run(self) -> None:
+        '''Main game loop'''
+
         paused = False
         frames = 0
         deltaTime = 0

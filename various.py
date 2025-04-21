@@ -2,11 +2,12 @@ import pygame
 from logger import logger as log
 
 class Timer:
-    def __init__(self,
+    def __init__(
+            self,
             duration: int,
             starting: float = 0,
             paused: bool = False
-        ):
+        ) -> None:
         '''
         duration: duration of the timer
         starting: starting point of the timer
@@ -48,7 +49,8 @@ class key_map:
 
 
 class Menu:
-    def __init__(self,
+    def __init__(
+            self,
             screen: pygame.surface.Surface,
             title: str,
             font: pygame.font.Font

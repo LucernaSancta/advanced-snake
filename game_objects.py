@@ -7,15 +7,16 @@ from logger import logger as log
 
 
 class Snake:
-    def __init__(self,
-                 name: str,
-                 keybindings: list,
-                 pos: Vector2 = Vector2(0,0),
-                 speed: int = 2,
-                 textures: str = 'default.png',
-                 thikness: Vector2 = Vector2(10,10),
-                 length: int = 3
-                 ) -> None:
+    def __init__(
+            self,
+            name: str,
+            keybindings: list,
+            pos: Vector2 = Vector2(0,0),
+            speed: int = 2,
+            textures: str = 'default.png',
+            thikness: Vector2 = Vector2(10,10),
+            length: int = 3
+        ) -> None:
         
         log.debug(f'Initializing snake {name}')
 
@@ -71,7 +72,10 @@ class Snake:
         for _ in range(power):
             self.pieces.append(self.last_removed)
     
-    def render(self, display: pygame.surface.Surface) -> None:
+    def render(
+            self,
+            display: pygame.surface.Surface
+        ) -> None:
 
         # 0 is not moving and 1 is normal
         if self.state in [0,1]:
@@ -134,12 +138,13 @@ class Snake:
 
 
 class Walls:
-    def __init__(self,
-                 external_box: Vector2,
-                 walls_map: str,
-                 thikness: Vector2,
-                 textures: str = 'default.png'
-                 ) -> None:
+    def __init__(
+            self,
+            external_box: Vector2,
+            walls_map: str,
+            thikness: Vector2,
+            textures: str = 'default.png'
+        ) -> None:
         
         self.external_box = external_box
         self.thikness = thikness
@@ -205,7 +210,9 @@ class Walls:
 
     def export(self, file_name: str) -> None:
         '''Export the current walls to a CSV file'''
+
         log.info(f'Exporting wall map with name {file_name} -> maps/{file_name}.csv')
+
         # Open the csv file
         with open(f'maps/{file_name}.csv', 'w') as csv_file:
             csv_writer = csv.writer(csv_file, delimiter=',', lineterminator='\n')
@@ -305,8 +312,11 @@ class Walls:
     @property
     def walls_absolute(self) -> list[Vector2]:
         '''Returns the absolute position of every wall'''
+
+        # Initailize new list
         walls = []
 
+        # Calcualte absolute positions based on the thikness
         th = self.thikness
         for wall in self.custom_walls:
             walls.append(Vector2(wall.x*th.x,wall.y*th.y))
@@ -315,12 +325,14 @@ class Walls:
             
 
 class Apple:
-    def __init__(self,
-                 pos: Vector2,
-                 power: int,
-                 thikness: Vector2,
-                 texture: str = 'default.png',
-                 ) -> None:
+    def __init__(
+            self,
+            pos: Vector2,
+            power: int,
+            thikness: Vector2,
+            texture: str = 'default.png',
+        ) -> None:
+        
         self.pos = pos
         self.power = power
         self.thikness = thikness
