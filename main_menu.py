@@ -2,6 +2,7 @@ from main import Game
 from various import Menu, Image
 from logger import logger as log
 
+log.name = 'main_menu'
 
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
