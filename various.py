@@ -93,7 +93,7 @@ class Menu:
             fps: int = 60,
         ) -> None:
 
-        log.debug(f'Initializing menu: {title}')
+        log.info(f'Initializing menu: {title}')
 
         # Initialize pygame
         pygame.init()
