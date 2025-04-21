@@ -51,18 +51,70 @@ class key_map:
 class Menu:
     def __init__(
             self,
-            screen: pygame.surface.Surface,
+            screen_size: tuple[int, int],
+            font_path: str,
+            font_size: int,
             title: str,
-            font: pygame.font.Font
+            bg_color: pygame.Color
         ) -> None:
-        
+
         log.debug(f'Initializing menu: {title}')
-        self.screen = screen
+
+        # Initialize pygame
+        pygame.init()
+
+        # Screen settings
+        self.screen = pygame.display.set_mode(screen_size)
+        
         self.title = title
-        self.font = font
-        self.center = (screen.get_width() / 2, screen.get_height() / 2)
+        self.font = pygame.font.Font(font_path, font_size)
+        self.bg_color = bg_color
+        self.center = (screen_size[0] / 2, screen_size[1] / 2)
+        self.options = {}
 
         pygame.display.set_caption(title)
+    
+    def add_option(
+            self,
+            name: str,
+            text: str,
+            text_color: pygame.Color,
+            action: callable,
+            center_pos: tuple[int, int],
+            thikness: tuple[int, int],
+            button_color: pygame.Color = None,
+            button_texture: str = None
+        ) -> None:
+        '''
+        Add an option to the menu, a button with a text and an action.
+        '''
+
+        # Check if the option already exists
+        if name in self.options:
+            log.warning(f'Option {name} already exists. Skipping...')
+            return
+        
+        log.debug(f'Adding option: {name}')
+
+        # Render the texture
+        if button_texture:
+            try:
+                button_texture = pygame.image.load(button_texture).convert_alpha()
+            except pygame.error as e:
+                log.error(f'Failed to load texture: {button_texture}')
+                button_texture = None
+
+        # Create the option
+        self.options[name] = {
+            'text': self.font.render(text,True,text_color),
+            'rect': pygame.Rect(0,0,*thikness),
+            'button_color': button_color,
+            'button_texture': button_texture,
+            'action': action,
+        }
+
+        # Set the center position of the option
+        self.options[name]['rect'].center = center_pos
 
     def _run(self):
         # Main loop
@@ -76,9 +128,33 @@ class Menu:
                     if event.key == pygame.K_ESCAPE:
                         log.debug('Quitting menu by pressing exit key')
                         return
+                
+                # Check for options clicks
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    for name, option in self.options.items():
+                        if option['rect'].collidepoint(event.pos):
+                            log.debug(f'Option {name} clicked')
+                            option['action']()
+                            return
 
-            # Render the menu
-            self.screen.fill((0, 0, 0))
+            self.screen.fill(self.bg_color)
 
+            # Draw buttons
+            for name, option in self.options.items():
+                # Draw the texture if it exists
+                if option['button_texture']:
+                    self.screen.blit(option['button_texture'], option['rect'])
+                else:
+                    pygame.draw.rect(
+                        self.screen,
+                        option['button_color'],
+                        option['rect']
+                    )
+                
+                # Draw the text
+                self.screen.blit(
+                    option['text'],
+                    option['text'].get_rect(center=option['rect'].center)
+                )
 
             pygame.display.flip()
