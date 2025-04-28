@@ -43,15 +43,25 @@ class Snake:
     
     def move(self, key) -> None:
 
-        # If necessary, update the state from 'not moving' to default
-        if self.state == 0:
-            self.state = 1
-
+        # Match the key pressed with the keybindings
         match key:
-            case self.keybindings.up:    self.direction = Vector2(0,-1)
-            case self.keybindings.left:  self.direction = Vector2(-1,0)
-            case self.keybindings.down:  self.direction = Vector2(0,1)
-            case self.keybindings.right: self.direction = Vector2(1,0)
+            case self.keybindings.up:    new_direction = Vector2(0,-1)
+            case self.keybindings.left:  new_direction = Vector2(-1,0)
+            case self.keybindings.down:  new_direction = Vector2(0,1)
+            case self.keybindings.right: new_direction = Vector2(1,0)
+        
+        # Check if the player is not committing suicide by entering itself
+        if self.pieces[0]-self.pos == Vector2(new_direction.x*self.thikness.x, new_direction.y*self.thikness.y):
+            log.warning(f'{self.name} tried to collide with itself')
+            log.debug(f'└── Attempt made at {self.pieces[0]}, restoring old direction: {self.direction}')
+
+        else:
+            # Update with new direction
+            self.direction = new_direction
+
+            # If necessary, update the state from 'not moving' to default
+            if self.state == 0:
+                self.state = 1
     
     def update(self) -> None:
 
