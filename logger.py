@@ -1,4 +1,4 @@
-import toml
+import json
 import os
 import logging
 from logging.handlers import RotatingFileHandler
@@ -32,13 +32,14 @@ class CustomFormatter(logging.Formatter):
 
 
 # Load the log level
-config_file = 'config.json'
+config_path = 'config.json'
 
 # Set up global config
-if os.path.isfile(config_file):
-    config = toml.load(config_file)
+if os.path.isfile(config_path):
+    with open(config_path) as config_file:
+        config = json.load(config_file)
 else:
-    logging.critical(f'Config file {config_file} not found.')
+    logging.critical(f'Config file {config_path} not found.')
 
 # Assign global config variables
 cmd_level = config['logger']['console_level']

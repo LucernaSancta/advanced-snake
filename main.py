@@ -1,5 +1,4 @@
 import sys
-import yaml
 import json
 import time
 import pygame
