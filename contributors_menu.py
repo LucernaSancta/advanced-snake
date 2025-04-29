@@ -18,7 +18,7 @@ def main(surface=None):
         font_size=32,
         title='Advanced Snake - Contributors',
         bg_texture='menu_assets/background.png',
-        eredited_screen=surface, # This is used to set the surface of the menu to the main menu surface
+        inherit_screen=surface, # This is used to set the surface of the menu to the main menu surface
     )
 
     def open_webpage(link: str):
