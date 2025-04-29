@@ -1,6 +1,6 @@
 import sys
 import yaml
-import toml
+import json
 import time
 import pygame
 import random
@@ -18,7 +18,7 @@ class Game:
         self.print_new_game('MAIN GAME SCRIPT')
 
         # Load config file
-        self.load_configs('config.toml')
+        self.load_configs('config.json')
 
         # Calculate tils thikness
         self.snake_grid_thikness = Vector2(self.screen_size.x // self.snake_grid_size.x, self.screen_size.y // self.snake_grid_size.y)
@@ -76,31 +76,35 @@ class Game:
             log.debug(f'Running: {running}')
         log.debug('')
     
-    def load_configs(self, config_file: str) -> None:
+    def load_configs(self, config_path: str) -> None:
         """Load the config file and assign the variables to the class"""
 
-        log.debug(f'Loading config file: {config_file}')
+        log.debug(f'Loading config file: {config_path}')
         # Set up global config
-        if os.path.isfile(config_file):
-            config = toml.load(config_file)
+        if not os.path.isfile(config_path):
+            log.critical(f'Config file {config_path} not found.')
         else:
-            log.critical(f'Config file {config_file} not found.')
 
-        # Assign global config variables
-        self.screen_size =     Vector2(config['display']['screen_size'])
-        self.snake_grid_size = Vector2(config['game']['grid_size'])
-        self.apples_textures =    config['apples']['textures']
-        self.walls_textures =     config['walls']['textures']
-        self.bg_texture =         config['background']['textures']
-        self.initial_apples = int(config['apples']['number'])
-        self.apple_power =    int(config['apples']['power'])
-        self.pause_key =  config['keys']['pause']
-        self.exit_key =   config['keys']['exit']
-        self.wall_map =   config['walls']['map']
-        self.fps =  float(config['display']['fps'])
+            with open(config_path, 'r') as config_file:
+                config = json.load(config_file)
 
-        self.bg_tiling = config['background']['tiling']
-        self.bg_tiling_size = Vector2(config['background']['tiling']['size'])
+                # Assign global config variables
+                self.screen_size =     Vector2(config['display']['screen_size'])
+                self.snake_grid_size = Vector2(config['game']['grid_size'])
+                self.apples_textures =    config['apples']['textures']
+                self.walls_textures =     config['walls']['textures']
+                self.bg_texture =         config['background']['textures']
+                self.initial_apples = int(config['apples']['number'])
+                self.apple_power =    int(config['apples']['power'])
+                self.pause_key =  config['keys']['pause']
+                self.exit_key =   config['keys']['exit']
+                self.wall_map =   config['walls']['map']
+                self.fps =  float(config['display']['fps'])
+
+                self.bg_tiling = config['background']['tiling']
+                self.bg_tiling_size = Vector2(config['background']['tiling']['size'])
+
+                self.player_configs = config['players']
     
     def init_walls(self) -> Walls:
         return Walls(self.screen_size,self.wall_map,self.snake_grid_thikness,self.walls_textures)
@@ -108,21 +112,20 @@ class Game:
     def init_players(self) -> list[Snake]:
         log.debug('Loading players')
         players = []
-        for filename in os.listdir('players'):
-            if filename.endswith(".yaml"):
-                with open('players/'+filename, 'r') as file:
-                    player_data = yaml.safe_load(file)
-                    players.append(
-                        Snake(
-                            name=player_data['name'],
-                            keybindings=player_data['keybindings'],
-                            thikness=self.snake_grid_thikness,
-                            textures=player_data['textures'],
-                            speed=player_data['speed'],
-                            pos=Vector2(player_data['starting_pos'][0]*self.snake_grid_thikness.x,player_data['starting_pos'][1]*self.snake_grid_thikness.y),
-                            length=player_data['starting_length']
-                            )
-                        )
+
+        for player_data in self.player_configs:
+            # Load the player config
+            players.append(
+                Snake(
+                    name=player_data['name'],
+                    keybindings=player_data['keybindings'],
+                    thikness=self.snake_grid_thikness,
+                    textures=player_data['textures'],
+                    speed=player_data['speed'],
+                    pos=Vector2(player_data['starting_pos'][0]*self.snake_grid_thikness.x,player_data['starting_pos'][1]*self.snake_grid_thikness.y),
+                    length=player_data['starting_length']
+                    )
+                )
         return players
     
     def init_apples(self) -> list[Apple]:

@@ -1,6 +1,0 @@
-name: 'Alex'
-starting_pos: [14, 7]
-textures: 'google.png'
-starting_length: 2
-speed: 1 # blocks per second
-keybindings: ['UP','DOWN','LEFT','RIGHT']
