@@ -1,6 +1,7 @@
 from main import Game
 from various import Menu, Image
 from logger import logger as log
+from contributors_menu import main as contributors_menu
 
 log.name = 'main_menu'
 
@@ -29,11 +30,11 @@ def load_local_game():
 
 # Define buttons
 options = [
-    ['local',        'LOCAL',        BLACK, load_local_game,                          b_th, [menu.center.x, menu.center.y -   delta_height], WHITE],
-    ['online',       'ONLINE',       BLACK, lambda: log.debug('BUTT - Online'),       b_th, [menu.center.x, menu.center.y +   delta_height], WHITE],
-    ['settings',     'SETTINGS',     BLACK, lambda: log.debug('BUTT - Setting'),      b_th, [menu.center.x, menu.center.y + 3*delta_height], WHITE],
-    ['contributors', 'CONTRIBUTORS', BLACK, lambda: log.debug('BUTT - Contributors'), b_th, [menu.center.x, menu.center.y + 5*delta_height], WHITE],
-    ['quit',         'QUIT',         BLACK, menu.quit,                                b_th, [menu.center.x, menu.center.y + 7*delta_height], WHITE]
+    ['local',        'LOCAL',        BLACK, load_local_game,                       b_th, [menu.center.x, menu.center.y -   delta_height], WHITE],
+    ['online',       'ONLINE',       BLACK, lambda: log.debug('BUTT - Online'),    b_th, [menu.center.x, menu.center.y +   delta_height], WHITE],
+    ['settings',     'SETTINGS',     BLACK, lambda: log.debug('BUTT - Setting'),   b_th, [menu.center.x, menu.center.y + 3*delta_height], WHITE],
+    ['contributors', 'CONTRIBUTORS', BLACK, lambda: contributors_menu(menu.screen),b_th, [menu.center.x, menu.center.y + 5*delta_height], WHITE],
+    ['quit',         'QUIT',         BLACK, menu.quit,                             b_th, [menu.center.x, menu.center.y + 7*delta_height], WHITE]
 ]
 
 # Add buttons to menu

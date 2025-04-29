@@ -91,6 +91,7 @@ class Menu:
             bg_color: pygame.Color = None,
             bg_texture: str = None,
             fps: int = 60,
+            inherit_screen: pygame.surface.Surface | None = None
         ) -> None:
 
         log.info(f'Initializing menu: {title}')
@@ -99,11 +100,15 @@ class Menu:
         pygame.init()
 
         # Screen settings
-        self.screen = pygame.display.set_mode(screen_size)
+        if inherit_screen is not None:
+            self.screen = inherit_screen
+        else:
+            self.screen = pygame.display.set_mode(screen_size)
         
         self.title = title
         self.font = pygame.font.Font(font_path, font_size)
         self.center = Vector2(screen_size[0] / 2, screen_size[1] / 2)
+        self.running = True
 
         self.clock = pygame.time.Clock()
         self.fps = fps
@@ -178,12 +183,11 @@ class Menu:
 
     def quit(self) -> None:
         log.info(f'Quitting menu: {self.title}')
-        pygame.quit()
-        quit()
+        self.running = False
 
     def _run(self):
         # Main loop
-        while True:
+        while self.running:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     log.debug('Quitting menu by pressing exit button')
