@@ -1,7 +1,7 @@
 # 🐍 Custom Snake Textures
 
 ## 📄 Where Textures Are Defined
-Snake textures are assigned in the player's `.yml` config file
+Snake textures are assigned in the player's `config.json` config file section
 
 👉 See [`players & multiplayer configs`](../players.md) for more
 
@@ -39,7 +39,11 @@ The engine automatically slices this grid so it will always match the snake dime
 2. Open it in your favorite editor
 3. Replace each tile with your own design
 4. Save as a new .png file
-5. In the player's `.yml`, set:
-```yaml
-textures: your_texture_name.png
+5. In the players section of the `config.json`, set:
+```json
+    "players": [
+        {
+            "textures": "google.png",
+        }
+    ]
 ```

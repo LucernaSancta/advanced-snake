@@ -1,6 +1,6 @@
 # 🌍 Global Variables for Advanced Snake Game
 
-The `config.toml` file is used to configure the game settings. Here’s what each variable does:
+The `config.json` file is used to configure the game settings. Here’s what each variable does:
 
 ---
 

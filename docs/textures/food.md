@@ -25,10 +25,11 @@ When an apple is created, it:
 - Save to `textures/food/` with whatever name you like
 
 ## 📥 Load a Custom Texture
-To load a custom food texture you can just change the `apples.textures` variable in the `config.toml` file to the name of the texture's file.
+To load a custom food texture you can just change the `apples.textures` variable in the `config.json` file to the name of the texture's file.
 
 Example:
-```toml
-[apples]
-textures = "custom.png"
+```json
+    "apples": {
+        "textures": "apple.png"
+    },
 ```

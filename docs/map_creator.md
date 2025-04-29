@@ -28,7 +28,7 @@ python map_creator.py
 When saving, you will be prompted to enter a filename for the CSV in the console.
 
 ## 🛠️ Configuration
-The configurations are extracted directly from the 📄`config.toml`, you can check the [`global configs`](./config.md) for more.
+The configurations are extracted directly from the 📄`config.json`, you can check the [`global configs`](./config.md) for more.
 
 ## 🧠 Dev Notes
 - Snakes are loaded for display but not interactive in the map creator.

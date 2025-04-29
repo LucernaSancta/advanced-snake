@@ -24,21 +24,24 @@ textures/background/
 4. Configure your game engine or application to use the new background texture via its configuration settings.
 
 ## 🎨 Loading Custom Textures
-To use a custom background texture, modify the `config.toml` file by modifying the `[background]` section:
-```toml
-[background]
-textures = "custom_background.png"
+To use a custom background texture, modify the `config.json` file by modifying the `background` section:
+```json
+    "background": {
+        "textures": "grass.png",
+    },
 ```
 
 This will apply your custom background texture to the game environment.
 
 ## 🏁 Tiling
 Tiling cna be applied to background textures to repeat them in a grid-like patters, to activate tiling simpli set the `background.tiling.active` flag to `true` and set a zixe relative to the game grid size, for example:
-```toml
-[background]
-textures = "grass.png"
-    [background.tiling]
-    active = true
-    size = [1, 1]
+```json
+    "background": {
+        "textures": "grass.png",
+        "tiling": {
+            "active": true,
+            "size": [1, 1]
+        }
+    },
 ```
 In this example the grass texture is tiled across the screen with the same size of the game grid tiles.

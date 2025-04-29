@@ -14,32 +14,41 @@ textures/
 Each folder contains `.png` files that can be referenced dynamically at runtime.
 
 ## 🧠 How the Game Loads Textures
-Texture names are pulled directly from the main config file 📄`config.toml` and `.yml` files for players
+Texture names are pulled directly from the main config file 📄`config.json`
 
 These are the default texture settings:
-- `config.toml`
-    ```toml
-    [apples]
-    textures = "apple.png"
+```json
+{
+    "apples": {
+        ...,
+        "textures": "apple.png"
+    },
+    "walls": {
+        ...,
+        "textures": "mud.png"
+    },
+    "background": {
+        "textures": "grass.png",
+        ...
+    },
+    "players": [
+        {
+            ...,
+            "textures": "google.png",
+            ...
+        }
+    ]
+}
 
-    [walls]
-    textures = "default.png"
-
-    [background]
-    textures = "default.png"
-    ```
-- `.yml` files
-    ```yaml
-    textures: 'default.png'
-    ```
+```
 
 ## 📌 Texture Assignment by Type
 | Type | Source of Texture Info | Location |
 | ------- | ------- | ------- |
-| Snake | Set per-player in `players/*.yml` | `textures/snakes/` |
-| Food | Set in `config.toml` | `textures/food/` |
-| Walls | Set in `config.toml` | `textures/walls/` |
-| Background | Set in `config.toml` | `textures/background/` |
+| Snake | Set in `config.json` | `textures/snakes/` |
+| Food | Set in `config.json` | `textures/food/` |
+| Walls | Set in `config.json` | `textures/walls/` |
+| Background | Set in `config.json` | `textures/background/` |
 
 <br>
 

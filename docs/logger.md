@@ -4,10 +4,13 @@ The logger is a custom tool made with the build-in `logging` python module and i
 ## Customize Logging Levels
 You can configure the logging level in the global configuration file under the `logs.level` flag:
 
-```toml
-[logs]
-console_level="INFO"
-file_level="DEBUG"
+```json
+    "logger": {
+        "console_level": "DEBUG",
+        "file_level": "DEBUG",
+        "max_file_size": 131072,
+        "max_file_count": 5
+    },
 ```
 
 - `console_level` is for the console logs level.
