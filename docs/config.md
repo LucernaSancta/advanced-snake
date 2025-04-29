@@ -31,7 +31,7 @@ The `config.json` file is used to configure the game settings. Here’s what eac
     - `exit` : Key to exit the game
 
 - `logs`
-    - `console_level` : set the logging level for console logs (see [logging docs](./code/logging.md) for more)
+    - `console_level` : set the logging level for console logs (see [logging docs](./logger.md) for more)
     - `file_level` : set the logging level for file written logs
     - `max_file_size` : set max file size for file written logs
     - `max_file_count` : set max files for file written logs
