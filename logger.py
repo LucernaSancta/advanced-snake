@@ -32,7 +32,7 @@ class CustomFormatter(logging.Formatter):
 
 
 # Load the log level
-config_file = 'config.toml'
+config_file = 'config.json'
 
 # Set up global config
 if os.path.isfile(config_file):

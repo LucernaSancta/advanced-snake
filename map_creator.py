@@ -11,7 +11,7 @@ class Map_creator(Game):
 
         self.print_new_game('MAP CREATOR SCRIPT')
 
-        self.load_configs('config.toml')
+        self.load_configs('config.json')
 
         self.snake_grid_thikness = Vector2(self.screen_size.x // self.snake_grid_size.x, self.screen_size.y // self.snake_grid_size.y)
         log.debug(f'Snake grid thikness: {self.snake_grid_thikness}')
