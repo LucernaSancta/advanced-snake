@@ -141,14 +141,22 @@ class Menu:
     
     def add_option(
             self,
+
             name: str,
             text: str,
-            text_color: pygame.Color,
+
             action: callable,
             thikness: tuple[int, int],
             center_pos: tuple[int, int],
-            button_color: pygame.Color = None,
-            button_texture: str = None
+
+            text_color: pygame.Color = "BLACK",
+            text_color_hover: pygame.Color = "WHITE",
+
+            button_color: pygame.Color = "WHITE",
+            button_color_hover: pygame.Color = "BLACK",
+
+            button_texture: str = None,
+            button_texture_hover: str = None
         ) -> None:
         '''
         Add an option to the menu, a button with a text and an action.
@@ -162,19 +170,30 @@ class Menu:
         log.debug(f'Adding option: {name}')
 
         # Render the texture
-        if button_texture:
+        if button_texture and button_texture_hover:
             try:
                 button_texture = pygame.image.load(button_texture).convert_alpha()
+                button_texture_hover = pygame.image.load(button_texture_hover).convert_alpha()
             except pygame.error:
                 log.error(f'Failed to load texture: {button_texture}')
+                log.error(f'Failed to load texture: {button_texture_hover}')
                 button_texture = None
+                button_texture_hover = None
+        elif button_texture or button_texture_hover:
+            log.warning(f'Failed to load button {name} textures because only one of the two is specified')
 
         # Create the option
         self.options[name] = {
-            'text': self.font.render(text,True,text_color),
+            'text': text,
             'rect': pygame.Rect(0,0,*thikness),
+
+            'text_color': text_color,
+            'text_color_hover': text_color_hover,
             'button_color': button_color,
+            'button_color_hover': button_color_hover,
             'button_texture': button_texture,
+            'button_texture_hover': button_texture_hover,
+
             'action': action,
         }
 
@@ -188,6 +207,8 @@ class Menu:
     def _run(self):
         # Main loop
         while self.running:
+
+
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     log.debug('Quitting menu by pressing exit button')
@@ -197,13 +218,7 @@ class Menu:
                     if event.key == pygame.K_ESCAPE:
                         log.debug('Quitting menu by pressing exit key')
                         return
-                
-                # Check for options clicks
-                if event.type == pygame.MOUSEBUTTONDOWN:
-                    for name, option in self.options.items():
-                        if option['rect'].collidepoint(event.pos):
-                            log.debug(f'Option {name} clicked')
-                            option['action']()
+                    
 
             if not self.bg_texture:
                 # Fill the screen with the background color
@@ -212,24 +227,61 @@ class Menu:
                 # Fill the screen with the background texture
                 self.screen.blit(self.bg_texture, (0, 0))
 
-            # Draw buttons
+
+            mouse_pos = Vector2(pygame.mouse.get_pos())
+            mouse_pressed_any = any(pygame.mouse.get_pressed())
+
+
+            # Buttons logic and rendering
             for name, option in self.options.items():
-                # Draw the texture if it exists
-                if option['button_texture']:
-                    self.screen.blit(option['button_texture'], option['rect'])
-                else:
-                    pygame.draw.rect(
-                        self.screen,
-                        option['button_color'],
-                        option['rect']
-                    )
+
                 
-                # Draw the text
-                self.screen.blit(
-                    option['text'],
-                    option['text'].get_rect(center=option['rect'].center)
-                )
-            
+                if option['rect'].collidepoint(mouse_pos):
+
+                    # Draw the texture if it exists
+                    if option['button_texture_hover']:
+                        self.screen.blit(option['button_texture_hover'], option['rect'])
+
+                    else:
+                        pygame.draw.rect(
+                            self.screen,
+                            option['button_color_hover'],
+                            option['rect']
+                        )
+                    
+                    # Draw the text
+                    text = self.font.render(option['text'],True,option['text_color_hover'])
+                    self.screen.blit(
+                        text,
+                        text.get_rect(center=option['rect'].center)
+                    )
+
+                    if mouse_pressed_any:
+                        log.debug(f'Option {name} clicked')
+                        option['action']()
+                
+
+                # The button is not beeing hovered
+                else:
+                    # Draw the texture if it exists
+                    if option['button_texture']:
+                        self.screen.blit(option['button_texture'], option['rect'])
+
+                    else:
+                        pygame.draw.rect(
+                            self.screen,
+                            option['button_color'],
+                            option['rect']
+                        )
+                    
+                    # Draw the text
+                    text = self.font.render(option['text'],True,option['text_color'])
+                    self.screen.blit(
+                        text,
+                        text.get_rect(center=option['rect'].center)
+                    )
+
+
             # Render custom renderables
             for renderable in self.custom_renderables:
                 renderable.render(self.screen)

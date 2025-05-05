@@ -41,24 +41,20 @@ def main(surface=None):
     for i, contributor in enumerate(contributors):
         
         menu.add_option(
-            contributor[0], 
-            contributor[0], 
-            BLACK, 
-            lambda link=contributor[1]: open_webpage(link), 
-            b_th, 
-            [menu.center.x, 2*i*delta_height + (delta_height*5)], 
-            WHITE
+            contributor[0],
+            contributor[0],
+            lambda link=contributor[1]: open_webpage(link),
+            b_th,
+            [menu.center.x, 2*i*delta_height + (delta_height*5)],
         )
     
     # Add back button
     menu.add_option(
-        'back', 
-        'BACK', 
-        BLACK, 
-        menu.quit, 
-        b_th, 
-        [menu.center.x, 2*delta_height], 
-        WHITE
+        'back',
+        'BACK',
+        menu.quit,
+        b_th,
+        [menu.center.x, 2*delta_height],
     )
 
     log.debug('Running menu')
