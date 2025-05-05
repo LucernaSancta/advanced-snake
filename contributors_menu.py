@@ -6,10 +6,6 @@ def main(surface=None):
     log.name = 'contributors_menu'
     log.debug('Initializing contributors menu')
 
-    BLACK = (0, 0, 0)
-    WHITE = (255, 255, 255)
-    GRAY = (200, 200, 200)
-
 
     # Initialize menu
     menu = Menu(
