@@ -1,6 +1,13 @@
-from various import Menu
-from logger import logger as log
 import webbrowser
+try:
+    from .menu_components import Menu
+    from logger import logger as log
+except ImportError:
+    from menu_components import Menu
+    import logging
+    logging.basicConfig(level=logging.DEBUG)
+    log = logging.getLogger(__name__)
+
 
 def main(surface=None):
     log.name = 'contributors_menu'

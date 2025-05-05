@@ -1,7 +1,10 @@
 from main import Game
-from various import Menu, Image
 from logger import logger as log
-from contributors_menu import main as contributors_menu
+
+from menus.menu_components import Menu, Image
+
+from menus.contributors_menu import main as contributors_menu
+from menus.settings_menu import main as settings_menu
 
 log.name = 'main_menu'
 
@@ -27,7 +30,7 @@ def load_local_game():
 options = [
     ['local',        'LOCAL',        load_local_game,                       b_th, [menu.center.x, menu.center.y -   delta_height]],
     ['online',       'ONLINE',       lambda: log.debug('BUTT - Online'),    b_th, [menu.center.x, menu.center.y +   delta_height]],
-    ['settings',     'SETTINGS',     lambda: log.debug('BUTT - Setting'),   b_th, [menu.center.x, menu.center.y + 3*delta_height]],
+    ['settings',     'SETTINGS',     lambda: settings_menu(menu.screen),    b_th, [menu.center.x, menu.center.y + 3*delta_height]],
     ['contributors', 'CONTRIBUTORS', lambda: contributors_menu(menu.screen),b_th, [menu.center.x, menu.center.y + 5*delta_height]],
     ['quit',         'QUIT',         menu.quit,                             b_th, [menu.center.x, menu.center.y + 7*delta_height]]
 ]
