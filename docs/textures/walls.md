@@ -27,4 +27,4 @@ You can swap textures in the `walls.textures` variable of the `config.json`
 - Keep alignment clean: Make sure edges line up perfectly across tiles.
 
 ## 🧪 Testing
-To simplify the texture creation process we created a map (`testing.csv`) that uses all walls textures.
+To simplify the texture creation process we created a map (`test_textures21x15.csv`) that uses all walls textures.
