@@ -45,7 +45,7 @@ def main(surface=None):
             contributor[0],
             lambda link=contributor[1]: open_webpage(link),
             b_th,
-            [menu.center.x, 2*i*delta_height + (delta_height*5)],
+            [menu.center.x, 2*i*delta_height + (delta_height*4)],
         )
     
     # Add back button
@@ -54,7 +54,7 @@ def main(surface=None):
         'BACK',
         menu.quit,
         b_th,
-        [menu.center.x, 2*delta_height],
+        [menu.center.x, menu.center.y+7*delta_height],
     )
 
     log.debug('Running menu')

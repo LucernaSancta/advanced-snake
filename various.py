@@ -205,6 +205,7 @@ class Menu:
         self.running = False
 
     def _run(self):
+        mouse_pressed_pos=Vector2(0,0)
         # Main loop
         while self.running:
 
@@ -228,8 +229,16 @@ class Menu:
                 self.screen.blit(self.bg_texture, (0, 0))
 
 
+            # Get mouse things
             mouse_pos = Vector2(pygame.mouse.get_pos())
             mouse_pressed_any = any(pygame.mouse.get_pressed())
+
+            if mouse_pressed_any and (mouse_pressed_pos == Vector2(0,0)):
+                mouse_pressed_pos = mouse_pos # Set the mouse position when the mouse is first pressed
+            elif mouse_pressed_any:
+                pass # The mouse is still beeing pressed
+            else:
+                mouse_pressed_pos = Vector2(0,0) # Reset the mouse position
 
 
             # Buttons logic and rendering
@@ -256,7 +265,8 @@ class Menu:
                         text.get_rect(center=option['rect'].center)
                     )
 
-                    if mouse_pressed_any:
+                    # Check for pressed mouse buttons and for the mouse position when it pressed them
+                    if mouse_pressed_any and option['rect'].collidepoint(mouse_pressed_pos):
                         log.debug(f'Option {name} clicked')
                         option['action']()
                 
