@@ -1,0 +1,70 @@
+{
+    "_comment": "Check the docs/config.md for informations on how to configure this file",
+    "display": {
+        "screen_size": [900, 900],
+        "fps": 60
+    },
+    "game": {
+        "grid_size": [20, 20]
+    },
+    "apples": {
+        "number": 3,
+        "power": 1,
+        "textures": "apple.png"
+    },
+    "walls": {
+        "map": "fountain20x20.csv",
+        "textures": "mud.png"
+    },
+    "background": {
+        "textures": "grass.png",
+        "tiling": {
+            "active": true,
+            "size": [1, 1]
+        }
+    },
+    "keys": {
+        "pause": "SPACE",
+        "exit": "ESCAPE"
+    },
+    "logger": {
+        "console_level": "DEBUG",
+        "file_level": "DEBUG",
+        "max_file_size": 131072,
+        "max_file_count": 5
+    },
+    "players": [
+        {
+            "name": "Alex",
+            "starting_pos": [19, 0],
+            "textures": "google.png",
+            "starting_length": 2,
+            "speed": 2,
+            "keybindings": ["UP", "DOWN", "LEFT", "RIGHT"]
+        },
+        {
+            "name": "Steve",
+            "starting_pos": [0, 0],
+            "textures": "google_yellow.png",
+            "starting_length": 2,
+            "speed": 2,
+            "keybindings": ["w", "s", "a", "d"]
+        },
+        {
+            "name": "Jeb",
+            "starting_pos": [0, 17],
+            "textures": "google_green.png",
+            "starting_length": 2,
+            "speed": 2,
+            "keybindings": ["t", "g", "f", "h"]
+        },
+        {
+            "name": "Nock",
+            "starting_pos": [19, 17],
+            "textures": "google_red.png",
+            "starting_length": 2,
+            "speed": 2,
+            "keybindings": ["i", "k", "j", "l"]
+        }
+    ]
+}
