@@ -3,8 +3,8 @@ from logger import logger as log
 
 from menus.menu_components import Menu, Image
 
-from menus.contributors_menu import main as contributors_menu
-from menus.settings_menu import main as settings_menu
+from menus.menu_contributors import main as contributors_menu
+from menus.menu_settings import main as settings_menu
 
 log.name = 'main_menu'
 

@@ -5,9 +5,11 @@ import webbrowser
 import time
 try:
     from .menu_components import Menu
+    from .menu_template_change import main as menu_template_change
     from logger import logger as log
 except ImportError:
     from menu_components import Menu
+    from menu_template_change import main as menu_template_change
     import logging
     logging.basicConfig(level=logging.DEBUG)
     log = logging.getLogger(__name__)
@@ -61,17 +63,39 @@ def main(surface=None):
         log.info(f'Successfully replaced config.json with {path}')
 
 
+    def save_template():
+        # Ask user to choose where to save the file
+        save_path = easygui.filesavebox(default='./templates/new_config.json', title="Save Config As")
+        if not save_path:
+            log.info("Save operation cancelled.")
+            return
+
+        # Resolve root project directory
+        root_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+        config_path = os.path.join(root_dir, 'config.json')
+
+        log.debug(f'Copying config.json from: {config_path}')
+        log.debug(f'Saving to: {save_path}')
+
+        if not os.path.exists(config_path):
+            log.error(f'config.json not found at: {config_path}')
+            return
+
+        shutil.copy(config_path, save_path)
+        log.info(f'Successfully saved config.json to {save_path}')
+
+
     # Define buttun costants
     b_th = (500, 60) # Button dimensions
     delta_height = 35
 
     # Define buttons
     options = [
-        ['what',   'WHAT TEMPLATE?!', open_docs,                          b_th, [menu.center.x, menu.center.y - 7*delta_height]],
-        ['chose',  'CHOSE TEMPLATE',  chose_template,                     b_th, [menu.center.x, menu.center.y - 3*delta_height]],
-        ['cahnge', 'CHANGE CURRENT',  lambda: log.debug('BUTT - Change'), b_th, [menu.center.x, menu.center.y -   delta_height]],
-        ['save',   'SAVE CURRENT',    lambda: log.debug('BUTT - Save'),   b_th, [menu.center.x, menu.center.y +   delta_height]],
-        ['back',   'BACK',            menu.quit,                          b_th, [menu.center.x, menu.center.y + 7*delta_height]]
+        ['what',   'WHAT TEMPLATE?!', open_docs,                                 b_th, [menu.center.x, menu.center.y - 7*delta_height]],
+        ['chose',  'CHOSE TEMPLATE',  chose_template,                            b_th, [menu.center.x, menu.center.y - 3*delta_height]],
+        ['cahnge', 'CHANGE CURRENT',  lambda: menu_template_change(menu.screen), b_th, [menu.center.x, menu.center.y -   delta_height]],
+        ['save',   'SAVE CURRENT',    save_template,                             b_th, [menu.center.x, menu.center.y +   delta_height]],
+        ['back',   'BACK',            menu.quit,                                 b_th, [menu.center.x, menu.center.y + 7*delta_height]]
     ]
 
     # Add buttons to menu
