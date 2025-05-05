@@ -22,3 +22,4 @@ Advanced snake is an open source project that adds new functionalities to the cl
 - [`Support this project`](./supporting.md)
 - [`Contrinuting`](../CONTRIBUTING.md)
 - [`Logger`](./logger.md)
+- [`Templates`](./templates.md)

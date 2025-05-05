@@ -1,4 +1,8 @@
 import easygui
+import os
+import shutil
+import webbrowser
+import time
 try:
     from .menu_components import Menu
     from logger import logger as log
@@ -24,9 +28,37 @@ def main(surface=None):
         inherit_screen=surface, # This is used to set the surface of the menu to the main menu surface
     )
 
+
+    def open_docs():
+        # Resolve root project directory
+        root_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+        docs_path = os.path.join(root_dir, 'docs', 'templates.md')
+
+        if not os.path.exists(docs_path):
+            log.error(f"Documentation file not found at {docs_path}")
+            return
+
+        # Open in default app (usually a text editor or browser)
+        webbrowser.open(f'file://{docs_path}')
+        log.info('Doc file opened in the browser')
+        time.sleep(1) # Prevent user from opening 5000 tabs
+
+
     def chose_template():
         path = easygui.fileopenbox(default='./templates/*.json')
+        if not path:
+            log.info("No file selected.")
+            return
+
+        # Resolve root project directory (2 levels up from this script)
+        root_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+        config_path = os.path.join(root_dir, 'config.json')
+
         log.debug(f'Opening JSON template file at: {path}')
+        log.debug(f'Overwriting config.json at: {config_path}')
+
+        shutil.copy(path, config_path)
+        log.info(f'Successfully replaced config.json with {path}')
 
 
     # Define buttun costants
@@ -35,7 +67,7 @@ def main(surface=None):
 
     # Define buttons
     options = [
-        ['what',   'WHAT TEMPLATE?!', lambda: log.debug('BUTT - What'),   b_th, [menu.center.x, menu.center.y - 7*delta_height]],
+        ['what',   'WHAT TEMPLATE?!', open_docs,                          b_th, [menu.center.x, menu.center.y - 7*delta_height]],
         ['chose',  'CHOSE TEMPLATE',  chose_template,                     b_th, [menu.center.x, menu.center.y - 3*delta_height]],
         ['cahnge', 'CHANGE CURRENT',  lambda: log.debug('BUTT - Change'), b_th, [menu.center.x, menu.center.y -   delta_height]],
         ['save',   'SAVE CURRENT',    lambda: log.debug('BUTT - Save'),   b_th, [menu.center.x, menu.center.y +   delta_height]],
