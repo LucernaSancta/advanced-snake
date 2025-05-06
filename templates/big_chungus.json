@@ -5,7 +5,8 @@
         "fps": 60
     },
     "game": {
-        "grid_size": [15, 15]
+        "grid_size": [15, 15],
+        "end_condition": 0
     },
     "apples": {
         "number": 0,

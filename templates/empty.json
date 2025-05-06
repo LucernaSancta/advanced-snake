@@ -1,8 +1,0 @@
-{
-    "logger": {
-        "console_level": "DEBUG",
-        "file_level": "DEBUG",
-        "max_file_size": 131072,
-        "max_file_count": 5
-    }
-}

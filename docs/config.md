@@ -10,6 +10,10 @@ The `config.json` file is used to configure the game settings. Here’s what eac
 
 - `game`
     - `grid_size` : Defines the number of grid cells in the X and Y direction.
+    - `end_condition` : Define the condition for ending the game, the options are:
+        - 0: Never win
+        - 1: Win when there are no apple
+        - 2: Win when only one snake is alive
 
 - `apples`
     - `number` : Number of apples generated at the start.
@@ -47,7 +51,8 @@ The `config.json` file is used to configure the game settings. Here’s what eac
         "fps": 60
     },
     "game": {
-        "grid_size": [15, 15]
+        "grid_size": [15, 15],
+        "end_condition": 1
     },
     "apples": {
         "number": 3,

@@ -90,6 +90,7 @@ class Game:
                 # Assign global config variables
                 self.screen_size =     Vector2(config['display']['screen_size'])
                 self.snake_grid_size = Vector2(config['game']['grid_size'])
+                self.end_condition =  int(config['game']['end_condition'])
                 self.apples_textures =    config['apples']['textures']
                 self.walls_textures =     config['walls']['textures']
                 self.bg_texture =         config['background']['textures']
@@ -203,6 +204,27 @@ class Game:
         self.walls.render(surface)
 
         return surface
+
+    def check_win_condition(self) -> bool:
+        '''Returns True when the game end condition is meet'''
+        log.debug(self.end_condition)
+        match self.end_condition:
+
+            case 0:
+                # Never win
+                return False
+            
+            case 1:
+                # Win when there are no apple
+                if len(self.apples) == 0:
+                    return True
+            
+            case 2:
+                # Win when only one snake is alive
+                if len(self.snakes) == 1:
+                    return True
+            
+        return False
 
     def update_snake(self, snake: Snake) -> None:
         '''Update snakes logics'''
@@ -340,7 +362,7 @@ class Game:
 
 
             # Winning condition
-            if len(self.apples) == 0:
+            if self.check_win_condition():
                 paused = True
                 log.info('Game over, you won!')
                 log.info(f'press {self.original_exit_key} to exit')
