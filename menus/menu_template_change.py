@@ -23,6 +23,7 @@ def main(surface=None):
         inherit_screen=surface, # This is used to set the surface of the menu to the main menu surface
     )
 
+    def dummy(): return
 
     # Define buttun costants
     b_th = (500, 60) # Button dimensions
@@ -31,11 +32,11 @@ def main(surface=None):
 
     # Define buttons
     options = [
-        ['test1',  'TO CAHNGE THE CURRENT', lambda: ..., b_th2, [menu.center.x, menu.center.y - 7*delta_height], 'BLACK', 'BLACK', 'WHITE', 'WHITE'],
-        ['test2',  'SETTING OPEN THE FILE', lambda: ..., b_th2, [menu.center.x, menu.center.y - 5*delta_height], 'BLACK', 'BLACK', 'WHITE', 'WHITE'],
-        ['test3',  'config.json IN THE',    lambda: ..., b_th2, [menu.center.x, menu.center.y - 3*delta_height], 'BLACK', 'BLACK', 'WHITE', 'WHITE'],
-        ['test4',  'PROJECT ROOT DIR',      lambda: ..., b_th2, [menu.center.x, menu.center.y - 1*delta_height], 'BLACK', 'BLACK', 'WHITE', 'WHITE'],
-        ['back',   'BACK',                  menu.quit,   b_th,  [menu.center.x, menu.center.y + 7*delta_height]]
+        ['test1',  'TO CAHNGE THE CURRENT', dummy,     b_th2, [menu.center.x, menu.center.y - 7*delta_height], 'BLACK', 'BLACK', 'WHITE', 'WHITE'],
+        ['test2',  'SETTING OPEN THE FILE', dummy,     b_th2, [menu.center.x, menu.center.y - 5*delta_height], 'BLACK', 'BLACK', 'WHITE', 'WHITE'],
+        ['test3',  'config.json IN THE',    dummy,     b_th2, [menu.center.x, menu.center.y - 3*delta_height], 'BLACK', 'BLACK', 'WHITE', 'WHITE'],
+        ['test4',  'PROJECT ROOT DIR',      dummy,     b_th2, [menu.center.x, menu.center.y - 1*delta_height], 'BLACK', 'BLACK', 'WHITE', 'WHITE'],
+        ['back',   'BACK',                  menu.quit, b_th,  [menu.center.x, menu.center.y + 7*delta_height]]
     ]
 
     # Add buttons to menu
