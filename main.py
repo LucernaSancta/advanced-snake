@@ -10,6 +10,8 @@ from pygame.math import Vector2
 from game_objects import Snake, Walls, Apple
 from logger import logger as log
 
+from menus.menu_components import Menu
+
 
 class Game:
     def __init__(self):
@@ -41,9 +43,10 @@ class Game:
 
 
         # Store the exit key to print it later when the player wins
-        self.original_exit_key = str(self.exit_key)
+        self.original_pause_key = str(self.pause_key)
         # Translate exit and pause keys
         self.pause_key = pygame.key.key_code(self.pause_key)
+        self.force_pause_key = pygame.key.key_code(self.force_pause_key)
         self.exit_key = pygame.key.key_code(self.exit_key)
 
         # Load walls
@@ -96,8 +99,9 @@ class Game:
                 self.bg_texture =         config['background']['textures']
                 self.initial_apples = int(config['apples']['number'])
                 self.apple_power =    int(config['apples']['power'])
-                self.pause_key =  config['keys']['pause']
-                self.exit_key =   config['keys']['exit']
+                self.pause_key =       config['keys']['pause']
+                self.force_pause_key = config['keys']['force_pause']
+                self.exit_key =        config['keys']['exit']
                 self.wall_map =   config['walls']['map']
                 self.fps =  float(config['display']['fps'])
 
@@ -205,6 +209,11 @@ class Game:
 
         return surface
 
+    def pause(self) -> None:
+        log.info('Game paused')
+        
+        log.info('Game resumed')
+
     def check_win_condition(self) -> bool:
         '''Returns True when the game end condition is meet'''
 
@@ -306,17 +315,22 @@ class Game:
                     
                     # Quality of life, quit when ESC
                     if event.key == self.exit_key:
-                        log.debug('Quitting game by pressing exit key')
+                        log.info('Quitting game by pressing exit key')
                         pygame.quit()
                         quit()
                     
-                    elif event.key == self.pause_key:
+                    # Force pause
+                    elif event.key == self.force_pause_key:
                         if paused:
-                            log.debug('Game resumed')
+                            log.warning('Game resumed forcefully')
                             paused = False
                         else:
-                            log.debug('Game paused')
+                            log.warning('Game paused forcefully')
                             paused = True
+                    
+                    # Normal pause
+                    elif event.key == self.pause_key:
+                        self.pause()
 
 
                     if paused:
@@ -368,7 +382,7 @@ class Game:
             if self.check_win_condition():
                 paused = True
                 log.info('Game over, you won!')
-                log.info(f'press {self.original_exit_key} to exit')
+                log.info(f'press {self.original_pause_key} to exit')
 
 
             # Limit the refresh rate to the fps
