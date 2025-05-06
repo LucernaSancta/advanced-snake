@@ -209,9 +209,40 @@ class Game:
 
         return surface
 
+    def game_quit(self) -> None:
+        pygame.quit()
+        quit()
+
     def pause(self) -> None:
+
         log.info('Game paused')
-        
+
+        # Initialize pause menu
+        menu = Menu(
+            screen_size=self.screen_size,
+            font_path='menu_assets/font.ttf',
+            font_size=32,    
+            inherit_screen=self.display
+        )
+
+        # Define buttun costants
+        b_th = (400, 60) # Button dimensions
+        delta_height = 35
+
+        # Define buttons
+        options = [
+            ['resume',    'RESUME',    menu.quit, b_th, [menu.center.x, menu.center.y - 7*delta_height]],
+            ['main_menu', 'MAIN MENU', lambda: log.debug('hello World'), b_th, [menu.center.x, menu.center.y - 3*delta_height]],
+            ['quit',      'QUIT',      self.game_quit, b_th, [menu.center.x, menu.center.y -   delta_height]]
+        ]
+
+        # Add buttons to menu
+        for option in options:
+            menu.add_option(*option)
+
+        log.debug('Running menu')
+        menu._run()
+
         log.info('Game resumed')
 
     def check_win_condition(self) -> bool:
@@ -307,8 +338,7 @@ class Game:
 
                 # Quit when closing the window
                 if event.type == pygame.QUIT:
-                    pygame.quit()
-                    quit()
+                    self.game_quit()
                 
                 # KEYBOARD PRESS EVENTS
                 if event.type == pygame.KEYDOWN:
@@ -316,8 +346,7 @@ class Game:
                     # Quality of life, quit when ESC
                     if event.key == self.exit_key:
                         log.info('Quitting game by pressing exit key')
-                        pygame.quit()
-                        quit()
+                        self.game_quit()
                     
                     # Force pause
                     elif event.key == self.force_pause_key:

@@ -46,14 +46,17 @@ class Menu:
             screen_size: tuple[int, int],
             font_path: str,
             font_size: int,
-            title: str,
+            title: str = None,
             bg_color: pygame.Color = None,
             bg_texture: str = None,
             fps: int = 60,
             inherit_screen: pygame.surface.Surface | None = None
         ) -> None:
 
-        log.info(f'Initializing menu: {title}')
+        if title is not None:
+            log.info(f'Initializing menu: {title}')
+        else:
+            log.warning(f'Initializing mnu without title')
 
         # Initialize pygame
         pygame.init()
@@ -68,6 +71,7 @@ class Menu:
         self.font = pygame.font.Font(font_path, font_size)
         self.center = Vector2(screen_size[0] / 2, screen_size[1] / 2)
         self.running = True
+        self.bg_transparent = False
 
         self.clock = pygame.time.Clock()
         self.fps = fps
@@ -83,13 +87,14 @@ class Menu:
         else:
             self.bg_texture = None
         if not any([self.bg_color, self.bg_texture]):
-            log.warning('No background color or texture set. Using default black.')
-            self.bg_color = pygame.Color(0, 0, 0)
+            log.debug('No background color or texture set. Using transparent background')
+            self.bg_transparent = True
 
         self.options = {}
         self.custom_renderables: Renderable = []
 
-        pygame.display.set_caption(title)
+        if self.title is not None:
+            pygame.display.set_caption(title)
     
     def add_custom_renderable(self, renderable: Renderable) -> None:
         '''
@@ -180,12 +185,13 @@ class Menu:
                         return
                     
 
-            if not self.bg_texture:
-                # Fill the screen with the background color
-                self.screen.fill(self.bg_color)
-            else:
-                # Fill the screen with the background texture
-                self.screen.blit(self.bg_texture, (0, 0))
+            if not self.bg_transparent:
+                if not self.bg_texture:
+                    # Fill the screen with the background color
+                    self.screen.fill(self.bg_color)
+                else:
+                    # Fill the screen with the background texture
+                    self.screen.blit(self.bg_texture, (0, 0))
 
 
             # Get mouse things
