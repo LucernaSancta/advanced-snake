@@ -207,7 +207,7 @@ class Game:
 
     def check_win_condition(self) -> bool:
         '''Returns True when the game end condition is meet'''
-        log.debug(self.end_condition)
+
         match self.end_condition:
 
             case 0:
