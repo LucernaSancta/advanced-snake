@@ -231,9 +231,9 @@ class Game:
 
         # Define buttons
         options = [
-            ['resume',    'RESUME',    menu.quit, b_th, [menu.center.x, menu.center.y - 7*delta_height]],
-            ['main_menu', 'MAIN MENU', lambda: log.debug('hello World'), b_th, [menu.center.x, menu.center.y - 3*delta_height]],
-            ['quit',      'QUIT',      self.game_quit, b_th, [menu.center.x, menu.center.y -   delta_height]]
+            ['resume',    'RESUME',    menu.quit, b_th, [menu.center.x, menu.center.y - 2*delta_height]],
+            ['main_menu', 'MAIN MENU', lambda: log.debug('hello World'), b_th, [menu.center.x, menu.center.y]],
+            ['quit',      'QUIT',      self.game_quit, b_th, [menu.center.x, menu.center.y + 2*delta_height]]
         ]
 
         # Add buttons to menu
