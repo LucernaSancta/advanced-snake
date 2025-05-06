@@ -224,6 +224,11 @@ class Game:
                 if len(self.snakes) == 1:
                     return True
             
+            case 3:
+                # Win when no one is alive
+                if len(self.snakes) == 0:
+                    return True
+            
         return False
 
     def update_snake(self, snake: Snake) -> None:
@@ -339,14 +344,12 @@ class Game:
                         self.update_snake(snake)
             
             
-            # Quit by game over
-            if not len(self.snakes):
-                log.info('Game over, every one is dead.')
+            # Possible compenetration message (#32)
+            if (not len(self.snakes)) and (not frames):
 
-                # Possible compenetration message (#32)
-                if not frames:
-                    log.critical('└── This is probably caused by a misplaced snakes compenetration with walls or borders')
-                    log.critical('    Please check the snakes setting or open the map creator for a static view')
+                log.critical('Game over, every one is dead.')
+                log.critical('└── This is probably caused by a misplaced snakes compenetration with walls or borders')
+                log.critical('    Please check the snakes setting or open the map creator for a static view')
 
                 pygame.quit()
                 quit()
