@@ -1,0 +1,55 @@
+{
+    "_comment": "Check the docs/config.md for informations on how to configure this file",
+    "display": {
+        "screen_size": [900, 900],
+        "fps": 60
+    },
+    "game": {
+        "grid_size": [15, 15],
+        "end_condition": 2
+    },
+    "apples": {
+        "number": 0,
+        "power": 1,
+        "textures": "apple.png"
+    },
+    "walls": {
+        "map": "empty.csv",
+        "textures": "mud.png"
+    },
+    "background": {
+        "textures": "default.png",
+        "tiling": {
+            "active": true,
+            "size": [1, 1]
+        }
+    },
+    "keys": {
+        "pause": "SPACE",
+        "exit": "ESCAPE"
+    },
+    "logger": {
+        "console_level": "DEBUG",
+        "file_level": "DEBUG",
+        "max_file_size": 131072,
+        "max_file_count": 5
+    },
+    "players": [
+        {
+            "name": "Alex",
+            "starting_pos": [14, 7],
+            "textures": "google.png",
+            "starting_length": 5,
+            "speed": 3,
+            "keybindings": ["UP", "DOWN", "LEFT", "RIGHT"]
+        },
+        {
+            "name": "Steve",
+            "starting_pos": [0, 7],
+            "textures": "google_yellow.png",
+            "starting_length": 5,
+            "speed": 3,
+            "keybindings": ["w", "s", "a", "d"]
+        }
+    ]
+}
