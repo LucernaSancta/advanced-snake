@@ -1,24 +1,24 @@
 {
     "_comment": "Check the docs/config.md for informations on how to configure this file",
     "display": {
-        "screen_size": [900, 900],
+        "screen_size": [600, 600],
         "fps": 60
     },
     "game": {
         "grid_size": [15, 15],
-        "end_condition": 1
+        "end_condition": 2
     },
     "apples": {
-        "number": 3,
+        "number": 0,
         "power": 1,
         "textures": "apple.png"
     },
     "walls": {
-        "map": "zen15x15.csv",
+        "map": "empty.csv",
         "textures": "mud.png"
     },
     "background": {
-        "textures": "grass.png",
+        "textures": "default.png",
         "tiling": {
             "active": true,
             "size": [1, 1]
@@ -40,16 +40,16 @@
             "name": "Alex",
             "starting_pos": [14, 7],
             "textures": "google.png",
-            "starting_length": 2,
-            "speed": 1,
+            "starting_length": 5,
+            "speed": 3,
             "keybindings": ["UP", "DOWN", "LEFT", "RIGHT"]
         },
         {
             "name": "Steve",
             "starting_pos": [0, 7],
             "textures": "google_yellow.png",
-            "starting_length": 2,
-            "speed": 2,
+            "starting_length": 5,
+            "speed": 3,
             "keybindings": ["w", "s", "a", "d"]
         }
     ]

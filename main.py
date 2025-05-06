@@ -9,7 +9,6 @@ from pygame.math import Vector2
 
 from game_objects import Snake, Walls, Apple
 from logger import logger as log
-
 from menus.menu_components import Menu
 
 
@@ -213,6 +212,12 @@ class Game:
         pygame.quit()
         quit()
 
+    def stop_game(self, menu: Menu = None) -> None:
+        '''Stops the game without exiting python'''
+        self.running = False
+        if menu is not None:
+            menu.quit()
+
     def pause(self) -> None:
 
         log.info('Game paused')
@@ -231,9 +236,9 @@ class Game:
 
         # Define buttons
         options = [
-            ['resume',    'RESUME',    menu.quit, b_th, [menu.center.x, menu.center.y - 2*delta_height]],
-            ['main_menu', 'MAIN MENU', lambda: log.debug('hello World'), b_th, [menu.center.x, menu.center.y]],
-            ['quit',      'QUIT',      self.game_quit, b_th, [menu.center.x, menu.center.y + 2*delta_height]]
+            ['resume',    'RESUME',    menu.quit,                    b_th, [menu.center.x, menu.center.y - 2*delta_height]],
+            ['main_menu', 'MAIN MENU', lambda: self.stop_game(menu), b_th, [menu.center.x, menu.center.y]],
+            ['quit',      'QUIT',      self.game_quit,               b_th, [menu.center.x, menu.center.y + 2*delta_height]]
         ]
 
         # Add buttons to menu
@@ -330,8 +335,9 @@ class Game:
         paused = False
         frames = 0
         deltaTime = 0
+        self.running = True
 
-        while True:
+        while self.running:
 
             # Get events
             for event in pygame.event.get():
