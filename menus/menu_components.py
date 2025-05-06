@@ -56,7 +56,7 @@ class Menu:
         if title is not None:
             log.info(f'Initializing menu: {title}')
         else:
-            log.warning(f'Initializing mnu without title')
+            log.warning(f'Initializing menu without title')
 
         # Initialize pygame
         pygame.init()
