@@ -5,11 +5,11 @@ import pygame
 import random
 import os.path
 
+from importlib import import_module
 from pygame.math import Vector2
 
 from game_objects import Snake, Walls
 from foods.default import Food
-from foods.apple import Apple
 from logger import logger as log
 from menus.menu_components import Menu
 
@@ -56,9 +56,9 @@ class Game:
         # Load the players and create custom events (for their different speeds)
         self.snakes: list[Snake] = self.init_players()
 
-        # Initiate apples
-        self.apples: list[Food] = [] # To spawn new apples there must be an existing 'apples' list
-        self.apples: list[Food] = self.init_foods()
+        # Initiate foods
+        self.foods: list[Food] = [] # To spawn new foods there must be an existing 'foods' list
+        self.foods: list[Food] = self.init_foods()
 
         log.debug('Render static objects')
         # Render static objects
@@ -95,11 +95,8 @@ class Game:
                 self.screen_size =     Vector2(config['display']['screen_size'])
                 self.snake_grid_size = Vector2(config['game']['grid_size'])
                 self.end_condition =  int(config['game']['end_condition'])
-                self.apples_textures =    config['apples']['textures']
                 self.walls_textures =     config['walls']['textures']
                 self.bg_texture =         config['background']['textures']
-                self.initial_apples = int(config['apples']['number'])
-                self.apple_power =    int(config['apples']['power'])
                 self.pause_key =       config['keys']['pause']
                 self.force_pause_key = config['keys']['force_pause']
                 self.exit_key =        config['keys']['exit']
@@ -110,6 +107,7 @@ class Game:
                 self.bg_tiling_size = Vector2(config['background']['tiling']['size'])
 
                 self.player_configs = config['players']
+                self.foods_config =   config['foods']
     
     def init_walls(self) -> Walls:
         return Walls(self.screen_size,self.wall_map,self.snake_grid_thikness,self.walls_textures)
@@ -134,15 +132,31 @@ class Game:
         return players
     
     def init_foods(self) -> list[Food]:
-        log.debug('Loading apples')
-        apples = []
-        for _ in range(self.initial_apples):
-            apple = self.apple_spawner()
-            if apple is not None:
-                apples.append(apple)
-        return apples
 
-    def apple_spawner(self) -> Apple:
+        log.debug('Loading foods')
+
+
+        # Get foods classes, weights and kwargs
+        self.foods_types = []
+        self.foods_kwargs = {}
+        self.foods_weights = []
+        for food in self.foods_config['types']:
+            food_class = getattr(import_module('foods.'+food['name']), food['name'])
+            self.foods_types.append(food_class)
+            self.foods_kwargs[food_class] = food['kwargs']
+            self.foods_weights.append(food['weight'])
+
+
+        # Spawn the initial foods
+        foods = []
+        for _ in range(int(self.foods_config['number'])):
+            food = self.food_spawner()
+            if food is not None:
+                foods.append(food)
+                
+        return foods
+
+    def food_spawner(self) -> Food:
 
         # Create a list with every spot in the grid
         spots = []
@@ -161,16 +175,21 @@ class Game:
             if wall in spots: spots.remove(wall)
 
         # Fix: Remove spots where apples already exist
-        for apple in self.apples:
-            if apple.pos in spots: spots.remove(apple.pos)
+        for food in self.foods:
+            if food.pos in spots: spots.remove(food.pos)
         
         if len(spots) == 0:
-            log.warning('No space to spawn new food, removing one, total food remaining:', len(self.apples))
+            log.warning('No space to spawn new food, removing one, total food remaining:', len(self.foods))
             return None
 
+        # Chose random food type based on the foods weights
         pos = random.choice(spots)
-        log.debug(f'Spawning apple at: {pos}')
-        return Apple(pos, self.snake_grid_thikness, power=self.apple_power)
+        food_to_spawn = random.choices(self.foods_types, weights=self.foods_weights, k=1)[0]
+
+        log.debug(f'Spawning food "{food_to_spawn.__name__}"at: {pos}')
+
+        # Enter the foods position thikness and custom arguments then spawn it
+        return food_to_spawn(pos, self.snake_grid_thikness, self.foods_kwargs[food_to_spawn])
 
     def render_background(self, surface: pygame.surface.Surface) -> pygame.surface.Surface:
 
@@ -196,13 +215,13 @@ class Game:
         for snake in self.snakes:
             snake.render(self.display)
 
-    def render_apples(self) -> None:
+    def render_foods(self) -> None:
         # Remove None elements from apple list, None elements are created by the apple spawner
-        self.apples = list(filter(lambda x: x is not None, self.apples))
+        self.foods = list(filter(lambda x: x is not None, self.foods))
 
         # Draw the apples
-        for apple in self.apples:
-            apple.render(self.display)
+        for food in self.foods:
+            food.render(self.display)
 
     def render_walls(self, surface: pygame.surface.Surface) -> pygame.surface.Surface:
         # Draw the walls
@@ -262,8 +281,8 @@ class Game:
                 return False
             
             case 1:
-                # Win when there are no apple
-                if len(self.apples) == 0:
+                # Win when there is no food left
+                if len(self.foods) == 0:
                     return True
             
             case 2:
@@ -321,15 +340,15 @@ class Game:
         else:
 
             # Check for apple collisions
-            for apple in self.apples:
-                if apple.pos == snake.pos:
-                    log.debug(f'{snake.name} ate an apple at {apple.pos}')
+            for food in self.foods:
+                if food.pos == snake.pos:
+                    log.debug(f'{snake.name} ate some food at {food.pos}')
                     # Update the snakeat {apple.pos}')
                     # Update the snake
-                    apple.eaten(self.display, snake, [])
+                    food.eaten(self.display, snake, [])
                     # Remove the pervious apple from the list and add a new one
-                    self.apples.remove(apple)
-                    self.apples.append(self.apple_spawner())
+                    self.foods.remove(food)
+                    self.foods.append(self.food_spawner())
                     break
 
     def _run(self) -> None:
@@ -411,7 +430,7 @@ class Game:
             self.display.blit(self.static_surface, (0, 0))
             # Render moving objects
             self.render_snakes()
-            self.render_apples()
+            self.render_foods()
 
             pygame.display.update()
 

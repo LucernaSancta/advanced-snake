@@ -9,7 +9,7 @@ from .default import Food
 class Apple(Food):
 
     def initialize(self) -> None:
-        self.power = self.kwargs['power'] if 'power' in self.kwargs else 1
+        self.power = self.kwargs['power']
         self.init_texture('apple.png')
     
     def eaten(

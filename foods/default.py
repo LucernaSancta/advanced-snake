@@ -10,14 +10,13 @@ class Food:
             self,
             pos: Vector2,
             thikness: Vector2,
-            offset: Vector2 = Vector2(0,0),
-            **kwargs
+            kwargs: dict = {}
         ) -> None:
 
         self.pos = pos
         self.thikness = thikness
-        self.offset = offset
         self.kwargs = kwargs
+        self.offset = Vector2(0,0)
 
         self.initialize()
     
