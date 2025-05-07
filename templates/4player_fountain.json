@@ -8,10 +8,17 @@
         "grid_size": [20, 20],
         "end_condition": 1
     },
-    "apples": {
+    "foods": {
         "number": 3,
-        "power": 1,
-        "textures": "apple.png"
+        "types": [
+            {
+                "name": "Apple",
+                "weight": 1,
+                "kwargs": {
+                    "power": 1
+                }
+            }
+        ]
     },
     "walls": {
         "map": "fountain20x20.csv",

@@ -54,10 +54,24 @@ The `config.json` file is used to configure the game settings. Here’s what eac
         "grid_size": [15, 15],
         "end_condition": 1
     },
-    "apples": {
+    "foods": {
         "number": 3,
-        "power": 1,
-        "textures": "apple.png"
+        "types": [
+            {
+                "name": "Apple",
+                "weight": 5,
+                "kwargs": {
+                    "power": 1
+                }
+            },
+            {
+                "name": "Banana",
+                "weight": 1,
+                "kwargs": {
+                    "power": 3
+                }
+            }
+        ]
     },
     "walls": {
         "map": "zen15x15.csv",
@@ -71,8 +85,9 @@ The `config.json` file is used to configure the game settings. Here’s what eac
         }
     },
     "keys": {
-        "pause": "SPACE",
-        "exit": "ESCAPE"
+        "pause": "ESCAPE",
+        "force_pause": "SPACE",
+        "exit": "\\"
     },
     "logger": {
         "console_level": "DEBUG",
@@ -99,4 +114,5 @@ The `config.json` file is used to configure the game settings. Here’s what eac
         }
     ]
 }
+
 ```

@@ -8,10 +8,9 @@
         "grid_size": [15, 15],
         "end_condition": 2
     },
-    "apples": {
+    "foods": {
         "number": 0,
-        "power": 1,
-        "textures": "apple.png"
+        "types": []
     },
     "walls": {
         "map": "empty.csv",
