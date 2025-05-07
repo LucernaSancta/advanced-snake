@@ -7,7 +7,9 @@ import os.path
 
 from pygame.math import Vector2
 
-from game_objects import Snake, Walls, Apple
+from game_objects import Snake, Walls
+from foods.default import Food
+from foods.apple import Apple
 from logger import logger as log
 from menus.menu_components import Menu
 
@@ -55,8 +57,8 @@ class Game:
         self.snakes: list[Snake] = self.init_players()
 
         # Initiate apples
-        self.apples: list[Apple] = [] # To spawn new apples there must be an existing 'apples' list
-        self.apples: list[Apple] = self.init_apples()
+        self.apples: list[Food] = [] # To spawn new apples there must be an existing 'apples' list
+        self.apples: list[Food] = self.init_foods()
 
         log.debug('Render static objects')
         # Render static objects
@@ -131,7 +133,7 @@ class Game:
                 )
         return players
     
-    def init_apples(self) -> list[Apple]:
+    def init_foods(self) -> list[Food]:
         log.debug('Loading apples')
         apples = []
         for _ in range(self.initial_apples):
@@ -168,7 +170,7 @@ class Game:
 
         pos = random.choice(spots)
         log.debug(f'Spawning apple at: {pos}')
-        return Apple(pos, self.apple_power, self.snake_grid_thikness, self.apples_textures)
+        return Apple(pos, self.snake_grid_thikness, power=self.apple_power)
 
     def render_background(self, surface: pygame.surface.Surface) -> pygame.surface.Surface:
 
@@ -322,8 +324,9 @@ class Game:
             for apple in self.apples:
                 if apple.pos == snake.pos:
                     log.debug(f'{snake.name} ate an apple at {apple.pos}')
+                    # Update the snakeat {apple.pos}')
                     # Update the snake
-                    snake.eat(apple.power)
+                    apple.eaten(self.display, snake, [])
                     # Remove the pervious apple from the list and add a new one
                     self.apples.remove(apple)
                     self.apples.append(self.apple_spawner())

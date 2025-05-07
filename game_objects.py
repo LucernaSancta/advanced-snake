@@ -76,12 +76,6 @@ class Snake:
         # Update the heads position
         self.pos += Vector2(self.direction.x * self.thikness.x, self.direction.y * self.thikness.y)
     
-    def eat(self, power: int) -> None:
-        '''Power is the length added to the snake'''
-        # Add pieces to the snake
-        for _ in range(power):
-            self.pieces.append(self.last_removed)
-    
     def render(
             self,
             display: pygame.surface.Surface
@@ -332,25 +326,3 @@ class Walls:
             walls.append(Vector2(wall.x*th.x,wall.y*th.y))
         
         return walls
-            
-
-class Apple:
-    def __init__(
-            self,
-            pos: Vector2,
-            power: int,
-            thikness: Vector2,
-            texture: str = 'default.png',
-        ) -> None:
-        
-        self.pos = pos
-        self.power = power
-        self.thikness = thikness
-
-        log.debug(f'Loading food texture {texture}')
-        # Load the textures and scale them to the right size
-        self.texture = pygame.image.load('textures/food/'+texture).convert_alpha()
-        self.texture = pygame.transform.scale(self.texture, thikness)
-    
-    def render(self, display: pygame.surface.Surface):
-        display.blit(self.texture, self.pos)
