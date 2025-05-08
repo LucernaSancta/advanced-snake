@@ -13,16 +13,23 @@
         "types": [
             {
                 "name": "Apple",
-                "weight": 5,
+                "weight": 70,
                 "kwargs": {
                     "power": 1
                 }
             },
             {
                 "name": "Banana",
-                "weight": 1,
+                "weight": 20,
                 "kwargs": {
                     "power": 3
+                }
+            },
+            {
+                "name": "Golden_apple",
+                "weight": 1,
+                "kwargs": {
+                    "power": 10
                 }
             }
         ]
