@@ -1,0 +1,77 @@
+{
+    "_comment": "Check the docs/config.md for informations on how to configure this file",
+    "display": {
+        "screen_size": [1008, 1008],
+        "fps": 60
+    },
+    "game": {
+        "grid_size": [42, 42],
+        "end_condition": 1
+    },
+    "foods": {
+        "number": 10,
+        "types": [
+            {
+                "name": "Apple",
+                "weight": 70,
+                "kwargs": {
+                    "power": 1
+                }
+            },
+            {
+                "name": "Banana",
+                "weight": 20,
+                "kwargs": {
+                    "power": 3
+                }
+            },
+            {
+                "name": "Golden_apple",
+                "weight": 1,
+                "kwargs": {
+                    "power": 10
+                }
+            }
+        ]
+    },
+    "walls": {
+        "map": "big_circle42x42.csv",
+        "textures": "mud.png"
+    },
+    "background": {
+        "textures": "grass.png",
+        "tiling": {
+            "active": true,
+            "size": [1, 1]
+        }
+    },
+    "keys": {
+        "pause": "ESCAPE",
+        "force_pause": "SPACE",
+        "exit": "\\"
+    },
+    "logger": {
+        "console_level": "DEBUG",
+        "file_level": "DEBUG",
+        "max_file_size": 131072,
+        "max_file_count": 5
+    },
+    "players": [
+        {
+            "name": "Alex",
+            "starting_pos": [39, 18],
+            "textures": "google.png",
+            "starting_length": 2,
+            "speed": 1,
+            "keybindings": ["UP", "DOWN", "LEFT", "RIGHT"]
+        },
+        {
+            "name": "Steve",
+            "starting_pos": [2, 18],
+            "textures": "google_yellow.png",
+            "starting_length": 2,
+            "speed": 2,
+            "keybindings": ["w", "s", "a", "d"]
+        }
+    ]
+}
