@@ -126,12 +126,27 @@ class Snake:
                     elif d31 == Vector2( th.x,-th.y): display.blit(self.textures, pc2, (th.x*3, th.y*3, th.x, th.y))
 
             # Last piece
-            pc1 = self.pieces[-1]
-            pc2 = self.pieces[-2] if len(self.pieces) > 1 else self.pos
-            if   pc1-pc2 == Vector2(0, th.y): display.blit(self.textures, pc1, (th.x*0, th.y*4, th.x, th.y))
-            elif pc1-pc2 == Vector2(th.x, 0): display.blit(self.textures, pc1, (th.x*1, th.y*4, th.x, th.y))
-            elif pc1-pc2 == Vector2(0,-th.y): display.blit(self.textures, pc1, (th.x*2, th.y*4, th.x, th.y))
-            elif pc1-pc2 == Vector2(-th.x,0): display.blit(self.textures, pc1, (th.x*3, th.y*4, th.x, th.y))
+            def render_last_piece(pieces: list, display: pygame.surface.Surface) -> None:
+                pc1 = pieces[-1]
+                pc2 = pieces[-2] if len(pieces) > 1 else self.pos
+                delta = pc1-pc2
+                if   delta == Vector2(0, th.y): display.blit(self.textures, pc1, (th.x*0, th.y*4, th.x, th.y))
+                elif delta == Vector2(th.x, 0): display.blit(self.textures, pc1, (th.x*1, th.y*4, th.x, th.y))
+                elif delta == Vector2(0,-th.y): display.blit(self.textures, pc1, (th.x*2, th.y*4, th.x, th.y))
+                elif delta == Vector2(-th.x,0): display.blit(self.textures, pc1, (th.x*3, th.y*4, th.x, th.y))
+                elif delta == Vector2(0,0):
+                    # Re-call the function but with forced unique pieces
+                    # Should be executed only when eating something with power 2 or more
+                    uniques = []
+                    for vector in pieces:
+                        if vector not in uniques:
+                            uniques.append(vector)
+
+                    render_last_piece(uniques, display)
+                
+                else: log.error(f'Delta out of range: {delta}')
+
+            render_last_piece(self.pieces, display)
 
         # Death state
         elif self.state == 2:
