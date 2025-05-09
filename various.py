@@ -1,7 +1,8 @@
 import pygame
+import time
 from logger import logger as log
 
-class Timer:
+class TimerObj:
     def __init__(
             self,
             duration: int,
@@ -46,3 +47,16 @@ class key_map:
 
     def __contains__(self, key) -> bool:
         return key in self.keys
+
+
+def timer(func: callable) -> callable:
+
+    def wrapper(*args, **kwargs):
+        log.debug(f'Starting Benchmark on function: {func.__name__}')
+        tick = time.perf_counter()
+        func(*args, **kwargs)
+        tock = time.perf_counter()
+        log.debug(f'Benchmark ended on function: {func.__name__}')
+        log.debug(f'Benchmark result: {tock-tick} (s)')
+    
+    return wrapper

@@ -2,7 +2,7 @@ import csv
 import pygame
 from pygame.math import Vector2
 
-from various import Timer, key_map
+from various import TimerObj, key_map
 from logger import logger as log
 
 
@@ -29,7 +29,7 @@ class Snake:
 
         # Create custom event for the snake updating
         # Set the initial time to the maximum time so it doesn't update at the beginning (#62)
-        self.timer_event = Timer(1000/speed, 1000/speed)
+        self.timer_event = TimerObj(1000/speed, 1000/speed)
 
         log.debug(f'Loading snake textures: {textures}')
         # Load the textures and scale them to the right size
