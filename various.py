@@ -51,12 +51,14 @@ class key_map:
 
 def timer(func: callable) -> callable:
 
-    def wrapper(*args, **kwargs):
+    def wrapper(*args, **kwargs) -> object:
         log.debug(f'Starting Benchmark on function: {func.__name__}')
         tick = time.perf_counter()
-        func(*args, **kwargs)
+        output = func(*args, **kwargs)
         tock = time.perf_counter()
         log.debug(f'Benchmark ended on function: {func.__name__}')
         log.debug(f'Benchmark result: {tock-tick} (s)')
+
+        return output
     
     return wrapper
