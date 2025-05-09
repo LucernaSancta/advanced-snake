@@ -5,7 +5,7 @@
         "fps": 60
     },
     "game": {
-        "grid_size": [15, 15],
+        "grid_size": [30, 30],
         "end_condition": 1
     },
     "foods": {
@@ -35,7 +35,7 @@
         ]
     },
     "walls": {
-        "map": "zen15x15.csv",
+        "map": "benchmark30x30.csv",
         "textures": "mud.png"
     },
     "background": {

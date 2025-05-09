@@ -2,7 +2,7 @@ import csv
 import pygame
 from pygame.math import Vector2
 
-from various import TimerObj, key_map
+from various import TimerObj, key_map,timer
 from logger import logger as log
 
 
@@ -225,6 +225,7 @@ class Walls:
             walls = [(int(v.x),int(v.y)) for v in self.custom_walls] # Clear walls (convert from float to int)
             csv_writer.writerows(walls)
 
+    @timer
     def render(self, display: pygame.surface.Surface):
         """Render the walls considering the surroundings"""
 
@@ -237,17 +238,23 @@ class Walls:
             # Define surroundings
             pc1, pc2, pc3, pc4, pc5, pc6, pc7, pc8 = False, False, False, False, False, False, False, False
             for wall2 in (self.custom_walls + self.boarders):
+
                 delta = wall - wall2
 
-                if   delta == Vector2(0,1):  pc1 = True
-                elif delta == Vector2(-1,0): pc2 = True
-                elif delta == Vector2(0,-1): pc3 = True
-                elif delta == Vector2(1,0):  pc4 = True
+                # Do not check for every fucking vector
+                # This if limits the vector checked to only the neighbours
+                if delta.magnitude() < 2:
 
-                elif delta == Vector2(1,1):  pc5 = True
-                elif delta == Vector2(-1,1): pc6 = True
-                elif delta == Vector2(-1,-1):pc7 = True
-                elif delta == Vector2(1,-1): pc8 = True
+                    if   delta == Vector2(0,1):  pc1 = True
+                    elif delta == Vector2(-1,0): pc2 = True
+                    elif delta == Vector2(0,-1): pc3 = True
+                    elif delta == Vector2(1,0):  pc4 = True
+
+                    elif delta == Vector2(1,1):  pc5 = True
+                    elif delta == Vector2(-1,1): pc6 = True
+                    elif delta == Vector2(-1,-1):pc7 = True
+                    elif delta == Vector2(1,-1): pc8 = True
+            
             
             match [pc1,pc2,pc3,pc4,pc5,pc6,pc7,pc8]:
                 case [False, False, False, False,     _,     _,     _,     _]: display.blit(self.textures, (wall.x*th.x,wall.y*th.y), (th.x*0, th.y*0, th.x, th.y))
