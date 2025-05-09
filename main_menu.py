@@ -29,14 +29,15 @@ def run_main_menu():
 
     b_th = (400, 60)
     delta_height = 35
+    offset = -5
 
     options = [
-        ['local',        'LOCAL',        start_local_game,                      b_th, [menu.center.x, menu.center.y -   delta_height]],
-        ['online',       'ONLINE',       lambda: log.debug('BUTT - Online'),    b_th, [menu.center.x, menu.center.y +   delta_height]],
-        ['map_creator',  'MAP CREATOR',  start_map_creator,                     b_th, [menu.center.x, menu.center.y + 3*delta_height]],
-        ['settings',     'SETTINGS',     lambda: settings_menu(menu.screen),    b_th, [menu.center.x, menu.center.y + 5*delta_height]],
-        ['contributors', 'CONTRIBUTORS', lambda: contributors_menu(menu.screen),b_th, [menu.center.x, menu.center.y + 7*delta_height]],
-        ['quit',         'QUIT',         menu.quit,                             b_th, [menu.center.x, menu.center.y + 9*delta_height]]
+        ['local',        'LOCAL',        start_local_game,                      b_th, [menu.center.x, menu.center.y -   delta_height + offset]],
+        ['online',       'ONLINE',       lambda: log.debug('BUTT - Online'),    b_th, [menu.center.x, menu.center.y +   delta_height + offset]],
+        ['map_creator',  'MAP CREATOR',  start_map_creator,                     b_th, [menu.center.x, menu.center.y + 3*delta_height + offset]],
+        ['settings',     'SETTINGS',     lambda: settings_menu(menu.screen),    b_th, [menu.center.x, menu.center.y + 5*delta_height + offset]],
+        ['contributors', 'CONTRIBUTORS', lambda: contributors_menu(menu.screen),b_th, [menu.center.x, menu.center.y + 7*delta_height + offset]],
+        ['quit',         'QUIT',         menu.quit,                             b_th, [menu.center.x, menu.center.y + 9*delta_height + offset]]
     ]
 
     for option in options:
