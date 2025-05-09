@@ -225,7 +225,6 @@ class Walls:
             walls = [(int(v.x),int(v.y)) for v in self.custom_walls] # Clear walls (convert from float to int)
             csv_writer.writerows(walls)
 
-    @timer
     def render(self, display: pygame.surface.Surface):
         """Render the walls considering the surroundings"""
 
