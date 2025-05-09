@@ -1,4 +1,5 @@
 from main import Game
+from map_creator import Map_creator
 from logger import logger as log
 
 from menus.menu_components import Menu, Image
@@ -11,6 +12,10 @@ def run_main_menu():
 
     def start_local_game():
         result[0] = 'local'
+        menu.quit()
+
+    def start_map_creator():
+        result[0] = 'map_creator'
         menu.quit()
 
     # Initialize menu
@@ -28,9 +33,10 @@ def run_main_menu():
     options = [
         ['local',        'LOCAL',        start_local_game,                      b_th, [menu.center.x, menu.center.y -   delta_height]],
         ['online',       'ONLINE',       lambda: log.debug('BUTT - Online'),    b_th, [menu.center.x, menu.center.y +   delta_height]],
-        ['settings',     'SETTINGS',     lambda: settings_menu(menu.screen),    b_th, [menu.center.x, menu.center.y + 3*delta_height]],
-        ['contributors', 'CONTRIBUTORS', lambda: contributors_menu(menu.screen),b_th, [menu.center.x, menu.center.y + 5*delta_height]],
-        ['quit',         'QUIT',         menu.quit,                             b_th, [menu.center.x, menu.center.y + 7*delta_height]]
+        ['map_creator',  'MAP CREATOR',  start_map_creator,                     b_th, [menu.center.x, menu.center.y + 3*delta_height]],
+        ['settings',     'SETTINGS',     lambda: settings_menu(menu.screen),    b_th, [menu.center.x, menu.center.y + 5*delta_height]],
+        ['contributors', 'CONTRIBUTORS', lambda: contributors_menu(menu.screen),b_th, [menu.center.x, menu.center.y + 7*delta_height]],
+        ['quit',         'QUIT',         menu.quit,                             b_th, [menu.center.x, menu.center.y + 9*delta_height]]
     ]
 
     for option in options:
@@ -53,6 +59,9 @@ def main():
         if choice == 'local':
             log.info('Starting local game')
             Game()._run()
+        elif choice == 'map_creator':
+            log.info('Starting map creator')
+            Map_creator()._run()
         else:
             break  # User quit or selected a non-restarting action
 
