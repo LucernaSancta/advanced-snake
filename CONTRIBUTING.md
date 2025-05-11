@@ -35,8 +35,6 @@ We welcome code contributions of all sizes. To get started:
 - Test your changes before submitting.
 - Use common sense 😜.
 
-If you have any doubts you can go into the detail of how the code works in the [code docs](./docs/code/README.md)
-
 ---
 
 Thanks for being a part of the community. You make open source awesome. 💪
