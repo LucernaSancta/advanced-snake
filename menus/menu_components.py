@@ -170,7 +170,6 @@ class Menu:
 
     def _run(self):
         block_mouse = any(pygame.mouse.get_pressed())
-        print(block_mouse)
         # Main loop
         while self.running:
 
