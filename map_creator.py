@@ -102,6 +102,9 @@ class Map_creator(Game):
         self.display.blit(self.render_walls(self.display), (0, 0)) # Render the walls
         pygame.display.update() # Update the display
 
+        # The map creator is entered while continuously pressing some buttons
+        block_pressing = any(pygame.mouse.get_pressed())
+
         self.running = True
 
         while self.running:
@@ -129,6 +132,11 @@ class Map_creator(Game):
 
             # When a button is pressed
             pressed_buttons = pygame.mouse.get_pressed()
+            if block_pressing and pressed_buttons:
+                pressed_buttons = [False]
+            elif block_pressing and not pressed_buttons:
+                block_pressing = False
+                
             if any(pressed_buttons):
 
                 # Render the background
