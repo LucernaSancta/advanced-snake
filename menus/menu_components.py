@@ -91,7 +91,7 @@ class Menu:
             self.bg_transparent = True
 
         self.options = {}
-        self.custom_renderables: Renderable = []
+        self.custom_renderables: list[Renderable] = []
 
         if self.title is not None:
             pygame.display.set_caption(title)
@@ -169,7 +169,8 @@ class Menu:
         self.running = False
 
     def _run(self):
-        mouse_pressed_pos=Vector2(0,0)
+        block_mouse = any(pygame.mouse.get_pressed())
+        print(block_mouse)
         # Main loop
         while self.running:
 
@@ -198,12 +199,10 @@ class Menu:
             mouse_pos = Vector2(pygame.mouse.get_pos())
             mouse_pressed_any = any(pygame.mouse.get_pressed())
 
-            if mouse_pressed_any and (mouse_pressed_pos == Vector2(0,0)):
-                mouse_pressed_pos = mouse_pos # Set the mouse position when the mouse is first pressed
-            elif mouse_pressed_any:
-                pass # The mouse is still beeing pressed
-            else:
-                mouse_pressed_pos = Vector2(0,0) # Reset the mouse position
+            if block_mouse and mouse_pressed_any:
+                mouse_pressed_any = False
+            elif block_mouse and not mouse_pressed_any:
+                block_mouse = False
 
 
             # Buttons logic and rendering
@@ -231,9 +230,10 @@ class Menu:
                     )
 
                     # Check for pressed mouse buttons and for the mouse position when it pressed them
-                    if mouse_pressed_any and option['rect'].collidepoint(mouse_pressed_pos):
+                    if mouse_pressed_any and option['rect'].collidepoint(mouse_pos):
                         log.debug(f'Option {name} clicked')
                         option['action']()
+                        block_mouse = any(pygame.mouse.get_pressed())
                 
 
                 # The button is not beeing hovered
