@@ -22,10 +22,7 @@ python map_creator.py
 | --- | --- |
 | Left Click | Add a wall |
 | Right Click | Remove a wall |
-| ESC | Quit the application |
-| SPACE | Save the current map as a CSV file |
 
-When saving, you will be prompted to enter a filename for the CSV in the console.
 
 ## 🛠️ Configuration
 The configurations are extracted directly from the 📄`config.json`, you can check the [`global configs`](./config.md) for more.

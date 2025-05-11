@@ -10,7 +10,7 @@ Advanced snake is an open source project that adds new functionalities to the cl
 
 ## 📚 Documentation Index
 
-- [`Global configs`](./config.md)
+- [`Configs`](./config.md)
 - [`Players & multiplayer configs`](./players.md)
 - [`Walls`](./walls.md)
 - [`Textures`](./textures/README.md)
