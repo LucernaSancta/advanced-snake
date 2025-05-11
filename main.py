@@ -56,8 +56,7 @@ class Game:
         self.snakes: list[Snake] = self.init_players()
 
         # Initiate foods
-        self.foods: list[Food] = [] # To spawn new foods there must be an existing 'foods' list
-        self.foods: list[Food] = self.init_foods()
+        self.init_foods()
 
         log.debug('Render static objects')
         # Render static objects
@@ -118,7 +117,7 @@ class Game:
                 )
         return players
     
-    def init_foods(self) -> list[Food]:
+    def init_foods(self):
 
         log.debug('Loading foods')
 
@@ -135,13 +134,11 @@ class Game:
 
 
         # Spawn the initial foods
-        foods = []
+        self.foods: list[Food] = []
         for _ in range(int(self.foods_config['number'])):
             food = self.food_spawner()
             if food is not None:
-                foods.append(food)
-                
-        return foods
+                self.foods.append(food)
 
     def food_spawner(self) -> Food:
 
