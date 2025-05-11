@@ -4,7 +4,7 @@ import logging
 from logging.handlers import RotatingFileHandler
 
 
-# Customized code form https://stackoverflow.com/questions/384076/how-can-i-color-python-logging-output
+# Customized code from https://stackoverflow.com/questions/384076/how-can-i-color-python-logging-output
 class CustomFormatter(logging.Formatter):
 
     grey = '\x1b[38;21m'
@@ -61,7 +61,7 @@ logger = logging.getLogger()
 stream_handler = logging.StreamHandler()
 file_handler = RotatingFileHandler('logs/app.log', maxBytes=max_file_size, backupCount=max_file_count)
 stream_handler.setFormatter(CustomFormatter())
-file_handler.setFormatter(logging.Formatter(fmt = "%(asctime)s - %(name)s@%(filename)s:%(lineno)d - %(levelname)s - %(message)s"))
+file_handler.setFormatter(logging.Formatter(fmt = '%(asctime)s - %(name)s@%(filename)s:%(lineno)d - %(levelname)s - %(message)s'))
 stream_handler.setLevel(cmd_level)
 file_handler.setLevel(file_level)
 logger.addHandler(stream_handler)
