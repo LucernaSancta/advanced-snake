@@ -6,7 +6,7 @@
 ![Genre](https://img.shields.io/badge/genre-Arcade-green)
 ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
 
-<img src="./menu_assets/title.png" width='100%'>
+<img src="./menu_assets/hd_title.png" width='100%'>
 
 A snake game with added functionalities made in python with PyGame
 
