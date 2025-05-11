@@ -29,6 +29,11 @@ class Map_creator(Game):
         self.bg_texture = pygame.image.load('textures/background/'+self.bg_texture).convert_alpha()
         self.bg_texture = pygame.transform.scale(self.bg_texture, self.snake_grid_thikness)
 
+        # Translate exit and pause keys
+        self.pause_key = pygame.key.key_code(self.pause_key)
+        self.force_pause_key = pygame.key.key_code(self.force_pause_key)
+        self.exit_key = pygame.key.key_code(self.exit_key)
+
         # Load walls
         self.walls = Walls(self.screen_size,self.wall_map,self.snake_grid_thikness,self.walls_textures)
 
@@ -49,8 +54,9 @@ class Map_creator(Game):
         self.display.blit(self.render_walls(self.display), (0, 0)) # Render the walls
         pygame.display.update() # Update the display
 
-
-        while True:
+        self.running = True
+        
+        while self.running:
 
             # Get events
             for event in pygame.event.get():
@@ -62,12 +68,17 @@ class Map_creator(Game):
 
                 # KEYBOARD PRESS EVENTS
                 if event.type == pygame.KEYDOWN:
-                    
-                    # Quality of life, quit when ESC
-                    if event.key == pygame.K_ESCAPE:
-                        log.debug('Quitting game by pressing exit key')
-                        pygame.quit()
-                        quit()
+                    print(event.key == self.exit_key)
+                    print(event.key)
+                    print(self.exit_key)
+                    # Force quit
+                    if event.key == self.exit_key:
+                        log.info('Quitting game by pressing exit key')
+                        self.game_quit()
+
+                    # Pause menu
+                    elif event.key == self.pause_key:
+                        self.pause()
                     
                     # Export key
                     elif event.key == pygame.K_SPACE:

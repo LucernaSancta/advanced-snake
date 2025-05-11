@@ -355,7 +355,7 @@ class Game:
                 # KEYBOARD PRESS EVENTS
                 if event.type == pygame.KEYDOWN:
                     
-                    # Quality of life, quit when ESC
+                    # Force quit
                     if event.key == self.exit_key:
                         log.info('Quitting game by pressing exit key')
                         self.game_quit()
