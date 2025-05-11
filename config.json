@@ -17,14 +17,14 @@
         "types": [
             {
                 "name": "Apple",
-                "weight": 70,
+                "weight": 60,
                 "kwargs": {
                     "power": 1
                 }
             },
             {
                 "name": "Banana",
-                "weight": 15,
+                "weight": 19,
                 "kwargs": {
                     "power": 3
                 }
@@ -41,6 +41,13 @@
                 "weight": 5,
                 "kwargs": {
                     "speed_multiplier": 1.25
+                }
+            },
+            {
+                "name": "Bad_apple",
+                "weight": 5,
+                "kwargs": {
+                    "damage": 1
                 }
             }
         ]
