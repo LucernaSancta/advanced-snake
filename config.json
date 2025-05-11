@@ -24,7 +24,7 @@
             },
             {
                 "name": "Banana",
-                "weight": 20,
+                "weight": 15,
                 "kwargs": {
                     "power": 3
                 }
@@ -34,6 +34,13 @@
                 "weight": 1,
                 "kwargs": {
                     "power": 10
+                }
+            },
+            {
+                "name": "Chili",
+                "weight": 5,
+                "kwargs": {
+                    "speed_multiplier": 1.25
                 }
             }
         ]
