@@ -1,6 +1,4 @@
-import sys
 import json
-import time
 import pygame
 import random
 import os.path
@@ -12,12 +10,11 @@ from game_objects import Snake, Walls
 from foods.default import Food
 from logger import logger as log
 from menus.menu_components import Menu
+from various import print_new_game
 
 
 class Game:
     def __init__(self):
-
-        self.print_new_game('MAIN GAME SCRIPT')
 
         # Load config file
         self.load_configs('config.json')
@@ -66,18 +63,6 @@ class Game:
         self.static_surface.fill((0, 0, 0))
         self.static_surface = self.render_background(self.static_surface)
         self.static_surface = self.render_walls(self.static_surface)
-    
-    def print_new_game(self, running: str = '') -> None:
-        """Simple function to better separete the logs of each game"""
-        log.debug('')
-        log.debug('========== NEW GAME STARTING ==========')
-        log.debug(f'Current time: {time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())}')
-        log.debug(f'OS: {sys.platform}')
-        log.debug(f'Python version: {sys.version}')
-        log.debug(f'Pygame version: {pygame.version.ver}')
-        if running:
-            log.debug(f'Running: {running}')
-        log.debug('')
     
     def load_configs(self, config_path: str) -> None:
         """Load the config file and assign the variables to the class"""
@@ -449,8 +434,12 @@ class Game:
 
 
 if __name__ == '__main__':
+
     log.name = 'game' # Set the logger name
+    print_new_game('MAIN GAME SCRIPT') # Log the start message
+    
     log.info('Initialize game')
     game = Game()
+
     log.info('Run game')
     game._run()

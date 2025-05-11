@@ -1,5 +1,6 @@
 import pygame
 import time
+import sys
 from logger import logger as log
 
 class TimerObj:
@@ -62,3 +63,16 @@ def timer(func: callable) -> callable:
         return output
     
     return wrapper
+
+
+def print_new_game(running: str = '') -> None:
+    """Simple function to better separete the logs of each game"""
+    log.debug('')
+    log.debug('========== NEW GAME STARTING ==========')
+    log.debug(f'Current time: {time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())}')
+    log.debug(f'OS: {sys.platform}')
+    log.debug(f'Python version: {sys.version}')
+    log.debug(f'Pygame version: {pygame.version.ver}')
+    if running:
+        log.debug(f'Running: {running}')
+    log.debug('')

@@ -5,9 +5,9 @@ from logger import logger as log
 from menus.menu_components import Menu, Image
 from menus.menu_contributors import main as contributors_menu
 from menus.menu_settings import main as settings_menu
+from various import print_new_game
 
 def run_main_menu():
-    log.name = 'main_menu'
     result = [None]  # Using a list to hold mutable return value from menu callback
 
     def start_local_game():
@@ -68,4 +68,6 @@ def main():
 
 
 if __name__ == '__main__':
+    log.name = 'main_menu' # Set the logger name
+    print_new_game('MAIN MENU') # Log the start message
     main()
