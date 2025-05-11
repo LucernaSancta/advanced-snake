@@ -227,13 +227,13 @@ class Walls:
             log.debug(f'Removing wall at {pos} - {tile}')
             self.custom_walls.remove(tile)
 
-    def export(self, file_name: str) -> None:
+    def export(self, file_path: str) -> None:
         '''Export the current walls to a CSV file'''
 
-        log.info(f'Exporting wall map with name {file_name} -> maps/{file_name}.csv')
+        log.info(f'Exporting wall map -> {file_path}')
 
         # Open the csv file
-        with open(f'maps/{file_name}.csv', 'w') as csv_file:
+        with open(file_path, 'w') as csv_file:
             csv_writer = csv.writer(csv_file, delimiter=',', lineterminator='\n')
             csv_writer.writerow(('x','y')) # Write first row
 

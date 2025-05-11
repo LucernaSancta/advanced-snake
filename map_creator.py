@@ -1,3 +1,5 @@
+import easygui
+import os
 import pygame
 from pygame.math import Vector2
 
@@ -48,13 +50,16 @@ class Map_creator(Game):
         self.bg_surface = self.render_background(self.bg_surface)
 
     def export_map(self) -> None:
-        file_name = input('Enter name of the new CSV file (leave blank to continue editing): ')
 
-        if file_name:
-            self.walls.export(file_name)
+        # Ask user to choose where to save the file
+        save_path = easygui.filesavebox(default='./maps/new_map.csv', title="Save Map As")
+        if not save_path:
+            log.info("Save operation cancelled.")
+            return
+
+        if save_path:
+            self.walls.export(save_path)
             log.info('Map exported succesfully')
-            pygame.quit()
-            quit()
 
     def pause(self) -> None:
 
@@ -111,7 +116,7 @@ class Map_creator(Game):
 
                 # KEYBOARD PRESS EVENTS
                 if event.type == pygame.KEYDOWN:
-                    
+
                     # Force quit
                     if event.key == self.exit_key:
                         log.info('Quitting game by pressing exit key')
