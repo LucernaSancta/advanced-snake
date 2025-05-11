@@ -13,7 +13,6 @@ def main(surface=None):
     log.name = 'contributors_menu'
     log.debug('Initializing contributors menu')
 
-
     # Initialize menu
     menu = Menu(
         screen_size=(800,800),

@@ -19,7 +19,6 @@ def main(surface=None):
     log.name = 'settings_menu'
     log.debug('Initializing settings menu')
 
-
     # Initialize menu
     menu = Menu(
         screen_size=(800,800),

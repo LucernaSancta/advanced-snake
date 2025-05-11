@@ -16,6 +16,8 @@ from various import print_new_game
 class Game:
     def __init__(self):
 
+        log.name = 'game' # Set the logger name
+
         # Load config file
         self.load_configs('config.json')
 
@@ -435,7 +437,6 @@ class Game:
 
 if __name__ == '__main__':
 
-    log.name = 'game' # Set the logger name
     print_new_game('MAIN GAME SCRIPT') # Log the start message
     
     log.info('Initialize game')

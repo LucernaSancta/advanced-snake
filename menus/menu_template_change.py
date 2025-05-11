@@ -12,7 +12,6 @@ def main(surface=None):
     log.name = 'template_change_menu'
     log.debug('Initializing tempalte change menu')
 
-
     # Initialize menu
     menu = Menu(
         screen_size=(800,800),

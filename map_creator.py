@@ -10,6 +10,8 @@ from various import print_new_game
 class Map_creator(Game):
     def __init__(self):
 
+        log.name = 'map_creator' # Set the logger name
+
         self.load_configs('config.json')
 
         self.snake_grid_thikness = Vector2(self.screen_size.x // self.snake_grid_size.x, self.screen_size.y // self.snake_grid_size.y)
@@ -120,11 +122,10 @@ class Map_creator(Game):
 
 if __name__ == '__main__':
 
-    log.name = 'map_creator' # Set the logger name
     print_new_game('MAP CREATOR SCRIPT') # Log the start message
 
     log.info('Initialize map creator')
     map_creator = Map_creator()
-    
+
     log.info('Run map creator')
     map_creator._run()
