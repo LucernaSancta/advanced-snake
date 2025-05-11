@@ -27,10 +27,6 @@ class Snake:
         self.direction = Vector2(0,0)
         self.speed = speed
 
-        # Create custom event for the snake updating
-        # Set the initial time to the maximum time so it doesn't update at the beginning (#62)
-        self.timer_event = TimerObj(1000/speed, 1000/speed)
-
         log.debug(f'Loading snake textures: {textures}')
         # Load the textures and scale them to the right size
         self.textures = pygame.image.load('textures/snakes/'+textures).convert_alpha()
@@ -40,6 +36,22 @@ class Snake:
         self.state = 0
         # Create the pieces of the snake
         self.pieces = [Vector2(pos) + Vector2(0, thikness.y*(i+1)) for i in range(length)]
+    
+    @property
+    def speed(self) -> int | float:
+        return self._speed
+    
+    @speed.setter
+    def speed(self, value) -> None:
+
+        if '_speed' not in self.__dict__:
+            self._speed = value
+            # Create custom event for the snake updating
+            # Set the initial time to the maximum time so it doesn't update at the beginning (#62)
+            self.timer_event = TimerObj(1000/self._speed, 1000/self._speed)
+        else:
+            self._speed = value
+            self.timer_event = TimerObj(1000/self._speed)
     
     def move(self, key) -> None:
 
