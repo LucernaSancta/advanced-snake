@@ -4,6 +4,7 @@ from pygame.math import Vector2
 from main import Game
 from game_objects import Snake, Walls
 from logger import logger as log
+from menus.menu_components import Menu
 from various import print_new_game
 
 
@@ -46,6 +47,48 @@ class Map_creator(Game):
         self.bg_surface.fill((0, 0, 0))
         self.bg_surface = self.render_background(self.bg_surface)
 
+    def export_map(self) -> None:
+        file_name = input('Enter name of the new CSV file (leave blank to continue editing): ')
+
+        if file_name:
+            self.walls.export(file_name)
+            log.info('Map exported succesfully')
+            pygame.quit()
+            quit()
+
+    def pause(self) -> None:
+
+        log.info('Game paused')
+
+        # Initialize pause menu
+        menu = Menu(
+            screen_size=self.screen_size,
+            font_path='menu_assets/font.ttf',
+            font_size=32,    
+            inherit_screen=self.display
+        )
+
+        # Define buttun costants
+        b_th = (400, 60) # Button dimensions
+        delta_height = 35
+
+        # Define buttons
+        options = [
+            ['resume',    'RESUME',    menu.quit,                    b_th, [menu.center.x, menu.center.y - 3*delta_height]],
+            ['save_map',  'SAVE MAP',  self.export_map,              b_th, [menu.center.x, menu.center.y -   delta_height]],
+            ['main_menu', 'MAIN MENU', lambda: self.stop_game(menu), b_th, [menu.center.x, menu.center.y +   delta_height]],
+            ['quit',      'QUIT',      self.game_quit,               b_th, [menu.center.x, menu.center.y + 3*delta_height]]
+        ]
+
+        # Add buttons to menu
+        for option in options:
+            menu.add_option(*option)
+
+        log.debug('Running menu')
+        menu._run()
+
+        log.info('Game resumed')
+
     def _run(self) -> None:
 
         # The game renders only when is necessary so the first frame must be rendered manually
@@ -55,7 +98,7 @@ class Map_creator(Game):
         pygame.display.update() # Update the display
 
         self.running = True
-        
+
         while self.running:
 
             # Get events
@@ -68,9 +111,7 @@ class Map_creator(Game):
 
                 # KEYBOARD PRESS EVENTS
                 if event.type == pygame.KEYDOWN:
-                    print(event.key == self.exit_key)
-                    print(event.key)
-                    print(self.exit_key)
+                    
                     # Force quit
                     if event.key == self.exit_key:
                         log.info('Quitting game by pressing exit key')
@@ -79,16 +120,6 @@ class Map_creator(Game):
                     # Pause menu
                     elif event.key == self.pause_key:
                         self.pause()
-                    
-                    # Export key
-                    elif event.key == pygame.K_SPACE:
-                        file_name = input('Enter name of the new CSV file (leave blank to continue editing): ')
-
-                        if file_name:
-                            self.walls.export(file_name)
-                            log.info('Map exported succesfully')
-                            pygame.quit()
-                            quit()
 
 
             # When a button is pressed
