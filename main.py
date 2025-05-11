@@ -21,9 +21,10 @@ class Game:
         # Load config file
         self.load_configs('config.json')
 
-        # Calculate tils thikness
+        # Calculate tiles thikness
         self.snake_grid_thikness = Vector2(self.screen_size.x // self.snake_grid_size.x, self.screen_size.y // self.snake_grid_size.y)
         log.debug(f'Snake grid thikness: {self.snake_grid_thikness}')
+        self.check_visual_ratios()
 
         log.debug('Initializing pygame')
         # Initialize pygame
@@ -65,6 +66,24 @@ class Game:
         self.static_surface = self.render_background(self.static_surface)
         self.static_surface = self.render_walls(self.static_surface)
     
+    def check_visual_ratios(self) -> None:
+        """Simple checks for the wondow ratio and shit"""
+
+        # Float (with float division) thikness
+        flt_thikness = Vector2(self.screen_size.x / self.snake_grid_size.x, self.screen_size.y / self.snake_grid_size.y)
+
+        # The float thikness is not equal to the absolute thikness
+        if not ((flt_thikness.x == self.snake_grid_thikness.x) and (flt_thikness.x == self.snake_grid_thikness.y)):
+            log.error('The screen size and the grid size are not compatible')
+            if self.flt_th_noti:
+                input('Press anter to ignore the message... (you can disable this message by setting the notifications.flt_th to false)')
+
+        # The ration of the x and y thikness is not a square
+        if flt_thikness.x / flt_thikness.y != 1:
+            log.error('The screen ratio is not simmetrical to the grid ratio')
+            if self.ratios_noti:
+                input('Press anter to ignore the message... (you can disable this message by setting the notifications.ratios to false)')
+    
     def load_configs(self, config_path: str) -> None:
         """Load the config file and assign the variables to the class"""
 
@@ -94,6 +113,9 @@ class Game:
 
                 self.player_configs = config['players']
                 self.foods_config =   config['foods']
+
+                self.ratios_noti =   config['notifications']['ratios']
+                self.flt_th_noti =   config['notifications']['flt_th']
     
     def init_walls(self) -> Walls:
         return Walls(self.screen_size,self.wall_map,self.snake_grid_thikness,self.walls_textures)

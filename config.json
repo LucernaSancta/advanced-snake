@@ -1,41 +1,31 @@
 {
     "_comment": "Check the docs/config.md for informations on how to configure this file",
     "display": {
-        "screen_size": [900, 900],
+        "screen_size": [1050, 750],
         "fps": 60
     },
     "game": {
-        "grid_size": [15, 15],
+        "grid_size": [21, 15],
         "end_condition": 1
     },
+    "notifications": {
+        "flt_th": true,
+        "ratios": true
+    },
     "foods": {
-        "number": 3,
+        "number": 1,
         "types": [
             {
                 "name": "Apple",
-                "weight": 70,
-                "kwargs": {
-                    "power": 1
-                }
-            },
-            {
-                "name": "Banana",
-                "weight": 20,
-                "kwargs": {
-                    "power": 3
-                }
-            },
-            {
-                "name": "Golden_apple",
                 "weight": 1,
                 "kwargs": {
-                    "power": 10
+                    "power": 1
                 }
             }
         ]
     },
     "walls": {
-        "map": "zen15x15.csv",
+        "map": "test_textures21x15.csv",
         "textures": "mud.png"
     },
     "background": {
@@ -59,19 +49,11 @@
     "players": [
         {
             "name": "Alex",
-            "starting_pos": [14, 7],
+            "starting_pos": [0, 0],
             "textures": "google.png",
             "starting_length": 2,
-            "speed": 1,
-            "keybindings": ["UP", "DOWN", "LEFT", "RIGHT"]
-        },
-        {
-            "name": "Steve",
-            "starting_pos": [0, 7],
-            "textures": "google_yellow.png",
-            "starting_length": 2,
             "speed": 2,
-            "keybindings": ["w", "s", "a", "d"]
+            "keybindings": ["UP", "DOWN", "LEFT", "RIGHT"]
         }
     ]
 }

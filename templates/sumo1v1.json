@@ -8,6 +8,10 @@
         "grid_size": [15, 15],
         "end_condition": 2
     },
+    "notifications": {
+        "flt_th": true,
+        "ratios": true
+    },
     "foods": {
         "number": 0,
         "types": []

@@ -15,6 +15,10 @@ The `config.json` file is used to configure the game settings. Here’s what eac
         - 1: Win when there are no apple
         - 2: Win when only one snake is alive
 
+- `notifications`
+    - `flt_th` : If set to true will show a message if the ratio of the grid size and the screen size are not whole numbers (int) (eg. 800x800 and 30x30, 800/30=26.666 <= not an int)
+    - `ratios` : If set to true will show a message if the ratio of the screen is different to the one of the grid (eg. 800x800 and 10x20, 800/10 is not equal to 800/20)
+
 - `apples`
     - `number` : Number of apples generated at the start.
     - `power` : Defines the power value of an apple.
@@ -53,6 +57,10 @@ The `config.json` file is used to configure the game settings. Here’s what eac
     "game": {
         "grid_size": [15, 15],
         "end_condition": 1
+    },
+    "notifications": {
+        "flt_th": false,
+        "ratios": false
     },
     "foods": {
         "number": 3,

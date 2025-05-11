@@ -1,12 +1,16 @@
 {
     "_comment": "Check the docs/config.md for informations on how to configure this file",
     "display": {
-        "screen_size": [1000, 500],
+        "screen_size": [1005, 510],
         "fps": 60
     },
     "game": {
         "grid_size": [15, 15],
         "end_condition": 0
+    },
+    "notifications": {
+        "flt_th": false,
+        "ratios": false
     },
     "foods": {
         "number": 0,
