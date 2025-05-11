@@ -1,51 +1,71 @@
 # 🌍 Global Variables for Advanced Snake Game
 
-The `config.json` file is used to configure the game settings. Here’s what each variable does:
+The `config.json` file allows customization of key game settings. Below is a breakdown of each section:
 
----
+## 🎮 Display
 
-- `display`
-    - `screen_size` : Defines the screen width and height in pixels.
-    - `fps` : defines the frame per second of the game
+`screen_size`: The screen dimensions in pixels (e.g., `[800, 800]`).
 
-- `game`
-    - `grid_size` : Defines the number of grid cells in the X and Y direction.
-    - `end_condition` : Define the condition for ending the game, the options are:
-        - 0: Never win
-        - 1: Win when there are no apple
-        - 2: Win when only one snake is alive
+`fps`: Frames per second for the game loop.
 
-- `notifications`
-    - `flt_th` : If set to true will show a message if the ratio of the grid size and the screen size are not whole numbers (int) (eg. 800x800 and 30x30, 800/30=26.666 <= not an int)
-    - `ratios` : If set to true will show a message if the ratio of the screen is different to the one of the grid (eg. 800x800 and 10x20, 800/10 is not equal to 800/20)
+## 🕹️ Game
 
-- `apples`
-    - `number` : Number of apples generated at the start.
-    - `power` : Defines the power value of an apple.
-    - `textures` : Specifies the file path for the apples texture.
+`grid_size`: Number of grid cells along the X and Y axes.
 
-- `walls`
-    - `map` : Path to the CSV file that defines the wall placement in the game.
-    - `textures` : Specifies the file path for the wall textures.
+`end_condition`: Game-ending condition:
+- `0`: Never ends (infinite).
+- `1`: Win when all apples are collected.
+- `2`: Win when only one snake remains.
 
-- `background`
-    - `textures` :  Specifies the file path for the background texture.
-    - `tiling`:
-        - `active`: Set tu `true` to activate background tiling
-        - `size`: Background tiling size relative to the game grid size
+## 🔔 Notifications
 
-- `keys`
-    - `pause` : Key to pause the game
-    - `exit` : Key to exit the game
+`flt_th`: Warns if screen_size / grid_size does not yield whole numbers.
 
-- `logs`
-    - `console_level` : set the logging level for console logs (see [logging docs](./logger.md) for more)
-    - `file_level` : set the logging level for file written logs
-    - `max_file_size` : set max file size for file written logs
-    - `max_file_count` : set max files for file written logs
----
+`ratios`: Warns if the screen and grid have mismatched aspect ratios.
 
-## 🧪 File example:
+## 🍽️ Foods
+
+See the [foods docs](./foods.md) for full details.
+
+## 🧱 Walls
+
+`map`: CSV file path defining wall layout.
+
+`textures`: Wall texture file.
+
+## 🌄 Background
+
+`textures`: Background texture file.
+
+`tiling`:
+- `active`: Enables tiled background if `true`.
+- `size`: Tiling size relative to grid (e.g., `[1, 1]`).
+
+## ⌨️ Keys
+
+`pause`: Key to pause the game.
+
+`force_pause`: Key to force-pause the game.
+
+`exit`: Key to exit the game.
+
+## 📜 Logger
+
+`console_level`: Log level for console output.
+
+`file_level`: Log level for log file output.
+
+`max_file_size`: Max size (in bytes) for each log file.
+
+`max_file_count`: Max number of log files to retain.
+
+More details in the logger docs.
+
+## 🧑‍🤝‍🧑 Players
+
+See the [players docs](./players.md) for configuration options.
+
+## 🧪 Example config.json
 
 ```json
 {

@@ -1,4 +1,4 @@
-# 🧑‍🤝‍🧑 Players and multiplayer settings
+# 🧑‍🤝‍🧑 Players settings
 
 The game automatically searches for player config in the `config.json` file.
 
