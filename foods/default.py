@@ -37,5 +37,5 @@ class Food:
         ) -> None:
         ...
     
-    def render(self, display: pygame.surface.Surface):
+    def update(self, display: pygame.surface.Surface, deltaTime) -> None:
         display.blit(self.texture, self.pos+self.offset)

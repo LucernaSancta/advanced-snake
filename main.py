@@ -221,13 +221,13 @@ class Game:
         for snake in self.snakes:
             snake.render(self.display)
 
-    def render_foods(self) -> None:
+    def update_foods(self, deltaTime: int | float) -> None:
         # Remove None elements from apple list, None elements are created by the apple spawner
         self.foods = list(filter(lambda x: x is not None, self.foods))
 
         # Draw the apples
         for food in self.foods:
-            food.render(self.display)
+            food.update(self.display, deltaTime)
 
     def render_walls(self, surface: pygame.surface.Surface) -> pygame.surface.Surface:
         # Draw the walls
@@ -436,7 +436,7 @@ class Game:
             self.display.blit(self.static_surface, (0, 0))
             # Render moving objects
             self.render_snakes()
-            self.render_foods()
+            self.update_foods(deltaTime)
 
             pygame.display.update()
 
