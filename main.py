@@ -275,6 +275,8 @@ class Game:
         log.debug('Running menu')
         menu.run()
 
+        # Make sure the games running so that the screen can update and remove the pause menu
+        self.paused = False
         log.info('Game resumed')
 
     def check_win_condition(self) -> bool:
@@ -360,7 +362,7 @@ class Game:
     def run(self) -> None:
         '''Main game loop'''
 
-        paused = False
+        self.paused = False
         frames = 0
         deltaTime = 0
         self.running = True
@@ -384,19 +386,19 @@ class Game:
                     
                     # Force pause
                     elif event.key == self.force_pause_key:
-                        if paused:
+                        if self.paused:
                             log.warning('Game resumed forcefully')
-                            paused = False
+                            self.paused = False
                         else:
                             log.warning('Game paused forcefully')
-                            paused = True
+                            self.paused = True
                     
                     # Normal pause
                     elif event.key == self.pause_key:
                         self.pause()
 
 
-                    if paused:
+                    if self.paused:
                         continue
 
                     # Update snakes moves
@@ -407,7 +409,7 @@ class Game:
 
 
             # If the game is poused, skip the updates
-            if paused:
+            if self.paused:
                 self.clock.tick(60)
                 continue
 
