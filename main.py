@@ -446,6 +446,11 @@ class Game:
                 paused = True
                 log.info('Game over, you won!')
                 log.info(f'press {self.original_pause_key} to exit')
+            
+            if not len(self.snakes):
+                log.info('Game over, everyone is dead')
+                log.info(f'press {self.original_pause_key} to exit')
+                paused = True
 
 
             # Limit the refresh rate to the fps
