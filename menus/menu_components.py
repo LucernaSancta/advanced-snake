@@ -168,7 +168,7 @@ class Menu:
         log.info(f'Quitting menu: {self.title}')
         self.running = False
 
-    def _run(self):
+    def run(self):
         block_mouse = any(pygame.mouse.get_pressed())
         # Main loop
         while self.running:

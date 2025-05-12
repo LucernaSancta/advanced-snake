@@ -90,11 +90,11 @@ class Map_creator(Game):
             menu.add_option(*option)
 
         log.debug('Running menu')
-        menu._run()
+        menu.run()
 
         log.info('Game resumed')
 
-    def _run(self) -> None:
+    def run(self) -> None:
 
         # The game renders only when is necessary so the first frame must be rendered manually
         self.display.blit(self.bg_surface, (0, 0)) # Render the background
@@ -183,4 +183,4 @@ if __name__ == '__main__':
     map_creator = Map_creator()
 
     log.info('Run map creator')
-    map_creator._run()
+    map_creator.run()

@@ -102,7 +102,7 @@ def main(surface=None):
         menu.add_option(*option)
 
     log.debug('Running menu')
-    menu._run()
+    menu.run()
 
 # Run the menu
 if __name__ == '__main__':

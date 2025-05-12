@@ -273,7 +273,7 @@ class Game:
             menu.add_option(*option)
 
         log.debug('Running menu')
-        menu._run()
+        menu.run()
 
         log.info('Game resumed')
 
@@ -357,7 +357,7 @@ class Game:
                     self.foods.append(self.food_spawner())
                     break
 
-    def _run(self) -> None:
+    def run(self) -> None:
         '''Main game loop'''
 
         paused = False
@@ -467,4 +467,4 @@ if __name__ == '__main__':
     game = Game()
 
     log.info('Run game')
-    game._run()
+    game.run()

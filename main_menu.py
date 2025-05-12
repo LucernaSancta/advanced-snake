@@ -54,7 +54,7 @@ def run_main_menu():
     ))
 
     log.debug('Running menu')
-    menu._run()
+    menu.run()
     return result[0]
 
 
@@ -63,10 +63,10 @@ def main():
         choice = run_main_menu()
         if choice == 'local':
             log.info('Starting local game')
-            Game()._run()
+            Game().run()
         elif choice == 'map_creator':
             log.info('Starting map creator')
-            Map_creator()._run()
+            Map_creator().run()
         else:
             break  # User quit or selected a non-restarting action
 

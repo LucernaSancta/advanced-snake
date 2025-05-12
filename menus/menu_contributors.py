@@ -60,7 +60,7 @@ def main(surface=None):
     )
 
     log.debug('Running menu')
-    menu._run()
+    menu.run()
 
 # Run the menu
 if __name__ == '__main__':
