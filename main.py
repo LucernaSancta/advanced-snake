@@ -351,7 +351,7 @@ class Game:
                     log.debug(f'{snake.name} ate some food at {food.pos}')
                     # Update the snakeat {apple.pos}')
                     # Update the snake
-                    food.eaten(self.display, snake, [])
+                    food.eaten(self.display, snake, [x for x in self.snakes if x != snake])
                     # Remove the pervious apple from the list and add a new one
                     self.foods.remove(food)
                     self.foods.append(self.food_spawner())
