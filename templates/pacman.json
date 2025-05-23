@@ -1,0 +1,95 @@
+{
+    "_comment": "Check the docs/config.md for informations on how to configure this file",
+    "display": {
+        "screen_size": [896, 992],
+        "fps": 60
+    },
+    "game": {
+        "grid_size": [28, 31],
+        "end_condition": 1
+    },
+    "notifications": {
+        "flt_th": true,
+        "ratios": true
+    },
+    "foods": {
+        "number": 5,
+        "types": [
+            {
+                "name": "Apple",
+                "weight": 60,
+                "kwargs": {
+                    "power": 1
+                }
+            },
+            {
+                "name": "Banana",
+                "weight": 19,
+                "kwargs": {
+                    "power": 3
+                }
+            },
+            {
+                "name": "Golden_apple",
+                "weight": 1,
+                "kwargs": {
+                    "power": 10
+                }
+            },
+            {
+                "name": "Chili",
+                "weight": 5,
+                "kwargs": {
+                    "speed_multiplier": 1.25
+                }
+            },
+            {
+                "name": "Bad_apple",
+                "weight": 5,
+                "kwargs": {
+                    "damage": 1
+                }
+            }
+        ]
+    },
+    "walls": {
+        "map": "pacman_map.csv",
+        "textures": "invisible.png"
+    },
+    "background": {
+        "textures": "pacman_map.png",
+        "tiling": {
+            "active": false,
+            "size": [1, 1]
+        }
+    },
+    "keys": {
+        "pause": "ESCAPE",
+        "force_pause": "SPACE",
+        "exit": "\\"
+    },
+    "logger": {
+        "console_level": "DEBUG",
+        "file_level": "DEBUG",
+        "max_file_size": 131072,
+        "max_file_count": 5
+    },
+    "players": [
+        {
+            "name": "Alex",
+            "starting_pos": [21, 14],
+            "textures": "google.png",
+            "starting_length": 2,
+            "speed": 2,
+            "keybindings": ["UP", "DOWN", "LEFT", "RIGHT"]
+        },
+        {
+            "name": "Steve",
+            "starting_pos": [6, 14],
+            "textures": "google_yellow.png",
+            "starting_length": 2,
+            "speed": 2,
+            "keybindings": ["w", "s", "a", "d"]
+        }
+    ]
+}
