@@ -33,16 +33,6 @@ class Game:
         pygame.display.set_caption('Advanced Snake - main')
         self.clock = pygame.time.Clock()
 
-        log.debug('Loading and scaling the background texture')
-        # Scale the background texture
-        self.bg_texture = pygame.image.load('textures/background/'+self.bg_texture).convert_alpha()
-        if self.bg_tiling['active']:
-            self.bg_texture = pygame.transform.scale(self.bg_texture, (self.snake_grid_thikness.x*self.bg_tiling_size.x, self.snake_grid_thikness.y*self.bg_tiling_size.y))
-        else:
-            # Scale the background texture to the screen size
-            self.bg_texture = pygame.transform.scale(self.bg_texture, (self.screen_size.x, self.screen_size.y))
-
-
         # Store the exit key to print it later when the player wins
         self.original_pause_key = str(self.pause_key)
         # Translate exit and pause keys
@@ -198,6 +188,15 @@ class Game:
         return food_to_spawn(pos, self.snake_grid_thikness, self.foods_kwargs[food_to_spawn])
 
     def render_background(self, surface: pygame.surface.Surface) -> pygame.surface.Surface:
+
+        log.debug('Loading and scaling the background texture')
+        # Scale the background texture
+        self.bg_texture = pygame.image.load('textures/background/'+self.bg_texture).convert_alpha()
+        if self.bg_tiling['active']:
+            self.bg_texture = pygame.transform.scale(self.bg_texture, (self.snake_grid_thikness.x*self.bg_tiling_size.x, self.snake_grid_thikness.y*self.bg_tiling_size.y))
+        else:
+            # Scale the background texture to the screen size
+            self.bg_texture = pygame.transform.scale(self.bg_texture, (self.screen_size.x, self.screen_size.y))
 
         log.debug(f'Rendering background, tiling={self.bg_tiling}')
 

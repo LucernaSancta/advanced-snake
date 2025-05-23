@@ -27,11 +27,6 @@ class Map_creator(Game):
         pygame.display.set_caption('Advanced Snake - Map Creator')
         self.clock = pygame.time.Clock()
 
-        log.debug('Loading background textures')
-        # Scale the background texture
-        self.bg_texture = pygame.image.load('textures/background/'+self.bg_texture).convert_alpha()
-        self.bg_texture = pygame.transform.scale(self.bg_texture, self.snake_grid_thikness)
-
         # Translate exit and pause keys
         self.pause_key = pygame.key.key_code(self.pause_key)
         self.force_pause_key = pygame.key.key_code(self.force_pause_key)
