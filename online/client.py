@@ -11,7 +11,7 @@ class CustomGame(Game):
 
 
 class GameClient:
-    def __init__(self, host='localhost', port=5555):
+    def __init__(self, host='localhost', port=7373):
 
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.socket.connect((host, port))
