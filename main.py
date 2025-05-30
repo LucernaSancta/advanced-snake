@@ -364,6 +364,46 @@ class Game:
                     self.foods.append(self.food_spawner())
                     break
 
+    def manage_events(self) -> None:
+
+        # Get events
+        for event in pygame.event.get():
+
+            # Quit when closing the window
+            if event.type == pygame.QUIT:
+                self.game_quit()
+            
+            # KEYBOARD PRESS EVENTS
+            if event.type == pygame.KEYDOWN:
+                
+                # Force quit
+                if event.key == self.exit_key:
+                    log.info('Quitting game by pressing exit key')
+                    self.game_quit()
+                
+                # Force pause
+                elif event.key == self.force_pause_key:
+                    if self.paused:
+                        log.warning('Game resumed forcefully')
+                        self.paused = False
+                    else:
+                        log.warning('Game paused forcefully')
+                        self.paused = True
+                
+                # Normal pause
+                elif event.key == self.pause_key:
+                    self.pause()
+
+
+                if self.paused:
+                    continue
+
+                # Update snakes moves
+                for snake in self.snakes:
+                    if event.key in snake.keybindings:
+                        log.debug(f'{snake.name} changed direction with {pygame.key.name(event.key)}')
+                        snake.move(event.key)
+
     def run(self) -> None:
         '''Main game loop'''
 
@@ -374,44 +414,7 @@ class Game:
 
         while self.running:
 
-            # Get events
-            for event in pygame.event.get():
-
-                # Quit when closing the window
-                if event.type == pygame.QUIT:
-                    self.game_quit()
-                
-                # KEYBOARD PRESS EVENTS
-                if event.type == pygame.KEYDOWN:
-                    
-                    # Force quit
-                    if event.key == self.exit_key:
-                        log.info('Quitting game by pressing exit key')
-                        self.game_quit()
-                    
-                    # Force pause
-                    elif event.key == self.force_pause_key:
-                        if self.paused:
-                            log.warning('Game resumed forcefully')
-                            self.paused = False
-                        else:
-                            log.warning('Game paused forcefully')
-                            self.paused = True
-                    
-                    # Normal pause
-                    elif event.key == self.pause_key:
-                        self.pause()
-
-
-                    if self.paused:
-                        continue
-
-                    # Update snakes moves
-                    for snake in self.snakes:
-                        if event.key in snake.keybindings:
-                            log.debug(f'{snake.name} changed direction with {pygame.key.name(event.key)}')
-                            snake.move(event.key)
-
+            self.manage_events()
 
             # If the game is poused, skip the updates
             if self.paused:
