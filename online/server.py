@@ -3,7 +3,7 @@ from main import Game
 
 
 class GameServer:
-    def __init__(self, host='localhost', port=7373):
+    def __init__(self, host='0.0.0.0', port=7373):
 
         self.server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.server.bind((host, port))

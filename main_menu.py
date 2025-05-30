@@ -5,6 +5,7 @@ from logger import logger as log
 from menus.menu_components import Menu, Image
 from menus.menu_contributors import main as contributors_menu
 from menus.menu_settings import main as settings_menu
+from menus.menu_online import main as online_menu
 from various import print_new_game
 
 
@@ -37,7 +38,7 @@ def run_main_menu():
 
     options = [
         ['local',        'LOCAL',        start_local_game,                      b_th, [menu.center.x, menu.center.y -   delta_height + offset]],
-        ['online',       'ONLINE',       lambda: log.debug('BUTT - Online'),    b_th, [menu.center.x, menu.center.y +   delta_height + offset]],
+        ['online',       'ONLINE',       lambda: online_menu(menu.screen),      b_th, [menu.center.x, menu.center.y +   delta_height + offset]],
         ['map_creator',  'MAP CREATOR',  start_map_creator,                     b_th, [menu.center.x, menu.center.y + 3*delta_height + offset]],
         ['settings',     'SETTINGS',     lambda: settings_menu(menu.screen),    b_th, [menu.center.x, menu.center.y + 5*delta_height + offset]],
         ['contributors', 'CONTRIBUTORS', lambda: contributors_menu(menu.screen),b_th, [menu.center.x, menu.center.y + 7*delta_height + offset]],
