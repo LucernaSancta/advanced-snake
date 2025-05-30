@@ -15,7 +15,8 @@ class Map_creator(Game):
 
         log.name = 'map_creator' # Set the logger name
 
-        self.load_configs('config.json')
+        self.config = self.load_configs_file('config.json')
+        self.load_configs_vars()
 
         self.snake_grid_thikness = Vector2(self.screen_size.x // self.snake_grid_size.x, self.screen_size.y // self.snake_grid_size.y)
         log.debug(f'Snake grid thikness: {self.snake_grid_thikness}')

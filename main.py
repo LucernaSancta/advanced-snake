@@ -19,7 +19,8 @@ class Game:
         log.name = 'game' # Set the logger name
 
         # Load config file
-        self.load_configs('config.json')
+        self.config = self.load_configs_file('config.json')
+        self.load_configs_vars()
 
         # Calculate tiles thikness
         self.snake_grid_thikness = Vector2(self.screen_size.x // self.snake_grid_size.x, self.screen_size.y // self.snake_grid_size.y)
@@ -74,7 +75,7 @@ class Game:
             if self.ratios_noti:
                 input('Press anter to ignore the message... (you can disable this message by setting the notifications.ratios to false)')
     
-    def load_configs(self, config_path: str) -> None:
+    def load_configs_file(self, config_path: str) -> None:
         """Load the config file and assign the variables to the class"""
 
         log.debug(f'Loading config file: {config_path}')
@@ -82,30 +83,31 @@ class Game:
         if not os.path.isfile(config_path):
             log.critical(f'Config file {config_path} not found.')
         else:
-
             with open(config_path, 'r') as config_file:
-                config = json.load(config_file)
+                return json.load(config_file)
 
-                # Assign global config variables
-                self.screen_size =     Vector2(config['display']['screen_size'])
-                self.snake_grid_size = Vector2(config['game']['grid_size'])
-                self.end_condition =  int(config['game']['end_condition'])
-                self.walls_textures =     config['walls']['textures']
-                self.bg_texture =         config['background']['textures']
-                self.pause_key =       config['keys']['pause']
-                self.force_pause_key = config['keys']['force_pause']
-                self.exit_key =        config['keys']['exit']
-                self.wall_map =   config['walls']['map']
-                self.fps =  float(config['display']['fps'])
+    def load_configs_vars(self) -> None:
 
-                self.bg_tiling = config['background']['tiling']
-                self.bg_tiling_size = Vector2(config['background']['tiling']['size'])
+        # Assign global config variables
+        self.screen_size =     Vector2(self.config['display']['screen_size'])
+        self.snake_grid_size = Vector2(self.config['game']['grid_size'])
+        self.end_condition =  int(self.config['game']['end_condition'])
+        self.walls_textures =     self.config['walls']['textures']
+        self.bg_texture =         self.config['background']['textures']
+        self.pause_key =       self.config['keys']['pause']
+        self.force_pause_key = self.config['keys']['force_pause']
+        self.exit_key =        self.config['keys']['exit']
+        self.wall_map =   self.config['walls']['map']
+        self.fps =  float(self.config['display']['fps'])
 
-                self.player_configs = config['players']
-                self.foods_config =   config['foods']
+        self.bg_tiling = self.config['background']['tiling']
+        self.bg_tiling_size = Vector2(self.config['background']['tiling']['size'])
 
-                self.ratios_noti =   config['notifications']['ratios']
-                self.flt_th_noti =   config['notifications']['flt_th']
+        self.player_configs = self.config['players']
+        self.foods_config =   self.config['foods']
+
+        self.ratios_noti =   self.config['notifications']['ratios']
+        self.flt_th_noti =   self.config['notifications']['flt_th']
     
     def init_walls(self) -> Walls:
         return Walls(self.screen_size,self.wall_map,self.snake_grid_thikness,self.walls_textures)
@@ -219,6 +221,10 @@ class Game:
         # Draw the snakes in whatever state they are
         for snake in self.snakes:
             snake.render(self.display)
+
+    def custom_method(self) -> None:
+        '''Custom method used by servers'''
+        return
 
     def update_foods(self, deltaTime: int | float) -> None:
         # Remove None elements from apple list, None elements are created by the apple spawner
@@ -452,6 +458,9 @@ class Game:
                 log.info('Game over, everyone is dead')
                 log.info(f'press {self.original_pause_key} to exit')
                 self.paused = True
+
+            
+            self.custom_method()
 
 
             # Limit the refresh rate to the fps
