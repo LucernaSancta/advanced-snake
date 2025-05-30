@@ -37,7 +37,7 @@ def main(surface=None):
     # Define buttons
     options = [
         ['start',   'START SERVER', lambda: GameServer().run(), b_th, [menu.center.x, menu.center.y - 3*delta_height]],
-        ['enter',  'ENTER SERVER',  connct_to_server,           b_th, [menu.center.x, menu.center.y -  delta_height]],
+        ['enter',  'JOIN SERVER',  connct_to_server,            b_th, [menu.center.x, menu.center.y -  delta_height]],
         ['back',   'BACK',          menu.quit,                  b_th, [menu.center.x, menu.center.y + 7*delta_height]]
     ]
 
