@@ -23,6 +23,11 @@
                 }
             },
             {
+                "name": "Inverter",
+                "weight": 5,
+                "kwargs": {}
+            },
+            {
                 "name": "Banana",
                 "weight": 19,
                 "kwargs": {
