@@ -48,7 +48,7 @@ class CustomGame(Game):
 
 def get_local_ip():
     '''Returns the IP of the machine in the LAN'''
-
+    
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     try:
         # doesn't have to be reachable — we just want to get the right interface
@@ -69,11 +69,12 @@ class GameServer:
         log.name = 'server' # Set the logger name
 
         # Create socket
-        log.info(f'Creating socket binded to {port}')
+        ip = get_local_ip()
+        log.info(f'Creating socket binded to {ip}:{port}')
         try:
             self.server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             self.server.settimeout(0.2) # timeout for listening
-            self.server.bind((get_local_ip(), port))
+            self.server.bind((ip, port))
             self.server.listen()
         except Exception as e:
             log.critical(f'Could not create socket: {e}')
