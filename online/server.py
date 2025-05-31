@@ -2,11 +2,24 @@ import socket, threading, pickle
 from main import Game
 
 
+def get_local_ip():
+    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    try:
+        # doesn't have to be reachable — we just want to get the right interface
+        s.connect(('10.255.255.255', 1))
+        IP = s.getsockname()[0]
+    except Exception:
+        IP = '127.0.0.1'
+    finally:
+        s.close()
+    return IP
+
+
 class GameServer:
-    def __init__(self, host='0.0.0.0', port=7373):
+    def __init__(self, port=7373):
 
         self.server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.server.bind((host, port))
+        self.server.bind((get_local_ip(), port))
         self.server.listen()
 
         self.clients = []
