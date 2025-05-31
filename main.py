@@ -91,14 +91,14 @@ class Game:
         # Assign global config variables
         self.screen_size =     Vector2(self.config['display']['screen_size'])
         self.snake_grid_size = Vector2(self.config['game']['grid_size'])
-        self.end_condition =  int(self.config['game']['end_condition'])
-        self.walls_textures =     self.config['walls']['textures']
-        self.bg_texture =         self.config['background']['textures']
+        self.end_condition =   self.config['game']['end_condition']
+        self.walls_textures =  self.config['walls']['textures']
+        self.bg_texture =      self.config['background']['textures']
         self.pause_key =       self.config['keys']['pause']
         self.force_pause_key = self.config['keys']['force_pause']
         self.exit_key =        self.config['keys']['exit']
-        self.wall_map =   self.config['walls']['map']
-        self.fps =  float(self.config['display']['fps'])
+        self.wall_map = self.config['walls']['map']
+        self.fps =      self.config['display']['fps']
 
         self.bg_tiling = self.config['background']['tiling']
         self.bg_tiling_size = Vector2(self.config['background']['tiling']['size'])

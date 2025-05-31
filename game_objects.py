@@ -2,7 +2,7 @@ import csv
 import pygame
 from pygame.math import Vector2
 
-from various import TimerObj, key_map,timer
+from various import TimerObj, key_map
 from logger import logger as log
 
 
