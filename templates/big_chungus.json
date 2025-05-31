@@ -6,7 +6,8 @@
     },
     "game": {
         "grid_size": [15, 15],
-        "end_condition": 0
+        "end_condition": 0,
+        "loopback": false
     },
     "notifications": {
         "flt_th": false,

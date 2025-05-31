@@ -56,7 +56,16 @@ class Game:
         self.static_surface.fill((0, 0, 0))
         self.static_surface = self.render_background(self.static_surface)
         self.static_surface = self.render_walls(self.static_surface)
-    
+
+        # Calculate boarders
+        self.boarders = []
+        for i in range(int(self.snake_grid_size.x)):
+            self.boarders.append(Vector2(i*self.snake_grid_thikness.x,-self.snake_grid_thikness.y))
+            self.boarders.append(Vector2(i*self.snake_grid_thikness.x,int(self.snake_grid_size.y)*self.snake_grid_thikness.y))
+        for i in range(int(self.snake_grid_size.y)):
+            self.boarders.append(Vector2(-self.snake_grid_thikness.x,i*self.snake_grid_thikness.y))
+            self.boarders.append(Vector2(int(self.snake_grid_size.x)*self.snake_grid_thikness.x,i*self.snake_grid_thikness.y))
+
     def check_visual_ratios(self) -> None:
         """Simple checks for the wondow ratio and shit"""
 
@@ -92,6 +101,7 @@ class Game:
         self.screen_size =     Vector2(self.config['display']['screen_size'])
         self.snake_grid_size = Vector2(self.config['game']['grid_size'])
         self.end_condition =   self.config['game']['end_condition']
+        self.loopback =        self.config['game']['loopback']
         self.walls_textures =  self.config['walls']['textures']
         self.bg_texture =      self.config['background']['textures']
         self.pause_key =       self.config['keys']['pause']
@@ -317,6 +327,13 @@ class Game:
 
         # Update the position
         snake.update()
+
+        # Loop around the map
+        if self.loopback:
+            
+            if snake.pos in self.boarders:
+                snake.pos = Vector2(self.snake_grid_thikness.x*8, self.snake_grid_thikness.y*8)
+
 
         # Check for walls collisions
         if snake in self.walls:

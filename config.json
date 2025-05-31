@@ -6,7 +6,8 @@
     },
     "game": {
         "grid_size": [15, 15],
-        "end_condition": 1
+        "end_condition": 1,
+        "loopback": true
     },
     "notifications": {
         "flt_th": true,
@@ -76,19 +77,11 @@
     },
     "players": [
         {
-            "name": "Alex",
-            "starting_pos": [14, 7],
-            "textures": "google.png",
-            "starting_length": 2,
-            "speed": 1,
-            "keybindings": ["UP", "DOWN", "LEFT", "RIGHT"]
-        },
-        {
             "name": "Steve",
             "starting_pos": [0, 7],
             "textures": "google_yellow.png",
             "starting_length": 2,
-            "speed": 2,
+            "speed": 4,
             "keybindings": ["w", "s", "a", "d"]
         }
     ]
