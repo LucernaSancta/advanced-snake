@@ -3,21 +3,26 @@ from main import Game
 
 
 def get_local_ip():
+    '''Returns the IP of the machine in the LAN'''
+
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     try:
         # doesn't have to be reachable — we just want to get the right interface
         s.connect(('10.255.255.255', 1))
         IP = s.getsockname()[0]
     except Exception:
+        # Use loopback IP (localhost)
         IP = '127.0.0.1'
     finally:
         s.close()
+
     return IP
 
 
 class GameServer:
-    def __init__(self, port=7373):
+    def __init__(self, port=7373) -> None:
 
+        # Create socket
         self.server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.server.bind((get_local_ip(), port))
         self.server.listen()
@@ -25,24 +30,31 @@ class GameServer:
         self.clients = []
         self.inputs = []
 
+        # Init game
         self.game = Game()
         self.game.custom_method = self.custom_method
         
         self.lock = threading.Lock()
 
-    def custom_method(self):
+    def custom_method(self) -> None:
 
             self.broadcast_state()
 
+            # Update the snakes
             with self.lock:
                 for key_event in self.inputs:
                     for snake in self.game.snakes:
                         if key_event in snake.keybindings:
                             snake.move(key_event)
+                # Resent inputs buffer
                 self.inputs.clear()
 
-    def broadcast_state(self):
+    def broadcast_state(self) -> None:
+
+        # Get game state
         game_state = pickle.dumps(self.serialize_state())
+
+        # Send state to all connected clients
         for client, addr in self.clients:
             try:
                 client.sendall(game_state)
@@ -50,41 +62,56 @@ class GameServer:
                 print(f'Client {addr} disconnected')
                 self.clients.remove((client, addr))
 
-    def serialize_state(self):
+    def serialize_state(self) -> dict:
         return {
             'snakes': [(s.name, s.pos, s.direction, s.pieces) for s in self.game.snakes],
             'foods': [(f.pos, type(f).__name__, f.kwargs) for f in self.game.foods]
         }
 
-    def handle_client(self, conn, addr):
+    def handle_client(self, conn, addr) -> None:
         while True:
             try:
+                # Recive data
                 data = conn.recv(1024)
                 if not data: break
                 key_event = pickle.loads(data)
+
+                # Add data to inputs buffer
                 with self.lock:
                     self.inputs.append(key_event)
             except:
                 break
+        
+        # Client disconnected
         print(f'Client {addr} disconnected')
         conn.close()
 
-    def accept_clients(self):
+    def accept_clients(self) -> None:
         while True:
+
             conn, addr = self.server.accept()
             print(f"Client connected from {addr}")
+
+            # Sent config
             self.send_config(conn, addr)
+
             self.clients.append((conn, addr))
+
+            # Start client handling thread
             threading.Thread(target=self.handle_client, args=(conn, addr,)).start()
     
-    def send_config(self, conn, addr):
+    def send_config(self, conn, addr) -> None:
+
+        # Get game config
         config = pickle.dumps(self.game.config)
+
+        # Send config
         try:
             conn.send(config)
         except Exception:
             print(f'Client {addr} disconnected')
 
-    def run(self):
+    def run(self) -> None:
         print("Server started")
         threading.Thread(target=self.accept_clients).start()
         self.game.run()

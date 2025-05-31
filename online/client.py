@@ -11,22 +11,27 @@ class CustomGame(Game):
 
 
 class GameClient:
-    def __init__(self, host='localhost', port=7373):
+    def __init__(self, host='localhost', port=7373) -> None:
 
+        # Create socket and connect to the server
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.socket.connect((host, port))
 
         self.state = {}
 
+        # Create custom game
         self.game = CustomGame
         self.game.load_configs_file = self.custom_config
         self.game.custom_method = self.render_and_send
 
+        # Set all snakes states to 1 (if set to 0 they wont render properly)
         self.game = self.game()
         for snake in self.game.snakes:
             snake.state = 1
     
     def custom_config(self, _) -> dict:
+        '''Recive configuration'''
+
         data = b''
         while True:
             part = self.socket.recv(4096)
@@ -35,18 +40,21 @@ class GameClient:
             data += part
             if len(part) < 4096:
                 break
+
         return pickle.loads(data)
 
-    def send_input(self, key):
+    def send_input(self, key) -> None:
         try:
             self.socket.sendall(pickle.dumps(key))
-        except:
+        except Exception:
+            # Server disconnected
             print("Lost connection to server")
             exit()
 
-    def receive_state(self):
+    def receive_state(self) -> None:
         while True:
             try:
+                # Recive state
                 data = b''
                 while True:
                     part = self.socket.recv(4096)
@@ -55,16 +63,19 @@ class GameClient:
                     data += part
                     if len(part) < 4096:
                         break
+                
+                # Load recived state
                 self.state = pickle.loads(data)
+
             except:
                 break
 
-    def run(self):
+    def run(self) -> None:
         threading.Thread(target=self.receive_state, daemon=True).start()
         self.game.run()
 
 
-    def render_and_send(self):
+    def render_and_send(self) -> None:
 
         # Sent keys events
         for event in pygame.event.get():
