@@ -30,7 +30,7 @@ class Food:
     def initialize(self): ...
     def init_texture(self, file_name: str): ...
     def eaten(self, surface: Surface, snake: Snake, snakes: list[Snake]): ...
-    def render(self, display: Surface): ...
+    def update(self, display: Surface): ...
 ```
 
 ### 🔧 Key responsibilities:
@@ -43,12 +43,11 @@ class Food:
   
   Called when the food is eaten. Implement what happens when a snake eats this food (e.g., grow, teleport, damage).
 
-- `render(display)`
+- `update(display, deltaTime)`
 
-  Handles drawing the food to the screen.
+  Handles drawing the food to the screen and frame-tied logic.
 
 - `kwargs`
-
 
   A dictionary passed via `config.json` under `foods.types[].kwargs` to let you customize behavior.
 
