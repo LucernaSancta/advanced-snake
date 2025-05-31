@@ -1,5 +1,6 @@
 import socket, threading, pickle
 from main import Game
+from logger import logger as log
 
 
 def get_local_ip():
@@ -22,7 +23,10 @@ def get_local_ip():
 class GameServer:
     def __init__(self, port=7373) -> None:
 
+        log.name = 'game' # Set the logger name
+
         # Create socket
+        log.info(f'Creating socket binded to {port}')
         self.server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.server.bind((get_local_ip(), port))
         self.server.listen()
@@ -59,7 +63,7 @@ class GameServer:
             try:
                 client.sendall(game_state)
             except Exception:
-                print(f'Client {addr} disconnected')
+                log.warning(f'Client {addr} disconnected')
                 self.clients.remove((client, addr))
 
     def serialize_state(self) -> dict:
@@ -83,16 +87,17 @@ class GameServer:
                 break
         
         # Client disconnected
-        print(f'Client {addr} disconnected')
+        log.warning(f'Client {addr} disconnected')
         conn.close()
 
     def accept_clients(self) -> None:
         while True:
 
             conn, addr = self.server.accept()
-            print(f"Client connected from {addr}")
+            log.warning(f'Client connected from {addr}')
 
             # Sent config
+            log.debug(f'Sending configuration to {addr}')
             self.send_config(conn, addr)
 
             self.clients.append((conn, addr))
@@ -109,14 +114,14 @@ class GameServer:
         try:
             conn.send(config)
         except Exception:
-            print(f'Client {addr} disconnected')
+            log.warning(f'Client {addr} disconnected')
 
     def run(self) -> None:
-        print("Server started")
+        log.info('Server started')
         threading.Thread(target=self.accept_clients).start()
         self.game.run()
 
-        print("Server closed")
+        log.info('Server closed')
         self.server.close()
 
 

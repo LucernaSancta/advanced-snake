@@ -1,6 +1,10 @@
 import socket, threading, pickle
 import pygame
 from main import Game
+from logger import logger as log
+
+
+log.name = 'game' # Set the logger name
 
 
 class CustomGame(Game):
@@ -14,6 +18,7 @@ class GameClient:
     def __init__(self, host='localhost', port=7373) -> None:
 
         # Create socket and connect to the server
+        log.info(f'Creating socket and connecting to {host}:{port}')
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.socket.connect((host, port))
 
@@ -32,6 +37,8 @@ class GameClient:
     def custom_config(self, _) -> dict:
         '''Recive configuration'''
 
+        log.debug('Reciving configuration...')
+
         data = b''
         while True:
             part = self.socket.recv(4096)
@@ -48,7 +55,7 @@ class GameClient:
             self.socket.sendall(pickle.dumps(key))
         except Exception:
             # Server disconnected
-            print("Lost connection to server")
+            log.critical("Lost connection to server")
             exit()
 
     def receive_state(self) -> None:
@@ -71,9 +78,9 @@ class GameClient:
                 break
 
     def run(self) -> None:
+        log.info('Starting client')
         threading.Thread(target=self.receive_state, daemon=True).start()
         self.game.run()
-
 
     def render_and_send(self) -> None:
 
@@ -125,6 +132,7 @@ class GameClient:
                                 break
 
                         # Spawn new food
+                        log.debug(f'Adding new food: {food_to_spawn} at {food_pos}')
                         food = food_to_spawn(food_pos, self.game.snake_grid_thikness, food_kwargs)
                         self.game.foods.append(food)
 
