@@ -1,6 +1,49 @@
+import time
 import socket, threading, pickle
 from main import Game
+from menus.menu_components import Menu
 from logger import logger as log
+
+
+class CustomGame(Game):
+    def game_quit(self, menu: Menu = None):
+        if menu is not None:
+            menu.quit()
+
+        self.running = False
+
+    def pause(self) -> None:
+
+        log.info('Game paused')
+
+        # Initialize pause menu
+        menu = Menu(
+            screen_size=self.screen_size,
+            font_path='menu_assets/font.ttf',
+            font_size=32,    
+            inherit_screen=self.display
+        )
+
+        # Define buttun costants
+        b_th = (400, 60) # Button dimensions
+        delta_height = 35
+
+        # Define buttons
+        options = [
+            ['resume',    'RESUME',    menu.quit,                    b_th, [menu.center.x, menu.center.y - delta_height]],
+            ['quit',      'QUIT',      lambda: self.game_quit(menu), b_th, [menu.center.x, menu.center.y + delta_height]]
+        ]
+
+        # Add buttons to menu
+        for option in options:
+            menu.add_option(*option)
+
+        log.debug('Running menu')
+        menu.run()
+
+        # Make sure the games running so that the screen can update and remove the pause menu
+        self.paused = False
+        log.info('Game resumed')
 
 
 def get_local_ip():
@@ -23,19 +66,25 @@ def get_local_ip():
 class GameServer:
     def __init__(self, port=7373) -> None:
 
-        log.name = 'game' # Set the logger name
+        log.name = 'server' # Set the logger name
 
         # Create socket
         log.info(f'Creating socket binded to {port}')
-        self.server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.server.bind((get_local_ip(), port))
-        self.server.listen()
+        try:
+            self.server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            self.server.settimeout(0.2) # timeout for listening
+            self.server.bind((get_local_ip(), port))
+            self.server.listen()
+        except Exception as e:
+            log.critical(f'Could not create socket: {e}')
+            quit()
 
         self.clients = []
         self.inputs = []
+        self.running = True
 
         # Init game
-        self.game = Game()
+        self.game = CustomGame()
         self.game.custom_method = self.custom_method
         
         self.lock = threading.Lock()
@@ -73,7 +122,7 @@ class GameServer:
         }
 
     def handle_client(self, conn, addr) -> None:
-        while True:
+        while self.running:
             try:
                 # Recive data
                 data = conn.recv(1024)
@@ -91,9 +140,13 @@ class GameServer:
         conn.close()
 
     def accept_clients(self) -> None:
-        while True:
+        while self.running:
 
-            conn, addr = self.server.accept()
+            try:
+                conn, addr = self.server.accept()
+            except TimeoutError:
+                continue
+
             log.warning(f'Client connected from {addr}')
 
             # Sent config
@@ -121,8 +174,18 @@ class GameServer:
         threading.Thread(target=self.accept_clients).start()
         self.game.run()
 
-        log.info('Server closed')
+        # Stop threads
+        log.debug('Stopping threads')
+        self.running = False
+        time.sleep(.3) # Let the threads stop
+
+        # Close socket
+        log.debug('Closing server socket')
         self.server.close()
+
+        log.info('Server closed')
+        
+        exit()
 
 
 if __name__ == '__main__':

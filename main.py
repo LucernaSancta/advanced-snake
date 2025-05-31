@@ -240,9 +240,11 @@ class Game:
 
         return surface
 
-    def game_quit(self) -> None:
-        pygame.quit()
-        quit()
+    def game_quit(self, menu: Menu = None) -> None:
+        self.running = False
+        if menu is not None:
+            menu.quit()
+        exit()
 
     def stop_game(self, menu: Menu = None) -> None:
         '''Stops the game without exiting python'''
@@ -270,7 +272,7 @@ class Game:
         options = [
             ['resume',    'RESUME',    menu.quit,                    b_th, [menu.center.x, menu.center.y - 2*delta_height]],
             ['main_menu', 'MAIN MENU', lambda: self.stop_game(menu), b_th, [menu.center.x, menu.center.y]],
-            ['quit',      'QUIT',      self.game_quit,               b_th, [menu.center.x, menu.center.y + 2*delta_height]]
+            ['quit',      'QUIT',      lambda: self.game_quit(menu), b_th, [menu.center.x, menu.center.y + 2*delta_height]]
         ]
 
         # Add buttons to menu

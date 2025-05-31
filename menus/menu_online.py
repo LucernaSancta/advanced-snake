@@ -15,6 +15,8 @@ def main(surface=None):
     log.name = 'online_menu'
     log.debug('Initializing online menu')
 
+    result = [None]  # Using a list to hold mutable return value from menu callback
+
     # Initialize menu
     menu = Menu(
         screen_size=(800,800),
@@ -25,10 +27,16 @@ def main(surface=None):
         inherit_screen=surface, # This is used to set the surface of the menu to the main menu surface
     )
 
-    def connct_to_server():
+    def create_server():
+        menu.quit()
+        log.info('Starting server')
+        GameServer().run()
+
+    def connect_to_server():
+        menu.quit()
+        log.info('Server client')
         user_input = easygui.enterbox('Server IP address', '')
         GameClient(host=user_input).run()
-
 
     # Define buttun costants
     b_th = (500, 60) # Button dimensions
@@ -36,9 +44,9 @@ def main(surface=None):
 
     # Define buttons
     options = [
-        ['start',   'START SERVER', lambda: GameServer().run(), b_th, [menu.center.x, menu.center.y - 3*delta_height]],
-        ['enter',  'JOIN SERVER',  connct_to_server,            b_th, [menu.center.x, menu.center.y -  delta_height]],
-        ['back',   'BACK',          menu.quit,                  b_th, [menu.center.x, menu.center.y + 7*delta_height]]
+        ['start',   'START SERVER', create_server,    b_th, [menu.center.x, menu.center.y - 3*delta_height]],
+        ['enter',  'JOIN SERVER',   connect_to_server, b_th, [menu.center.x, menu.center.y -  delta_height]],
+        ['back',   'BACK',          menu.quit,        b_th, [menu.center.x, menu.center.y + 7*delta_height]]
     ]
 
     # Add buttons to menu
@@ -48,7 +56,5 @@ def main(surface=None):
     log.debug('Running menu')
     menu.run()
 
-# Run the menu
 if __name__ == '__main__':
-    # Run the menu
     main()
