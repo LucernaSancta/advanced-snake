@@ -441,7 +441,7 @@ class Game:
                 log.critical('    Please check the snakes setting or open the map creator for a static view')
 
                 pygame.quit()
-                quit()
+                exit()
 
 
             # Render static objects

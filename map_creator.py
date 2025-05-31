@@ -111,7 +111,7 @@ class Map_creator(Game):
                 # Quit when closing the window
                 if event.type == pygame.QUIT:
                     pygame.quit()
-                    quit()
+                    exit()
 
                 # KEYBOARD PRESS EVENTS
                 if event.type == pygame.KEYDOWN:

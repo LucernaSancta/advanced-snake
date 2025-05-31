@@ -77,7 +77,7 @@ class GameServer:
             self.server.listen()
         except Exception as e:
             log.critical(f'Could not create socket: {e}')
-            quit()
+            exit()
 
         self.clients = []
         self.inputs = []
