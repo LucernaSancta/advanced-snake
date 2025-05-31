@@ -36,3 +36,9 @@ To join a server:
 1. Go to `Main Menu` > `ONLINE` > `JOIN SERVER`.
 2. Enter the server’s **local IP address**.
 3. A new game window will open—start playing!
+
+## 🧩 Comaptibility client - server
+
+No need to manually match client and server settings - 🧠 the server automatically **shares its configuration** with all connecting clients at startup.
+
+However, **clients must have all the required textures and food assets referenced by the server’s configuration**. Make sure your game data matches to avoid missing visuals during gameplay.
