@@ -7,6 +7,7 @@ from .default import Food
 
 
 class Banana(Food):
+    '''Adds x (power) to the tail of the snake'''
 
     def initialize(self) -> None:
         self.power = self.kwargs['power']

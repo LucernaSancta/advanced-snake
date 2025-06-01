@@ -7,6 +7,7 @@ from .default import Food
 
 
 class Chili(Food):
+    '''Multiplies by x (speed_multiplayer) the speed of the snake'''
 
     def initialize(self) -> None:
         self.speed_multiplier = self.kwargs['speed_multiplier']

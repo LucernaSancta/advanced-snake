@@ -7,7 +7,7 @@ from .default import Food
 
 
 class Inverter(Food):
-    '''Inverts the head with the tail'''
+    '''Inverts the head with the tail of the snake'''
 
     def initialize(self) -> None:
         self.init_texture('inverter.png')

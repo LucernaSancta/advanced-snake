@@ -7,6 +7,7 @@ from .default import Food
 
 
 class Bad_apple(Food):
+    '''Removes x (damage) to the tail of the snake'''
 
     def initialize(self) -> None:
         self.damage = self.kwargs['damage']

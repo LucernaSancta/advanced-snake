@@ -67,6 +67,7 @@ from .default import Food
 
 
 class Apple(Food):
+    '''Adds x (power) to the tail of the snake'''
 
     def initialize(self) -> None:
         self.power = self.kwargs['power']

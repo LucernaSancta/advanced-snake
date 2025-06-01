@@ -7,6 +7,7 @@ from .default import Food
 
 
 class LGBTQ(Food):
+    '''AAnimation example'''
 
     def initialize(self) -> None:
         # self. = self.kwargs[]

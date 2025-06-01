@@ -7,6 +7,11 @@ from various import TimerObj
 
 
 class Food:
+    '''
+    ## Default Food class
+    refer to the foods config
+    '''
+
     def __init__(
             self,
             pos: Vector2,
