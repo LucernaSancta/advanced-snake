@@ -23,6 +23,17 @@
                 }
             },
             {
+                "name": "LGBTQ",
+                "weight": 1,
+                "animation": {
+                    "frames": 6,
+                    "time_ms": 500
+                },
+                "kwargs": {
+                    "power": 1
+                }
+            },
+            {
                 "name": "Inverter",
                 "weight": 5,
                 "kwargs": {}

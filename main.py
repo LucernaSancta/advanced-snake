@@ -138,13 +138,20 @@ class Game:
 
         # Get foods classes, weights and kwargs
         self.foods_types = []
+        self.foods_animation = {}
         self.foods_kwargs = {}
         self.foods_weights = []
+
         for food in self.foods_config['types']:
+
+            # Get food class
             food_class = getattr(import_module('foods.'+food['name']), food['name'])
+
             self.foods_types.append(food_class)
-            self.foods_kwargs[food_class] = food['kwargs']
             self.foods_weights.append(food['weight'])
+
+            self.foods_kwargs[food_class] = food['kwargs']
+            self.foods_animation[food_class] = food['animation'] if 'animation' in food else {}
 
 
         # Spawn the initial foods
@@ -180,14 +187,14 @@ class Game:
             log.warning('No space to spawn new food, removing one, total food remaining:', len(self.foods))
             return None
 
-        # Chose random food type based on the foods weights
+        # Chose random food type based on the foods weights 
         pos = random.choice(spots)
         food_to_spawn = random.choices(self.foods_types, weights=self.foods_weights, k=1)[0]
 
         log.debug(f'Spawning food "{food_to_spawn.__name__}"at: {pos}')
 
         # Enter the foods position thikness and custom arguments then spawn it
-        return food_to_spawn(pos, self.snake_grid_thikness, self.foods_kwargs[food_to_spawn])
+        return food_to_spawn(pos, self.snake_grid_thikness, self.foods_animation[food_to_spawn], self.foods_kwargs[food_to_spawn])
 
     def render_background(self, surface: pygame.surface.Surface) -> pygame.surface.Surface:
 
