@@ -12,7 +12,7 @@ A snake game with added functionalities made in python with PyGame
 
 ## Disclaimer
 
-Any reference to: politics, culture and sexuality is purely for entertainment purposes, we do not take any position or discriminate, this project is open to everyone of eny side, we are all programmers, artists or simply open suerce enjoiers, lets all stay united under the open suerce and collaboration flag.
+Any reference to: politics, culture and sexuality is purely for entertainment purposes, we do not take any position or discriminate, this project is open to everyone of any side, we are all programmers, artists or simply open suerce enjoiers, lets all stay united under the open suerce and collaboration flag.
 
 ## Quick start
 (This game was made in python 3.12 with pygame 2.5.1, if you use other version there might be some issues)
