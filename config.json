@@ -24,7 +24,7 @@
             },
             {
                 "name": "LGBTQ",
-                "weight": 1,
+                "weight": 5,
                 "animation": {
                     "frames": 6,
                     "time_ms": 500
@@ -40,7 +40,7 @@
             },
             {
                 "name": "Banana",
-                "weight": 19,
+                "weight": 20,
                 "kwargs": {
                     "power": 3
                 }
