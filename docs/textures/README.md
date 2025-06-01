@@ -19,10 +19,6 @@ Texture names are pulled directly from the main config file 📄`config.json`
 These are the default texture settings:
 ```json
 {
-    "apples": {
-        ...,
-        "textures": "apple.png"
-    },
     "walls": {
         ...,
         "textures": "mud.png"
@@ -46,7 +42,7 @@ These are the default texture settings:
 | Type | Source of Texture Info | Location |
 | ------- | ------- | ------- |
 | Snake | Set in `config.json` | `textures/snakes/` |
-| Food | Set in `config.json` | `textures/food/` |
+| Food | Set in the foods `.py files` | `textures/food/` |
 | Walls | Set in `config.json` | `textures/walls/` |
 | Background | Set in `config.json` | `textures/background/` |
 

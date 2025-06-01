@@ -69,7 +69,6 @@ See the [players docs](./players.md) for configuration options.
 
 ```json
 {
-    "_comment": "Check the docs/config.md for informations on how to configure this file",
     "display": {
         "screen_size": [900, 900],
         "fps": 60
@@ -79,24 +78,17 @@ See the [players docs](./players.md) for configuration options.
         "end_condition": 1
     },
     "notifications": {
-        "flt_th": false,
-        "ratios": false
+        "flt_th": true,
+        "ratios": true
     },
     "foods": {
-        "number": 3,
+        "number": 1,
         "types": [
             {
                 "name": "Apple",
-                "weight": 5,
+                "weight": 60,
                 "kwargs": {
                     "power": 1
-                }
-            },
-            {
-                "name": "Banana",
-                "weight": 1,
-                "kwargs": {
-                    "power": 3
                 }
             }
         ]
@@ -125,14 +117,6 @@ See the [players docs](./players.md) for configuration options.
     },
     "players": [
         {
-            "name": "Alex",
-            "starting_pos": [14, 7],
-            "textures": "google.png",
-            "starting_length": 2,
-            "speed": 1,
-            "keybindings": ["UP", "DOWN", "LEFT", "RIGHT"]
-        },
-        {
             "name": "Steve",
             "starting_pos": [0, 7],
             "textures": "google_yellow.png",
@@ -142,5 +126,4 @@ See the [players docs](./players.md) for configuration options.
         }
     ]
 }
-
 ```
