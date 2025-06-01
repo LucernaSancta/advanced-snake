@@ -29,11 +29,12 @@ class LGBTQ(Food):
         for player in snakes+[snake]:
             players_data.append((Vector2(player.pos), Vector2(snake.direction), player.pieces[:]))
 
-        # Shuffle the data
-        while True:
-            shuffled_data = random.sample(players_data, len(players_data))
-            if shuffled_data != players_data:
-                break
+        if len(players_data) != 1:
+            # Shuffle the data
+            while True:
+                shuffled_data = random.sample(players_data, len(players_data))
+                if shuffled_data != players_data:
+                    break
 
         # Reassign casually all heads and tails
         for player in snakes+[snake]:

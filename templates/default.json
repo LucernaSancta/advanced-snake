@@ -23,8 +23,29 @@
                 }
             },
             {
+                "name": "Communism",
+                "weight": 1,
+                "kwargs": {}
+            },
+            {
+                "name": "LGBTQ",
+                "weight": 5,
+                "animation": {
+                    "frames": 6,
+                    "time_ms": 500
+                },
+                "kwargs": {
+                    "power": 1
+                }
+            },
+            {
+                "name": "Inverter",
+                "weight": 5,
+                "kwargs": {}
+            },
+            {
                 "name": "Banana",
-                "weight": 19,
+                "weight": 20,
                 "kwargs": {
                     "power": 3
                 }
@@ -80,7 +101,7 @@
             "starting_pos": [14, 7],
             "textures": "google.png",
             "starting_length": 2,
-            "speed": 1,
+            "speed": 2,
             "keybindings": ["UP", "DOWN", "LEFT", "RIGHT"]
         },
         {
@@ -88,7 +109,7 @@
             "starting_pos": [0, 7],
             "textures": "google_yellow.png",
             "starting_length": 2,
-            "speed": 2,
+            "speed": 3,
             "keybindings": ["w", "s", "a", "d"]
         }
     ]
