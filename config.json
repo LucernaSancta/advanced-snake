@@ -23,6 +23,11 @@
                 }
             },
             {
+                "name": "Communism",
+                "weight": 1,
+                "kwargs": {}
+            },
+            {
                 "name": "LGBTQ",
                 "weight": 5,
                 "animation": {

@@ -187,7 +187,7 @@ class Game:
             log.warning('No space to spawn new food, removing one, total food remaining:', len(self.foods))
             return None
 
-        # Chose random food type based on the foods weights 
+        # Chose random food type based on the foods weights
         pos = random.choice(spots)
         food_to_spawn = random.choices(self.foods_types, weights=self.foods_weights, k=1)[0]
 
