@@ -26,30 +26,31 @@ Here's a quick overview of what the base class provides:
 
 ```python
 class Food:
-    def __init__(self, pos: Vector2, thikness: Vector2, kwargs: dict = {}): ...
+    def __init__(self, pos: Vector2, thikness: Vector2, animation: dict = {}, kwargs: dict = {}): ...
     def initialize(self): ...
-    def init_texture(self, file_name: str): ...
+    def init_texture(self, file_name: str = 'default.png'): ...
     def eaten(self, surface: Surface, snake: Snake, snakes: list[Snake]): ...
-    def update(self, display: Surface): ...
+    def update(self, display: Surface, deltaTime: int | float ): ...
+    def render(self, display: Surface, deltaTime: int | float ): ...
 ```
 
 ### 🔧 Key responsibilities:
 
 - `initialize()`
   
-  Override this method to load custom textures and read configuration (`kwargs`).
+    Override this method to load custom textures and read configuration (`kwargs`).
 
 - `eaten(surface, snake, snakes)`
   
-  Called when the food is eaten. Implement what happens when a snake eats this food (e.g., grow, teleport, damage).
+    Called when the food is eaten. Implement what happens when a snake eats this food (e.g., grow, teleport, damage).
 
 - `update(display, deltaTime)`
 
-  Handles drawing the food to the screen and frame-tied logic.
+    Handles the frame-tied logic, usually used only for rendering.
 
 - `kwargs`
 
-  A dictionary passed via `config.json` under `foods.types[].kwargs` to let you customize behavior.
+    A dictionary passed via `config.json` under `foods.types[].kwargs` to let you customize behavior.
 
 # 🍎 Example: Creating a Custom Food
 
@@ -57,16 +58,27 @@ Here's a complete example of a custom `Apple` food that increases the snake's le
 
 ### `foods/Apple.py`
 ```python
+import pygame
 from pygame.math import Vector2
-from .default import Food
+
+from logger import logger as log
 from game_objects import Snake
+from .default import Food
+
 
 class Apple(Food):
+
     def initialize(self) -> None:
         self.power = self.kwargs['power']
         self.init_texture('apple.png')
     
-    def eaten(self, surface, snake: Snake, snakes: list[Snake]) -> None:
+    def eaten(
+            self,
+            surface: pygame.surface.Surface,
+            snake: Snake,
+            snakes: list[Snake]
+        ) -> None:
+
         for _ in range(self.power):
             snake.pieces.append(snake.last_removed)
 ```
@@ -79,14 +91,34 @@ In `config.json`, you can then configure it like this:
     "types": [
         {
             "name": "Apple",
-            "weight": 5,
+            "weight": 60,
             "kwargs": {
-                "power": 2
+                "power": 1
             }
-        }
+        },
     ]
 }
 ```
+
+# 🎞️ Animated textures
+
+To use animated textures you can simply create an `animation` section in the config file and set the desired preferences like so:
+
+```json
+{
+    "name": ...,
+    "weight": ...,
+    "animation": {
+        "frames": 6,
+        "time_ms": 500
+    },
+    "kwargs": {...}
+}
+```
+
+In this case the animation if 6 frames long, and the frame change with a 500 millisecond rate for a total animation time of `500 * 6 = 3000 ms` or 3 seconds
+
+To know how to create animated textures you can refer to the [`foods textures docs`](../textures/food.md)
 
 # ⚙️ Tips for Customization
 
