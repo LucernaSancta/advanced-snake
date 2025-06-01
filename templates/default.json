@@ -17,7 +17,7 @@
         "types": [
             {
                 "name": "Apple",
-                "weight": 60,
+                "weight": 40,
                 "kwargs": {
                     "power": 1
                 }
