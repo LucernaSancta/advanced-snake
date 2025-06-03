@@ -46,7 +46,7 @@ class Communism(Food):
                 while len(player.pieces) != avarage_length:
                     # Remove pieces
                     if len(player.pieces) > avarage_length:
-                        snake.pieces.pop()
+                        player.pieces.pop()
                     # Add pieces
                     elif len(player.pieces) < avarage_length:
                         player.pieces.append(snake.last_removed)
