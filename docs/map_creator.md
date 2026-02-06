@@ -30,7 +30,7 @@ python map_creator.py
 The pause button is set in the `config.json` and it's usually `ESC`
 
 ## 🛠️ Configuration
-The configurations are extracted directly from the 📄`config.json`, you can check the [`global configs`](./config.md) for more.
+The configurations are extracted directly from the 📄`config.json`, you can check the [`global configs`](./configs/README.md) for more.
 
 ## 💾 Saving
 
