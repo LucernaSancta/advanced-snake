@@ -1,5 +1,4 @@
 import easygui
-import os
 import pygame
 from pygame.math import Vector2
 
