@@ -22,6 +22,14 @@ class LGBTQ(Food):
             snakes: list[Snake]
         ) -> None:
 
+        # Only one player
+        if not snakes:
+            log.info('No magic done because there is only one player :(')
+            snake.pieces.append(snake.last_removed)
+            return
+
+
+        # More than one player
         log.info('Magic')
 
         # Get all players heads and tails
@@ -29,12 +37,11 @@ class LGBTQ(Food):
         for player in snakes+[snake]:
             players_data.append((Vector2(player.pos), Vector2(snake.direction), player.pieces[:]))
 
-        if len(players_data) != 1:
-            # Shuffle the data
-            while True:
-                shuffled_data = random.sample(players_data, len(players_data))
-                if shuffled_data != players_data:
-                    break
+        # Shuffle the data
+        while True:
+            shuffled_data = random.sample(players_data, len(players_data))
+            if shuffled_data != players_data:
+                break
 
         # Reassign casually all heads and tails
         for player in snakes+[snake]:
