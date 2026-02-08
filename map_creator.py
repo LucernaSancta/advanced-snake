@@ -127,11 +127,14 @@ class Map_creator(Game):
 
             # When a button is pressed
             pressed_buttons = pygame.mouse.get_pressed()
-            if block_pressing and pressed_buttons:
-                pressed_buttons = [False]
-            elif block_pressing and not pressed_buttons:
-                block_pressing = False
-                
+
+            if block_pressing:
+                if not any(pygame.mouse.get_pressed()):
+                    block_pressing = False
+                else:
+                    pressed_buttons = (False, False, False) # Ignore the button press
+
+
             if any(pressed_buttons):
 
                 # Render the background
