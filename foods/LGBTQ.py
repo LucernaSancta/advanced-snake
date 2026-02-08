@@ -35,7 +35,7 @@ class LGBTQ(Food):
         # Get all players heads and tails
         players_data = []
         for player in snakes+[snake]:
-            players_data.append((Vector2(player.pos), Vector2(snake.direction), player.pieces[:]))
+            players_data.append((Vector2(player.pos), Vector2(player.direction), player.pieces[:]))
 
         # Shuffle the data
         while True:
